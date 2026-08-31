@@ -1,4 +1,4 @@
-.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper bringup gds drc cocotb-cosim viewer
+.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper synth-top bringup gds drc cocotb-cosim gls viewer
 
 PYTHON=python3
 PIP=pip3
@@ -49,6 +49,16 @@ vcd:
 	@echo "=== VCD waveform for GTKWave ==="
 	iverilog -g2012 -o /tmp/tb_vcd.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/tb_vcd.sv && vvp /tmp/tb_vcd.vvp && ls -lh /tmp/wave.vcd && echo "Open: gtkwave /tmp/wave.vcd"
 
+gls:
+	@echo "=== Post-layout SDF sim  tb_cache_4d_top.v  (SDF back-annotated) ==="
+	@echo "Functional (no SDF):"
+	@iverilog -g2012 -o /tmp/tb_top.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v && vvp /tmp/tb_top.vvp 2>&1 | tail -20
+	@echo "SDF-annotated (if openlane/gpu_top/runs/**/sdf/*.sdf exists):"
+	@iverilog -g2012 -DSDF -o /tmp/tb_top_sdf.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v 2>&1 | head -5; vvp /tmp/tb_top_sdf.vvp +sdf_verbose 2>&1 | tail -20 || echo "SDF file not yet generated — run GH Action gds or 'make gds' on 8GB host, then re-run 'make gls'"
+
+vcd-top:
+	iverilog -g2012 -o /tmp/tb_top_vcd.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v && vvp /tmp/tb_top_vcd.vvp && ls -lh /tmp/wave_top.vcd && echo "Open: gtkwave /tmp/wave_top.vcd"
+
 synth:
 	@echo "=== Yosys synth  gpu_1.md:2  (Si-proxy, sky130) ==="
 	@yosys -s openlane/synth_cache.ys 2>&1 | grep -E "Number of cells|Number of wires|stat|ERROR" | tail -20
@@ -59,16 +69,23 @@ synth-wrapper:
 	@echo "=== Yosys synth wrapper  tt_um_4d_cache  gpu_1.md:6 ==="
 	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv tapeout/tt_wrapper.sv; hierarchy -check -top tt_um_4d_cache; proc; opt; synth -top tt_um_4d_cache; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
 
+synth-top:
+	@echo "=== Yosys synth top  gpu_top + tt_um_4d_cache  approve spec: macro hardening, 8x8 BRAM ==="
+	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top gpu_top; proc; opt; synth -top gpu_top; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top tt_um_4d_cache; proc; opt; synth -top tt_um_4d_cache; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@echo "Top DIE 160x100 tt_um_4d_cache openlane/gpu_top/config.json:12 — macro hardening cache_4d"
+
 bringup:
 	@echo "=== Bring-up check  gpu_1.md:8  (logic_analyzer.py mocked) ==="
 	@$(PYTHON) bringup/testboard/logic_analyzer.py
 
 gds:
-	@echo "=== OpenLane GDS  gpu_1.md:2  — requires 8GB Docker, not this 1.9GB VM ==="
-	@echo "Run locally with 8GB+: docker run --rm -v \$$PWD:/project -w /project efabless/openlane:latest --design openlane/cache4d --tag cache4d"
+	@echo "=== OpenLane GDS  gpu_1.md:2 + gpu_top 160x100 tt_um_4d_cache ==="
+	@echo "Run locally with 8GB+: docker run --rm -v \$$PWD:/project -w /project efabless/openlane:latest --design openlane/gpu_top --tag gpu_top  (macro hardening cache_4d)"
+	@echo "Or: docker run ... --design openlane/cache4d --tag cache4d  (flat cache only)"
 	@echo "Or use TinyTapeout GH Action .github/workflows/gds.yaml  (see tapeout/submission.md)"
-	@echo "Outputs: openlane/cache4d/runs/*/results/final/gds/*.gds  gpu_1.md:3"
-	@cat openlane/cache4d/config.json | grep -E "DESIGN_NAME|PDK|CLOCK|DIE_AREA"
+	@echo "Outputs: openlane/gpu_top/runs/*/results/final/gds/*.gds  + sdf/*.sdf for 'make gls'  gpu_1.md:3"
+	@cat openlane/gpu_top/config.json | grep -E "DESIGN_NAME|PDK|CLOCK|DIE_AREA|FP_PDN|FP_TAP"
 
 drc:
 	@echo "=== DRC/LVS waivers  gpu_1.md:4 ==="

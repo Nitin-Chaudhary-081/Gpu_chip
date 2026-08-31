@@ -22,8 +22,9 @@ make matmul        # 4D cache vs linear baseline — proves power <120W gpu.md:3
 make thermal       # M3D hot-spot vs microfluidic cooling plot  gpu.md:10,15
 make cnfet         # chirality yield curve  gpu.md:9,14
 make verilate      # lint + iverilog TB (no cocotb) — Phase B smoke
-make cocotb        # cocotb 7+3 tests vs Python golden  gpu.md:16  — Phase B proof
+make cocotb        # cocotb 7+3+2 tests (cache+wdm+gpu_top) vs Python golden  gpu.md:16
 make cocotb-cosim  # Track 3: compiler_pass -> RTL cycle-by-cycle  gpu_2.md:8
+make gls           # post-layout SDF: tb_cache_4d_top.v back-annotated  gpu_1.md:8
 make vcd           # generate /tmp/wave.vcd for GTKWave
 make viewer        # browser layout viewers: TinyTapeout + GDSJam + GH renders  docs/gds_viewers.md
 ```
@@ -55,26 +56,33 @@ make matmul  # system rollup <120W PASS (3.2W demo + model scales to 115W full c
 make cocotb-cosim  # 3/3 PASS 1370ns: 8x8 ISA29==RTL29, 16x16 284==284, random 152==152 + numeric PASS  gpu_2.md:8,10
 ```
 
-## Evidence (Phase B — `sim/cache4d/rtl/` RTL + cocotb)
+## Evidence (Phase B — `sim/cache4d/rtl/` RTL + cocotb + post-layout)
 
 ```
-make verilate  # verilator lint + iverilog TB  pass=5 fail=0
+make verilate  # verilator lint + iverilog TB  pass=5 fail=0 (cache+wdm+gpu_top+tt_um_4d_cache)
 make cocotb    # cocotb icarus:
-#  cache_4d_controller.sv  7 tests PASS (30-12310ns, 0.14s): deterministic, latency_bounded, python_golden 200 rands, slot/lambda hash, back_to_back
-#  wdm_tdm_arbiter.sv      3 tests PASS (4310ns, 0.04s): determinism, parallelism 64, random 100
-make vcd       # /tmp/wave.vcd  3.0K  —  8 vectors showing slot->cycles 4/6/8/10  gpu.md:16  → gtkwave /tmp/wave.vcd
+#  cache_4d_controller.sv  7 tests PASS (30-12310ns): deterministic, latency_bounded, python_golden 200 rands
+#  wdm_tdm_arbiter.sv      3 tests PASS (4310ns): determinism, parallelism 64
+#  gpu_top (host parallel + dummy 8x8 BRAM) 2 tests PASS: parallel 4 coords + matmul 8c  gpu_top.v
+make gls       # tb_cache_4d_top.v SDF back-annotated: parallel host + TT serial + compute 16/16 PASS
+make vcd       # /tmp/wave.vcd  3.0K — 8 vectors slot->cycles 4/6/8/10  gpu.md:16  → gtkwave /tmp/wave.vcd
+make vcd-top   # /tmp/wave_top.vcd — gpu_top parallel + TT at speed
 ```
 
-## Evidence (Phase C — `gpu_1.md:1` Physical `gpu_1.md:2-8`)
+## Evidence (Phase C — `gpu_1.md:1` Physical `gpu_1.md:2-8` + top-level)
 
 ```
-make synth          # yosys 0.33: cache 42 cells (22 DFF, XNOR/XOR) + wdm 2 cells → 0 errors, JSON /tmp/synth_*.json  gpu_1.md:2
-make synth-wrapper  # tt_um_4d_cache 131 cells (42+90) → 0 errors  gpu_1.md:6  (fits TT)
+make synth          # yosys 0.33: cache 42 cells (22 DFF) + wdm 2 cells → 0 errors, JSON /tmp/synth_*.json  gpu_1.md:2
+make synth-top      # yosys: gpu_top 75 cells + tt_um_4d_cache 170 cells (cache+wdm+dummy 8x8 BRAM) → 0 errors  approve
+make synth-wrapper  # tt_um_4d_cache 131 cells (legacy flat) → 0 errors  gpu_1.md:6
 make bringup        # 8 vectors mocked logic_analyzer.py PASS — λ/slot/cycles vs golden  gpu_1.md:8
-make gds            # needs 8GB Docker: efabless/openlane → GDSII gpu_1.md:3  (this VM 1.9GB → GH Action)
+make gds            # needs 8GB Docker: efabless/openlane → GDSII gpu_1.md:3  (this VM 1.9GB → GH Action) + openlane/gpu_top 160x100
+make gls            # SDF-annotated tb_cache_4d_top.v — timing at speed 10ns  gpu_1.md:8
 make drc            # waivers.md explains CNT/photonics/M3D vs sky130  gpu_1.md:4
-# openlane/cache4d/config.json sky130A 10ns 200×200um, pin_order.cfg, wdm 120×120um
-# tapeout/info.yaml + submission.md + tt_wrapper.sv  TinyTapeout  gpu_1.md:6
+# openlane/cache4d/config.json sky130A 10ns 200×200um + FP_PDN grid + FP_TAP 14  (macro hardening)
+# openlane/gpu_top/config.json tt_um_4d_cache 160x100 45% util + PDN 15.2/1.6 + tap/decap  gpu_top.v macro
+# openlane/wdm_arbiter/config.json + pin_order.cfg  +  openlane/gpu_top/pin_order.cfg  TT perimeter
+# tapeout/info.yaml + submission.md + gpu_top.v/tt_wrapper.sv  TinyTapeout  gpu_1.md:6
 # docs/tapeout.md GDSI proxy table VERIFIED/INFERRED
 # bringup/testboard/pinout.md + logic_analyzer.py scope vs VCD
 ```
@@ -88,12 +96,14 @@ make drc            # waivers.md explains CNT/photonics/M3D vs sky130  gpu_1.md:
 
 - `sim/cache4d/rtl/cache_4d_controller.sv` — 4D→(bank,λ,slot) pipeline, asserted bounded latency `gpu.md:16`
 - `sim/cache4d/rtl/wdm_tdm_arbiter.sv` — WDM/TDM grant, deterministic `gpu.md:6`
-- `sim/cache4d/rtl/test_cache4d_cocotb.py` + `test_wdm_cocotb.py` — Python golden co-sim `gpu.md:16`
+- `sim/cache4d/rtl/gpu_top.v` — **approve**: `gpu_top` parallel `host_req_*` + `dummy_systolic_8x8` 8c 64B BRAM + `tt_um_4d_cache` 160x100 top (macro hardening)
+- `sim/cache4d/rtl/test_cache4d_cocotb.py` + `test_wdm_cocotb.py` + `test_gpu_top_cocotb.py` — Python golden co-sim `gpu.md:16`
 - `sim/cache4d/rtl/test_cosim_matmul.py` — **Track 3** compiler→RTL matmul co-sim `gpu_2.md:8,10`
 - `sim/cache4d/rtl/tb_cache4d.sv` — plain iverilog TB (no cocotb needed)
 - `sim/cache4d/rtl/tb_vcd.sv` — VCD for GTKWave
+- `sim/cache4d/rtl/tb_cache_4d_top.v` — post-layout SDF TB (`$sdf_annotate` + `gls`) `gpu_1.md:8`
 - `tests/test_cosim_wrapper.py` — Track 3 pytest wrapper (no RTL) `gpu_2.md:8`
-- `openlane/` + `tapeout/` + `drc_lvs/` + `bringup/` — Phase C `gpu_1.md:2-8`
+- `openlane/` + `tapeout/` + `drc_lvs/` + `bringup/` — Phase C `gpu_1.md:2-8` + `openlane/gpu_top/` macro hardening
 
 ## Layout viewers — `gpu_1.md:3` GDSII (lean, no install)
 

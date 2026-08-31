@@ -66,6 +66,22 @@ jobs:
           find openlane/wdm_arbiter/runs -type f -name "*.gds" 2>&1 | head -20 || true
           exit 0
 
+      - name: Run OpenLane (gpu_top tt_um_4d_cache macro hardening)
+        if: always()
+        run: |
+          set +e
+          echo "=== gpu_top: tt_um_4d_cache 160x100 + FP_PDN grid + dummy 8x8 BRAM ==="
+          cat openlane/gpu_top/config.json | grep -E "DESIGN_NAME|DIE_AREA|FP_PDN|FP_TAP" | head -10
+          docker run --rm -v $HOME/.volare:/root/.volare -v $PWD:/project -w /project --entrypoint /bin/sh efabless/openlane:latest -c "/nix/store/xpc7xd67rslanlqh566s6jph53bn830w-openlane1-1.1.1/bin/flow.tcl -design openlane/gpu_top -tag gpu_top_run --overwrite 2>&1 | tee /tmp/ol_top.log; echo EXIT:\$?" 2>&1 | tail -100
+          echo "=== GDS outputs gpu_top ==="
+          find openlane/gpu_top/runs -type f -name "*.gds" 2>&1 | head -20 || true
+          ls -lh openlane/gpu_top/runs/gpu_top_run/results/final/gds/ 2>&1 | head -20 || true
+          echo "=== SDF for post-layout gls tb_cache_4d_top.v ==="
+          find openlane/gpu_top/runs -type f -name "*.sdf" 2>&1 | head -20 || true
+          ls -lh openlane/gpu_top/runs/gpu_top_run/results/final/sdf/ 2>&1 | head -20 || true
+          cat /tmp/ol_top.log 2>&1 | grep -E "ERROR|FINISH|TIMING|DRC|LVS" | head -20 || true
+          exit 0
+
       - name: Ensure GDS for viewers (fallback placeholder if OpenLane failed)
         if: always()
         run: |
@@ -74,9 +90,14 @@ jobs:
           if ! find openlane tapeout -type f -name "*.gds" | grep -q .; then
             echo "No GDS from OpenLane — generating placeholder for viewers (lean fallback)"
             python3 tapeout/generate_placeholder_gds.py tapeout/gds/cache_4d_controller.placeholder.gds tapeout/gds/wdm_tdm_arbiter.placeholder.gds
+            python3 tapeout/generate_placeholder_gds.py tapeout/gds/tt_um_4d_cache.placeholder.gds --die 160 --title "tt_um_4d_cache 160x100 gpu_top macro"
           else
             echo "OpenLane produced GDS:"
             find openlane tapeout -type f -name "*.gds" | xargs ls -lh 2>&1 | head -20
+            if ! find openlane/gpu_top -name "*.gds" | grep -q .; then
+              echo "gpu_top GDS missing — generating placeholder for top viewers"
+              python3 tapeout/generate_placeholder_gds.py tapeout/gds/tt_um_4d_cache.placeholder.gds --die 160 --title "tt_um_4d_cache 160x100 gpu_top macro"
+            fi
           fi
           ls -lh tapeout/gds/ 2>&1 | head -20 || true
           # Verify viewable in both viewers (GDS header check)
@@ -95,6 +116,18 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
+      - name: Upload SDF for post-layout gls
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdf
+          path: |
+            openlane/gpu_top/runs/**/results/final/sdf/*.sdf
+            openlane/**/runs/**/results/final/sdf/*.sdf
+            openlane/**/runs/**/results/**/*.sdf
+          if-no-files-found: warn
+          retention-days: 30
+
       - name: Upload reports (DRC/LVS)
         if: always()
         uses: actions/upload-artifact@v4
@@ -103,6 +136,7 @@ jobs:
           path: |
             openlane/cache4d/runs/**/reports/**
             openlane/wdm_arbiter/runs/**/reports/**
+            openlane/gpu_top/runs/**/reports/**
             openlane/**/runs/**/reports/**
             /tmp/ol_*.log
           if-no-files-found: warn

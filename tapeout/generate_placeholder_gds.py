@@ -90,12 +90,37 @@ def gds_placeholder(path: str, die_um=200, title="cache_4d_controller placeholde
     print(f"Wrote placeholder GDS {path} die {die_um}um ({w}x{h} dbu) {title}")
 
 if __name__=="__main__":
-    gds_placeholder(sys.argv[1] if len(sys.argv)>1 else "tapeout/gds/cache_4d_controller.placeholder.gds")
-    # also wdm placeholder if requested
-    if len(sys.argv)>2:
-        gds_placeholder(sys.argv[2], die_um=120, title="wdm_tdm_arbiter placeholder gpu.md:6")
+    # CLI: output [die_um] [title...]  — lean, supports gpu_top 160x100
+    import argparse
+    p = argparse.ArgumentParser(description="Generate placeholder GDS for viewers")
+    p.add_argument("output", nargs="?", default="tapeout/gds/cache_4d_controller.placeholder.gds")
+    p.add_argument("output2", nargs="?", default=None, help="second output for wdm")
+    p.add_argument("--die", type=int, default=None, help="die um (square) for first output")
+    p.add_argument("--title", type=str, default=None)
+    # also support positional die as second arg if numeric
+    args, unk = p.parse_known_args()
+    # handle legacy: if output2 is numeric, treat as die
+    if args.output2 and args.output2.isdigit():
+        gds_placeholder(args.output, die_um=int(args.output2), title=args.title or "cache_4d_controller placeholder gpu_1.md:3")
+        if unk:
+            # third arg as second file?
+            pass
+    elif args.output2:
+        # two files mode (cache + wdm) — keep 120 for second
+        gds_placeholder(args.output, die_um=args.die or 200, title=args.title or "cache_4d_controller placeholder gpu_1.md:3")
+        gds_placeholder(args.output2, die_um=120, title="wdm_tdm_arbiter placeholder gpu.md:6")
+        # also auto gpu_top if no third file and die requested 160?
+        if args.die == 160:
+            gds_placeholder("tapeout/gds/tt_um_4d_cache.placeholder.gds", die_um=160, title="tt_um_4d_cache 160x100 gpu_top macro")
     else:
-        # auto second file for wdm if first was cache
-        try:
-            gds_placeholder("tapeout/gds/wdm_tdm_arbiter.placeholder.gds", die_um=120, title="wdm_tdm_arbiter placeholder gpu.md:6")
-        except: pass
+        gds_placeholder(args.output, die_um=args.die or 200, title=args.title or "cache_4d_controller placeholder gpu_1.md:3")
+        if args.output == "tapeout/gds/cache_4d_controller.placeholder.gds":
+            try:
+                gds_placeholder("tapeout/gds/wdm_tdm_arbiter.placeholder.gds", die_um=120, title="wdm_tdm_arbiter placeholder gpu.md:6")
+            except: pass
+            if args.die == 160:
+                try: gds_placeholder("tapeout/gds/tt_um_4d_cache.placeholder.gds", die_um=160, title="tt_um_4d_cache 160x100 gpu_top macro")
+                except: pass
+        # also support --die 160 single-file mode for top
+        if args.die == 160 and "tt_um" in args.output:
+            gds_placeholder(args.output, die_um=160, title=args.title or "tt_um_4d_cache 160x100 gpu_top macro")
