@@ -30,10 +30,12 @@ cache_4d_controller.sv:1 --yosys--> gate netlist (42 cells) --OpenROAD--> GDSII 
 - `openlane/wdm_arbiter/config.json` — `DIE 120×120um`
 - `openlane/synth_cache.ys` + `synth_wdm.ys` — light `yosys` without Docker (runs on `1.9GB`)
 - `openlane/README.md` — Docker vs GH Action
+- `.github/workflows/gds.yaml` — GH Action cloud GDS + renders/reports artifacts `gpu_2.md:4`
+- `docs/gds_viewers.md` — browser viewers (TT + GDSJam + GH Action) — `make viewer`
 - `drc_lvs/waivers.md` — why CNT/photonics/M3D waived
 - `tapeout/info.yaml` + `submission.md` + `tt_wrapper.sv` — `gpu_1.md:6` shuttle pack
 - `bringup/testboard/pinout.md` + `logic_analyzer.py` — `gpu_1.md:8`
 
 ## Host constraints
 
-This `1.9GB` VM can run `yosys`/`verilator`/`iverilog`/`cocotb` but **not** `OpenLane Docker` (`8GB` needed) `gpu_1.md:3`. Solution: `make synth` proves Si-proxy gates here; `make gds` must dispatch to `TinyTapeout` GH Action or larger runner. See `openlane/README.md`.
+This `1.9GB` VM can run `yosys`/`verilator`/`iverilog`/`cocotb` but **not** `OpenLane Docker` (`8GB` needed) `gpu_1.md:3`. Solution: `make synth` proves Si-proxy gates here; `make gds` must dispatch to GH Action `.github/workflows/gds.yaml:1`. View GDS via `docs/gds_viewers.md:1` (`gds-viewer.tinytapeout.com` + `gdsjam.com`). See `openlane/README.md`.

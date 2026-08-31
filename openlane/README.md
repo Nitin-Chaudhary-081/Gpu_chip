@@ -26,7 +26,16 @@ make synth          # yosys gate count + area via sky130 liberty (or generic)
 
 ## GH Action (zero local RAM) — recommended for this VM
 
-Template `.github/workflows/gds.yaml` will call `TinyTapeout` CI which runs OpenLane remotely and uploads `gds` artifact. Configs are already `TinyTapeout` compatible (`DESIGN_IS_CORE=false`, `FP_SIZING=absolute`).
+Live: `.github/workflows/gds.yaml:1` runs `efabless/openlane:latest` on `ubuntu-latest` per `push` to `main` (or `workflow_dispatch`). Uploads `gds.zip` + `renders.zip` + `reports.zip` — feed `*.gds` to viewers in `docs/gds_viewers.md:1`. Badge in `README.md:1` reflects `gds` status.
+
+```bash
+git push origin main                # triggers gds
+# or: gh workflow run gds.yaml
+# then: gh run list / Actions → gds → Artifacts
+make viewer                         # prints viewer links + docs head
+```
+
+Configs already `TinyTapeout` compatible (`DESIGN_IS_CORE=false`, `FP_SIZING=absolute`).
 
 ## Mapping notes
 

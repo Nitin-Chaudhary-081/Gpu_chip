@@ -1,0 +1,92 @@
+name: gds
+
+# gpu_1.md:3 RTL-to-GDSII  + gpu_2.md:4 Full Physical GDSII
+# Lean: no GDS committed — artifact only; renders as PNG artifact for viewers.
+# Triggers on RTL/config/workflow changes; manual dispatch available.
+# Viewers: docs/gds_viewers.md -> gds-viewer.tinytapeout.com + gdsjam.com
+
+on:
+  push:
+    paths:
+      - "sim/cache4d/rtl/**"
+      - "tapeout/**"
+      - "openlane/**"
+      - ".github/workflows/gds.yaml"
+    branches: [main]
+  pull_request:
+    paths:
+      - "sim/cache4d/rtl/**"
+      - "tapeout/**"
+      - "openlane/**"
+  workflow_dispatch:
+
+jobs:
+  gds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # OpenLane cloud build — same configs as local `make gds` (needs 8GB, here free).
+      # openlane/cache4d/config.json: DESIGN_NAME cache_4d_controller, sky130A, 200x200um gpu_1.md:3
+      - name: Run OpenLane (cache4d)
+        run: |
+          docker run --rm -v $PWD:/project -w /project efabless/openlane:latest \
+            --design openlane/cache4d --tag cache4d_run --overwrite || \
+          docker run --rm -v $PWD:/project -w /project ghcr.io/efabless/openlane:latest \
+            --design openlane/cache4d --tag cache4d_run --overwrite
+          echo "=== GDS outputs ==="
+          find openlane/cache4d/runs -type f -name "*.gds" | head -20
+          ls -lh openlane/cache4d/runs/cache4d_run/results/final/gds/ 2>&1 | head -20 || true
+          ls -lh openlane/cache4d/runs/cache4d_run/reports/ 2>&1 | head -20 || true
+
+      - name: Run OpenLane (wdm_arbiter)
+        if: always()
+        run: |
+          docker run --rm -v $PWD:/project -w /project efabless/openlane:latest \
+            --design openlane/wdm_arbiter --tag wdm_run --overwrite || \
+          docker run --rm -v $PWD:/project -w /project ghcr.io/efabless/openlane:latest \
+            --design openlane/wdm_arbiter --tag wdm_run --overwrite
+          find openlane/wdm_arbiter/runs -type f -name "*.gds" | head -20 || true
+
+      - name: Upload GDS artifacts (viewers)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gds
+          path: |
+            openlane/cache4d/runs/**/results/final/gds/*.gds
+            openlane/wdm_arbiter/runs/**/results/final/gds/*.gds
+            openlane/**/runs/**/*.gds
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload reports (DRC/LVS)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            openlane/cache4d/runs/**/reports/**
+            openlane/wdm_arbiter/runs/**/reports/**
+          if-no-files-found: warn
+          retention-days: 30
+
+      # Optional PNG renders for repo homepage viewers (kept as artifact, not committed — lean)
+      - name: Collect PNG renders
+        if: always()
+        run: |
+          find openlane -type f -name "*.png" | head -20 || true
+          mkdir -p /tmp/renders
+          find openlane -type f -name "*.png" -exec cp {} /tmp/renders/ \; 2>&1 | head -20 || true
+          ls -lh /tmp/renders 2>&1 | head -20 || true
+
+      - name: Upload renders
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: renders
+          path: /tmp/renders/*.png
+          if-no-files-found: warn
+          retention-days: 30

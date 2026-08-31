@@ -1,6 +1,6 @@
 # Virtual 4D CNFET GPU — `gpu.md:1`
 
-No hardware required. Full functional simulation of the blueprint in `gpu.md:1-18`.
+[![GDS](https://github.com/Nitin-Chaudhary-081/Gpu_chip/actions/workflows/gds.yaml/badge.svg)](https://github.com/Nitin-Chaudhary-081/Gpu_chip/actions/workflows/gds.yaml) — No hardware required. Full functional simulation of the blueprint in `gpu.md:1-18`.
 
 ## What this is
 
@@ -25,6 +25,7 @@ make verilate      # lint + iverilog TB (no cocotb) — Phase B smoke
 make cocotb        # cocotb 7+3 tests vs Python golden  gpu.md:16  — Phase B proof
 make cocotb-cosim  # Track 3: compiler_pass -> RTL cycle-by-cycle  gpu_2.md:8
 make vcd           # generate /tmp/wave.vcd for GTKWave
+make viewer        # browser layout viewers: TinyTapeout + GDSJam + GH renders  docs/gds_viewers.md
 ```
 
 ## Architecture — `gpu.md:5-7`
@@ -94,8 +95,19 @@ make drc            # waivers.md explains CNT/photonics/M3D vs sky130  gpu_1.md:
 - `tests/test_cosim_wrapper.py` — Track 3 pytest wrapper (no RTL) `gpu_2.md:8`
 - `openlane/` + `tapeout/` + `drc_lvs/` + `bringup/` — Phase C `gpu_1.md:2-8`
 
+## Layout viewers — `gpu_1.md:3` GDSII (lean, no install)
+
+| Viewer | URL | Input `*.gds` source `.github/workflows/gds.yaml:1` |
+|--------|-----|-----------------------------------------------------|
+| **TinyTapeout GDS Viewer** | `https://gds-viewer.tinytapeout.com` | drop `Actions → gds → gds.zip` → inspect `met1-5` + 3D stack |
+| **GDSJam** | `https://gdsjam.com` | same `*.gds` → local WebGL, layer toggle, measurement — no upload |
+| **GH Action Render** | `Actions → gds` | auto-runs `OpenLane sky130A` on `push` to `main` — artifacts `gds.zip`/`renders.zip`/`reports.zip` + badge above |
+
+Details: `docs/gds_viewers.md:1` + `openlane/README.md:28` + `docs/tapeout.md:29`. Lean: `*.gds` stays in `.gitignore:26` — only PNG renders are artifacts, not committed.
+
 ## Docs
 
 - `gpu.md` — original blueprint
 - `docs/arch.md` — block diagram + dataflow + tradeoffs
+- `docs/gds_viewers.md` — browser layout viewers (TT + GDSJam + GH Action)
 - `sim/isa/isa_spec.md` — domain ISA

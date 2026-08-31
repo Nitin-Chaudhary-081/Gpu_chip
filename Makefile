@@ -1,4 +1,4 @@
-.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper bringup gds drc cocotb-cosim
+.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper bringup gds drc cocotb-cosim viewer
 
 PYTHON=python3
 PIP=pip3
@@ -74,6 +74,14 @@ drc:
 	@echo "=== DRC/LVS waivers  gpu_1.md:4 ==="
 	@cat drc_lvs/waivers.md | head -30
 	@echo "--- For real DRC: docker run ... && klayout checks openlane/cache4d/runs/*/reports/  ---"
+
+viewer:
+	@echo "=== Browser Layout Viewers  docs/gds_viewers.md:1 ==="
+	@echo "TinyTapeout GDS Viewer: https://gds-viewer.tinytapeout.com  (drop Actions gds.zip *.gds, inspect met1-5 + 3D)"
+	@echo "GDSJam:                https://gdsjam.com  (drag same *.gds, local WebGL, no upload, layer + measure)"
+	@echo "GH Action:             .github/workflows/gds.yaml → Actions → gds → Artifacts gds.zip/renders.zip/reports.zip"
+	@echo "Get GDS:  gh run list --workflow gds.yaml  |  gh run download  |  or local docker: make gds"
+	@cat docs/gds_viewers.md | head -30
 
 lint:
 	$(PYTHON) -m py_compile sim/**/*.py
