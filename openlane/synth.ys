@@ -1,0 +1,19 @@
+# Yosys synthesis script — lightweight Si-proxy check for Phase C gpu_1.md:2
+# Runs on 1.9GB VM without OpenLane Docker / PDK
+# Maps cache_4d_controller + wdm_tdm_arbiter to generic gates, counts cells/area proxy
+# For real sky130, replace `synth` with `synth -top` + `dfflibmap -liberty sky130_fd_sc_hd.tt.lib`
+
+read_verilog -sv /home/ubuntu/gpu_chip/sim/cache4d/rtl/cache_4d_controller.sv
+read_verilog -sv /home/ubuntu/gpu_chip/sim/cache4d/rtl/wdm_tdm_arbiter.sv
+hierarchy -check -top cache_4d_controller
+proc; opt; techmap; opt
+synth -top cache_4d_controller
+# Generic cell stats (no liberty needed)
+stat
+# JSON for area proxy
+write_json synth_cache4d.json
+# Second design
+hierarchy -check -top wdm_tdm_arbiter
+synth -top wdm_tdm_arbiter
+stat
+write_json synth_wdm.json

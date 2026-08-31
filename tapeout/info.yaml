@@ -1,0 +1,34 @@
+# TinyTapeout submission template — gpu_1.md:6
+# Copy to https://tinytapeout.com/ shuttle form; or for SkyWater Efabless shuttle
+project:
+  title: "4D Cache Controller — Virtual CNFET GPU"
+  description: "Deterministic 4D cache (x,y,z,t)->(bank,λ,slot) with TDM/WDM. Si-proxy of CNFET GPU cache gpu.md:7, gpu.md:16. 100MHz, latency [4,10] cycles bounded."
+  author: "gpu_chip virtual build"
+  discord: ""
+  source: "https://github.com/your/repo/gpu_chip"
+  top_module: "cache_4d_controller"
+  pdk: "sky130A"
+  sram: false
+  language: "SystemVerilog"
+
+pinout:
+  # Follows openlane/cache4d/pin_order.cfg and TinyTapeout 8-pin + control mapping
+  # Adapt to TT 2024 shuttle: 8 inputs, 8 outputs, plus clk/rst
+  # Our controller has 18 inputs/14 outputs — needs mux or 2-tile wrapper for TT.
+  # Option: wrap with shift-register to serialize (x,y,z,t) over 8 pins.
+  notes: "Wrapper required: serialize 21-bit req (x6+y6+z5+t4+valid) over 3 cycles via shift reg; deserialize 14-bit resp."
+  wrapper: "tapeout/tt_wrapper.sv (to create — not yet VERIFIED)"
+
+shuttle:
+  target: "TinyTapeout-07"
+  die_area: "200x200 um"
+  cost_estimate: "~$300 (TT) / $10k Efabless MPW pooled"
+  schedule: "TT shuttle quarterly — next window see tinytapeout.com/schedule"
+  gds_location: "openlane/cache4d/runs/*/results/final/gds/cache_4d_controller.gds"
+
+tests:
+  cocotb: "sim/cache4d/rtl/test_cache4d_cocotb.py 7 PASS"
+  iverilog: "sim/cache4d/rtl/tb_cache4d.sv 5 PASS"
+  synth: "openlane/synth_cache.ys 42 cells, 22 DFF"
+
+status: "NOT_SUBMITTED — needs wrapper + docker GDS run + DRC 0"

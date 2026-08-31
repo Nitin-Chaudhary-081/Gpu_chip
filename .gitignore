@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+*.log
+
+# Sim build
+sim_build/
+sim/cache4d/rtl/sim_build/
+results.xml
+*.vcd
+*.vvp
+/tmp/
+synth_cache4d.json
+synth*.json
+/tmp/synth_*.json
+
+# OpenLane runs (large)
+openlane/*/runs/
+openlane/*/reports/
+tapeout/gds/*.gds
+*.gds
+*.lef
+*.def
+
+# OS
+.DS_Store
+.vscode/
+.idea/
+
+# Keep these
+!openlane/*/config.json
+!openlane/*/pin_order.cfg
+!tapeout/info.yaml

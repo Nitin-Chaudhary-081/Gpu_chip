@@ -1,0 +1,84 @@
+.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper bringup gds drc cocotb-cosim
+
+PYTHON=python3
+PIP=pip3
+
+install:
+	$(PIP) install -r requirements.txt
+
+test:
+	$(PYTHON) -m pytest tests/ -v
+
+sim: test
+	@echo "All sims passed"
+
+matmul:
+	$(PYTHON) tests/workloads/matmul.py --compare
+
+thermal:
+	$(PYTHON) -c "from sim.thermal.thermal3d import demo; demo()"
+
+cnfet:
+	$(PYTHON) -c "from sim.cnfet.cnfet_model import demo; demo()"
+
+cache:
+	$(PYTHON) -c "from sim.cache4d.cache4d import demo; demo()"
+
+verilate:
+	@echo "Checking Verilator..."
+	@which verilator && verilator --version || echo "Verilator not installed. Run: sudo apt install verilator"
+	@echo "Checking Icarus..."
+	@which iverilog && iverilog -V | head -1 || echo "Icarus not installed"
+	@echo "Lint 4D controller..."
+	@verilator --lint-only --top-module cache_4d_controller sim/cache4d/rtl/cache_4d_controller.sv && echo "LINT cache4d PASS"
+	@verilator --lint-only --top-module wdm_tdm_arbiter sim/cache4d/rtl/wdm_tdm_arbiter.sv && echo "LINT wdm PASS"
+	@echo "Running RTL testbench via Icarus..."
+	@iverilog -g2012 -o /tmp/tb.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/tb_cache4d.sv && vvp /tmp/tb.vvp
+
+cocotb:
+	@echo "=== Cocotb Phase B: cache_4d_controller vs Python golden gpu.md:16 ==="
+	$(MAKE) -C sim/cache4d/rtl cache SIM=icarus
+	@echo "=== Cocotb: wdm_tdm_arbiter gpu.md:6 ==="
+	$(MAKE) -C sim/cache4d/rtl wdm SIM=icarus
+
+cocotb-cosim:
+	@echo "=== Track 3 Co-Sim  gpu_2.md:8  compiler_pass -> RTL  gpu.md:17->gpu.md:16 ==="
+	$(MAKE) -C sim/cache4d/rtl cosim SIM=icarus
+
+vcd:
+	@echo "=== VCD waveform for GTKWave ==="
+	iverilog -g2012 -o /tmp/tb_vcd.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/tb_vcd.sv && vvp /tmp/tb_vcd.vvp && ls -lh /tmp/wave.vcd && echo "Open: gtkwave /tmp/wave.vcd"
+
+synth:
+	@echo "=== Yosys synth  gpu_1.md:2  (Si-proxy, sky130) ==="
+	@yosys -s openlane/synth_cache.ys 2>&1 | grep -E "Number of cells|Number of wires|stat|ERROR" | tail -20
+	@yosys -s openlane/synth_wdm.ys 2>&1 | grep -E "Number of cells|Number of wires|stat|ERROR" | tail -10
+	@echo "JSON: /tmp/synth_cache4d.json /tmp/synth_wdm.json  — proxy for sky130 area  gpu_1.md:3 GDSII"
+
+synth-wrapper:
+	@echo "=== Yosys synth wrapper  tt_um_4d_cache  gpu_1.md:6 ==="
+	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv tapeout/tt_wrapper.sv; hierarchy -check -top tt_um_4d_cache; proc; opt; synth -top tt_um_4d_cache; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+
+bringup:
+	@echo "=== Bring-up check  gpu_1.md:8  (logic_analyzer.py mocked) ==="
+	@$(PYTHON) bringup/testboard/logic_analyzer.py
+
+gds:
+	@echo "=== OpenLane GDS  gpu_1.md:2  — requires 8GB Docker, not this 1.9GB VM ==="
+	@echo "Run locally with 8GB+: docker run --rm -v \$$PWD:/project -w /project efabless/openlane:latest --design openlane/cache4d --tag cache4d"
+	@echo "Or use TinyTapeout GH Action .github/workflows/gds.yaml  (see tapeout/submission.md)"
+	@echo "Outputs: openlane/cache4d/runs/*/results/final/gds/*.gds  gpu_1.md:3"
+	@cat openlane/cache4d/config.json | grep -E "DESIGN_NAME|PDK|CLOCK|DIE_AREA"
+
+drc:
+	@echo "=== DRC/LVS waivers  gpu_1.md:4 ==="
+	@cat drc_lvs/waivers.md | head -30
+	@echo "--- For real DRC: docker run ... && klayout checks openlane/cache4d/runs/*/reports/  ---"
+
+lint:
+	$(PYTHON) -m py_compile sim/**/*.py
+
+clean:
+	find . -type d -name __pycache__ -exec rm -rf {} +
+	find . -name "*.pyc" -delete
+	rm -rf .pytest_cache sim_build sim/cache4d/rtl/sim_build /tmp/wave.vcd /tmp/tb.vvp /tmp/tb_vcd.vvp /tmp/synth_*.json

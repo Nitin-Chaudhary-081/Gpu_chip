@@ -1,0 +1,6 @@
+read_verilog -sv /home/ubuntu/gpu_chip/sim/cache4d/rtl/wdm_tdm_arbiter.sv
+hierarchy -check -top wdm_tdm_arbiter
+proc; opt; techmap; opt
+synth -top wdm_tdm_arbiter
+stat
+write_json /tmp/synth_wdm.json

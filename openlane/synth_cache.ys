@@ -1,0 +1,6 @@
+read_verilog -sv /home/ubuntu/gpu_chip/sim/cache4d/rtl/cache_4d_controller.sv
+hierarchy -check -top cache_4d_controller
+proc; opt; techmap; opt
+synth -top cache_4d_controller
+stat
+write_json /tmp/synth_cache4d.json
