@@ -1,0 +1,25 @@
+id: ADR-004
+title: 'FP32 strict for initial tapeout, keep TDM4/WDM8 baseline'
+reason: 'Avoid FP16/BF16 mux control + routing congestion prematurely; baseline lambda=t[2:0]%8 slot=(z[1:0]+t[1:0])%4 cycles4+slot*2 gpu_A.md:16 keeps timing closure inside 160×100. 16×FP32 CU deferred to 1mm branch gpu_A.md:146.'
+alternatives:
+  - FP16/BF16 multiplex (saves power but adds control logic, verification x3)
+  - TDM8/WDM16 scale now (more bandwidth but slot*2 latency variance larger)
+tradeoffs: 'Single-precision determinism now vs mixed-precision later; proven gls 16/16 PASS at TDM4/WDM8'
+research: 'sim/cache4d/rtl/cache_4d_controller.sv:42-44 + sim/photonics/interconnect.py:11 30fJ vs Cu 200fJ'
+evidence:
+  - type: CODE
+    source: sim/cache4d/rtl/cache_4d_controller.sv:42
+    kind: FACT
+  - type: CODE
+    source: sim/cache4d/rtl/gpu_top.v:58
+    kind: FACT
+  - type: TEST
+    source: tests/test_cache4d.py
+    kind: FACT
+confidence: high
+date: '2026-09-01'
+status: APPROVED
+decidedBy: user approve arithmetic precision
+links:
+  - gpu_A.md:5-7
+  - docs/arch.md:4

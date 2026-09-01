@@ -1,0 +1,25 @@
+id: ADR-002
+title: 'Tapeout Priority: tt_um_4d_cache CMOS first, CNFET SPICE parallel'
+reason: 'Per approve 2026-09-01: standard CMOS silicon via TinyTapeout builds immediate momentum; CNFET/MEEP/OpenFOAM remain parallel research track. gpu_A.md:19-23 + gpu_A.md:59-69 long-term. Keeps standard flow (Yosys/OpenLane sky130A) moving.'
+alternatives:
+  - Delay tapeout until CNFET SPICE ready (PhD-scale, 12-18mo slip)
+  - Tapeout CNFET directly (no PDK exists — sky130 is Si-proxy, drc_lvs/waivers.md:1)
+tradeoffs: 'Ships real Si now (Si-proxy) vs waits for exotic materials; validates 4D cache logic on fabricatable path while SPICE research matures'
+research: 'gpu_A.md:163-172 path forward; Stanford VS-CNT model vs Python cnfet_model.py:13'
+evidence:
+  - type: CODE
+    source: sim/cache4d/rtl/gpu_top.v:1
+    kind: FACT
+  - type: DOCUMENTATION
+    source: gpu_A.md:19
+    kind: FACT
+  - type: CODE
+    source: .github/workflows/gds.yaml:69
+    kind: FACT
+confidence: high
+date: '2026-09-01'
+status: APPROVED
+decidedBy: user approve tapeout priority
+links:
+  - gpu_A.md:37-57
+  - gpu.md:5-7

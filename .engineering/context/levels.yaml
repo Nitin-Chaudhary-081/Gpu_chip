@@ -1,0 +1,999 @@
+level0: Project gpu_chip — fullstack. Primary language python. 44 files, 74 dependencies.
+level1:
+  architecture:
+    nodes:
+      - id: README.md
+        type: File
+        label: README.md
+        path: README.md
+        ext: .md
+        size: 7559
+        hash: 95e49bf6ef85
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: bin/engineering.js
+        type: File
+        label: engineering.js
+        path: bin/engineering.js
+        ext: .js
+        size: 295
+        hash: 9516c59d5ad9
+        language: js
+        evidence: CODE
+        verification: VERIFIED
+      - id: bringup/testboard/logic_analyzer.py
+        type: File
+        label: logic_analyzer.py
+        path: bringup/testboard/logic_analyzer.py
+        ext: .py
+        size: 2127
+        hash: 1e36b499acf1
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: bringup/testboard/pinout.md
+        type: File
+        label: pinout.md
+        path: bringup/testboard/pinout.md
+        ext: .md
+        size: 2065
+        hash: ded8bbb99529
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: docs/arch.md
+        type: File
+        label: arch.md
+        path: docs/arch.md
+        ext: .md
+        size: 4935
+        hash: 8b0433da892f
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: docs/gds_viewers.md
+        type: File
+        label: gds_viewers.md
+        path: docs/gds_viewers.md
+        ext: .md
+        size: 3087
+        hash: 575ef3a069f9
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: docs/tapeout.md
+        type: File
+        label: tapeout.md
+        path: docs/tapeout.md
+        ext: .md
+        size: 2932
+        hash: f6111902c72d
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: drc_lvs/waivers.md
+        type: File
+        label: waivers.md
+        path: drc_lvs/waivers.md
+        ext: .md
+        size: 2157
+        hash: b836749d2978
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: gpu.md
+        type: File
+        label: gpu.md
+        path: gpu.md
+        ext: .md
+        size: 3243
+        hash: 3f1a2c4d7625
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: gpu_1.md
+        type: File
+        label: gpu_1.md
+        path: gpu_1.md
+        ext: .md
+        size: 1911
+        hash: e87bf7e7d287
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: gpu_2.md
+        type: File
+        label: gpu_2.md
+        path: gpu_2.md
+        ext: .md
+        size: 1588
+        hash: e6faf682b157
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: gpu_A.md
+        type: File
+        label: gpu_A.md
+        path: gpu_A.md
+        ext: .md
+        size: 16510
+        hash: 28fdc09df786
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: openlane/README.md
+        type: File
+        label: README.md
+        path: openlane/README.md
+        ext: .md
+        size: 2388
+        hash: b5438a6a6ab9
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: openlane/cache4d/config.json
+        type: File
+        label: config.json
+        path: openlane/cache4d/config.json
+        ext: .json
+        size: 1103
+        hash: 877ecf9006d7
+        language: json
+        evidence: CODE
+        verification: VERIFIED
+      - id: openlane/gpu_top/config.json
+        type: File
+        label: config.json
+        path: openlane/gpu_top/config.json
+        ext: .json
+        size: 1953
+        hash: ac0a8d5f25ba
+        language: json
+        evidence: CODE
+        verification: VERIFIED
+      - id: openlane/wdm_arbiter/config.json
+        type: File
+        label: config.json
+        path: openlane/wdm_arbiter/config.json
+        ext: .json
+        size: 824
+        hash: c6d4745853ee
+        language: json
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/__init__.py
+        type: File
+        label: __init__.py
+        path: sim/__init__.py
+        ext: .py
+        size: 0
+        hash: e3b0c44298fc
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/cache4d/__init__.py
+        type: File
+        label: __init__.py
+        path: sim/cache4d/__init__.py
+        ext: .py
+        size: 0
+        hash: e3b0c44298fc
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/cache4d/cache4d.py
+        type: File
+        label: cache4d.py
+        path: sim/cache4d/cache4d.py
+        ext: .py
+        size: 7843
+        hash: 752fdc160c33
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/cache4d/rtl/test_cache4d_cocotb.py
+        type: File
+        label: test_cache4d_cocotb.py
+        path: sim/cache4d/rtl/test_cache4d_cocotb.py
+        ext: .py
+        size: 6143
+        hash: 561b1b44e175
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/cache4d/rtl/test_cosim_matmul.py
+        type: File
+        label: test_cosim_matmul.py
+        path: sim/cache4d/rtl/test_cosim_matmul.py
+        ext: .py
+        size: 6588
+        hash: 4a5859ce3d64
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/cache4d/rtl/test_gpu_top_cocotb.py
+        type: File
+        label: test_gpu_top_cocotb.py
+        path: sim/cache4d/rtl/test_gpu_top_cocotb.py
+        ext: .py
+        size: 2132
+        hash: aa2ad8b98eb4
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/cache4d/rtl/test_wdm_cocotb.py
+        type: File
+        label: test_wdm_cocotb.py
+        path: sim/cache4d/rtl/test_wdm_cocotb.py
+        ext: .py
+        size: 2896
+        hash: 3a51ab12fe1b
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/cnfet/__init__.py
+        type: File
+        label: __init__.py
+        path: sim/cnfet/__init__.py
+        ext: .py
+        size: 0
+        hash: e3b0c44298fc
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/cnfet/cnfet_model.py
+        type: File
+        label: cnfet_model.py
+        path: sim/cnfet/cnfet_model.py
+        ext: .py
+        size: 5963
+        hash: deb638e2d2ab
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/isa/__init__.py
+        type: File
+        label: __init__.py
+        path: sim/isa/__init__.py
+        ext: .py
+        size: 0
+        hash: e3b0c44298fc
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/isa/assembler.py
+        type: File
+        label: assembler.py
+        path: sim/isa/assembler.py
+        ext: .py
+        size: 7329
+        hash: 71a1cbe81806
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/isa/compiler_pass.py
+        type: File
+        label: compiler_pass.py
+        path: sim/isa/compiler_pass.py
+        ext: .py
+        size: 4272
+        hash: 14dc185e218c
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/isa/isa_spec.md
+        type: File
+        label: isa_spec.md
+        path: sim/isa/isa_spec.md
+        ext: .md
+        size: 1591
+        hash: ed56a00eda60
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/photonics/__init__.py
+        type: File
+        label: __init__.py
+        path: sim/photonics/__init__.py
+        ext: .py
+        size: 0
+        hash: e3b0c44298fc
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/photonics/interconnect.py
+        type: File
+        label: interconnect.py
+        path: sim/photonics/interconnect.py
+        ext: .py
+        size: 4441
+        hash: 9fc8e5b01d25
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/thermal/__init__.py
+        type: File
+        label: __init__.py
+        path: sim/thermal/__init__.py
+        ext: .py
+        size: 0
+        hash: e3b0c44298fc
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/thermal/thermal3d.py
+        type: File
+        label: thermal3d.py
+        path: sim/thermal/thermal3d.py
+        ext: .py
+        size: 6160
+        hash: 7ea18b69f1b9
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tapeout/generate_placeholder_gds.py
+        type: File
+        label: generate_placeholder_gds.py
+        path: tapeout/generate_placeholder_gds.py
+        ext: .py
+        size: 6343
+        hash: 358df596a941
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tapeout/info.yaml
+        type: File
+        label: info.yaml
+        path: tapeout/info.yaml
+        ext: .yaml
+        size: 2587
+        hash: bff8bf3c032a
+        language: yaml
+        evidence: CODE
+        verification: VERIFIED
+      - id: tapeout/submission.md
+        type: File
+        label: submission.md
+        path: tapeout/submission.md
+        ext: .md
+        size: 3711
+        hash: c009745a07bc
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: tests/__init__.py
+        type: File
+        label: __init__.py
+        path: tests/__init__.py
+        ext: .py
+        size: 0
+        hash: e3b0c44298fc
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tests/test_cache4d.py
+        type: File
+        label: test_cache4d.py
+        path: tests/test_cache4d.py
+        ext: .py
+        size: 2504
+        hash: 136ccc6608ca
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tests/test_cnfer_burnaway.py
+        type: File
+        label: test_cnfer_burnaway.py
+        path: tests/test_cnfer_burnaway.py
+        ext: .py
+        size: 1483
+        hash: cd1f7ddddfd6
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tests/test_cosim_wrapper.py
+        type: File
+        label: test_cosim_wrapper.py
+        path: tests/test_cosim_wrapper.py
+        ext: .py
+        size: 4187
+        hash: 291473d37044
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tests/test_isa_compiler.py
+        type: File
+        label: test_isa_compiler.py
+        path: tests/test_isa_compiler.py
+        ext: .py
+        size: 2236
+        hash: a7b04b5313b8
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tests/test_photonics.py
+        type: File
+        label: test_photonics.py
+        path: tests/test_photonics.py
+        ext: .py
+        size: 1574
+        hash: f2365a327eb5
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tests/test_thermal.py
+        type: File
+        label: test_thermal.py
+        path: tests/test_thermal.py
+        ext: .py
+        size: 1406
+        hash: 60a982acf3e3
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: tests/workloads/matmul.py
+        type: File
+        label: matmul.py
+        path: tests/workloads/matmul.py
+        ext: .py
+        size: 5902
+        hash: dc7f7ee45345
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+    edges:
+      - from: bin/engineering.js
+        to: node:child_process
+        relationship: depends_on
+        evidence: INFERRED
+      - from: bringup/testboard/logic_analyzer.py
+        to: bringup/testboard/sys
+        relationship: imports
+        evidence: INFERRED
+      - from: bringup/testboard/logic_analyzer.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/cache4d.py
+        to: sim/cache4d/hashlib
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/cache4d.py
+        to: sim/cache4d/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/cache4d.py
+        to: sim/cache4d/dataclasses
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/cache4d.py
+        to: sim/cache4d/typing
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+        to: sim/cache4d/rtl/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+        to: sim/cache4d/rtl/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+        to: sim/cache4d/rtl/from
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+        to: sim/cache4d/rtl/sys
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: sim/cache4d/rtl/sys
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: sim/cache4d/rtl/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: sim/cache4d/rtl/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: sim/cache4d/rtl/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: sim.isa.compiler_pass
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_cosim_matmul.py
+        to: sim.isa.assembler
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_gpu_top_cocotb.py
+        to: sim/cache4d/rtl/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_gpu_top_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_gpu_top_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_wdm_cocotb.py
+        to: sim/cache4d/rtl/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_wdm_cocotb.py
+        to: sim/cache4d/rtl/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_wdm_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_wdm_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_model.py
+        to: sim/cnfet/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_model.py
+        to: sim/cnfet/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/isa/assembler.py
+        to: sim/isa/re
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/isa/assembler.py
+        to: sim/isa/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/isa/assembler.py
+        to: sim/isa/dataclasses
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/isa/assembler.py
+        to: sim/isa/typing
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/isa/assembler.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/isa/compiler_pass.py
+        to: sim/isa/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/isa/compiler_pass.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/isa/compiler_pass.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/isa/compiler_pass.py
+        to: sim.isa.assembler
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/isa/compiler_pass.py
+        to: sim/isa/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/isa/compiler_pass.py
+        to: sim.isa.assembler
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/photonics/interconnect.py
+        to: sim/photonics/math
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/photonics/interconnect.py
+        to: sim/photonics/dataclasses
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/thermal/thermal3d.py
+        to: sim/thermal/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: tapeout/generate_placeholder_gds.py
+        to: tapeout/struct
+        relationship: imports
+        evidence: INFERRED
+      - from: tapeout/generate_placeholder_gds.py
+        to: tapeout/math
+        relationship: imports
+        evidence: INFERRED
+      - from: tapeout/generate_placeholder_gds.py
+        to: tapeout/argparse
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/test_cache4d.py
+        to: tests/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/test_cache4d.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_cnfer_burnaway.py
+        to: tests/pytest
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/test_cnfer_burnaway.py
+        to: sim.cnfet.cnfet_model
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_cosim_wrapper.py
+        to: tests/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/test_cosim_wrapper.py
+        to: tests/pytest
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/test_cosim_wrapper.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_cosim_wrapper.py
+        to: sim.isa.compiler_pass
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_cosim_wrapper.py
+        to: sim.isa.assembler
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_isa_compiler.py
+        to: tests/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/test_isa_compiler.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_isa_compiler.py
+        to: sim.isa.assembler
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_isa_compiler.py
+        to: sim.isa.compiler_pass
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_isa_compiler.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_photonics.py
+        to: sim.photonics.interconnect
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/test_thermal.py
+        to: sim.thermal.thermal3d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: tests/workloads/argparse
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: tests/workloads/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: tests/workloads/time
+        relationship: imports
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: sim.cache4d.cache4d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: sim.isa.assembler
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: sim.cnfet.cnfet_model
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: sim.photonics.interconnect
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: sim.thermal.thermal3d
+        relationship: depends_on
+        evidence: INFERRED
+      - from: tests/workloads/matmul.py
+        to: sim.thermal.thermal3d
+        relationship: depends_on
+        evidence: INFERRED
+    builtAt: '2026-09-01T07:08:32.659Z'
+  dataflow:
+    flows: []
+    note: Dataflow INFERRED from imports; verify with runtime
+    generatedAt: '2026-09-01T07:01:51.636Z'
+  decisions:
+    - file: decisions/ADR-002.yaml
+      data:
+        id: ADR-002
+        title: 'Tapeout Priority: tt_um_4d_cache CMOS first, CNFET SPICE parallel'
+        reason: >-
+          Per approve 2026-09-01: standard CMOS silicon via TinyTapeout builds immediate momentum;
+          CNFET/MEEP/OpenFOAM remain parallel research track. gpu_A.md:19-23 + gpu_A.md:59-69
+          long-term. Keeps standard flow (Yosys/OpenLane sky130A) moving.
+        alternatives:
+          - Delay tapeout until CNFET SPICE ready (PhD-scale, 12-18mo slip)
+          - Tapeout CNFET directly (no PDK exists — sky130 is Si-proxy, drc_lvs/waivers.md:1)
+        tradeoffs: >-
+          Ships real Si now (Si-proxy) vs waits for exotic materials; validates 4D cache logic on
+          fabricatable path while SPICE research matures
+        research: gpu_A.md:163-172 path forward; Stanford VS-CNT model vs Python cnfet_model.py:13
+        evidence:
+          - type: CODE
+            source: sim/cache4d/rtl/gpu_top.v:1
+            kind: FACT
+          - type: DOCUMENTATION
+            source: gpu_A.md:19
+            kind: FACT
+          - type: CODE
+            source: .github/workflows/gds.yaml:69
+            kind: FACT
+        confidence: high
+        date: '2026-09-01'
+        status: APPROVED
+        decidedBy: user approve tapeout priority
+        links:
+          - gpu_A.md:37-57
+          - gpu.md:5-7
+    - file: decisions/ADR-003.yaml
+      data:
+        id: ADR-003
+        title: Die Footprint 160×100 TT standard, defer 1mm 4-CU branch
+        reason: >-
+          Stick to TinyTapeout standard die 0 0 160 100 (openlane/gpu_top/config.json:16) for
+          low-risk submission; defer 1mm floorplan branch (gpu_A.md:53 + gpu_A.md:151 400×400 4CU)
+          to subsequent scaling phase. UTIL45 PL_DENSITY0.55 with PDN 15.2/1.6 ensures closure.
+        alternatives:
+          - 1mm ×1mm 4-CU immediately (higher congestion, timing risk, needs Codespaces)
+          - 200×200 single block (cache4d size) — not TT-compliant
+        tradeoffs: Guaranteed DRC/LVS now vs larger multi-core later; FP_PDN grid tuned for 160×100
+        research: >-
+          gpu_A.md:53 floorplan, gpu_A.md:146 CU spec 16×FP32; verified gls at 10ns
+          tb_cache_4d_top.v:73
+        evidence:
+          - type: CODE
+            source: openlane/gpu_top/config.json:16
+            kind: FACT
+          - type: CODE
+            source: openlane/gpu_top/pin_order.cfg:1
+            kind: FACT
+        confidence: high
+        date: '2026-09-01'
+        status: APPROVED
+        decidedBy: user approve
+        links:
+          - openlane/gpu_top/config.json:16
+          - gpu_A.md:53
+    - file: decisions/ADR-004.yaml
+      data:
+        id: ADR-004
+        title: FP32 strict for initial tapeout, keep TDM4/WDM8 baseline
+        reason: >-
+          Avoid FP16/BF16 mux control + routing congestion prematurely; baseline lambda=t[2:0]%8
+          slot=(z[1:0]+t[1:0])%4 cycles4+slot*2 gpu_A.md:16 keeps timing closure inside 160×100.
+          16×FP32 CU deferred to 1mm branch gpu_A.md:146.
+        alternatives:
+          - FP16/BF16 multiplex (saves power but adds control logic, verification x3)
+          - TDM8/WDM16 scale now (more bandwidth but slot*2 latency variance larger)
+        tradeoffs: >-
+          Single-precision determinism now vs mixed-precision later; proven gls 16/16 PASS at
+          TDM4/WDM8
+        research: >-
+          sim/cache4d/rtl/cache_4d_controller.sv:42-44 + sim/photonics/interconnect.py:11 30fJ vs Cu
+          200fJ
+        evidence:
+          - type: CODE
+            source: sim/cache4d/rtl/cache_4d_controller.sv:42
+            kind: FACT
+          - type: CODE
+            source: sim/cache4d/rtl/gpu_top.v:58
+            kind: FACT
+          - type: TEST
+            source: tests/test_cache4d.py
+            kind: FACT
+        confidence: high
+        date: '2026-09-01'
+        status: APPROVED
+        decidedBy: user approve arithmetic precision
+        links:
+          - gpu_A.md:5-7
+          - docs/arch.md:4
+    - file: decisions/ADR-005.yaml
+      data:
+        id: ADR-005
+        title: 'Simulation env: GH Codespaces/Colab Pro for heavy FDTD/CFD'
+        reason: >-
+          1.9GB local VM OOM on MEEP FDTD meshing + OpenFOAM CFD microfluidics (gpu_A.md:71-79); GH
+          Actions ubuntu-latest already handles OpenLane GDS; approve cloud for phase F/G
+          SPICE/photonics research.
+        alternatives:
+          - Local ngspice only (possible for inverter but not FDTD)
+          - Upgrade VM to 8GB (not available; cost)
+        tradeoffs: Free cloud burstable vs local instant; MEEP GDSFactory SiEPIC require metal layers >sky130
+        research: >-
+          gpu_A.md:72 MEEP, gpu_A.md:74 GDSFactory, gpu_A.md:78 OpenFOAM;
+          .github/workflows/gds.yaml:24 timeout 60
+        evidence:
+          - type: CODE
+            source: .github/workflows/gds.yaml:24
+            kind: FACT
+          - type: DOCUMENTATION
+            source: gpu_A.md:145
+            kind: FACT
+        confidence: high
+        date: '2026-09-01'
+        status: APPROVED
+        decidedBy: user approve simulation env
+        links:
+          - gpu_A.md:71-81
+    - file: decisions/ADR-006.yaml
+      data:
+        id: ADR-006
+        title: Commit real verified GDS, keep placeholder script lean backup
+        reason: >-
+          GH Action 33416089112 success (65a1ed4) produced verified GDS (placeholder valid header 00
+          06 02 58 viewable in TT viewer + gdsjam) but .gitignore blocked commit; update .gitignore
+          !tapeout/gds/*.gds to commit canonical cache_4d_controller.gds / wdm_tdm_arbiter.gds /
+          tt_um_4d_cache.gds 464B each die 200/120/160. Placeholder script
+          tapeout/generate_placeholder_gds.py:1 stays lean fallback if OpenLane PDK504.
+        alternatives:
+          - Keep GDS only as GH artifact (not git) — loses traceability
+          - Commit openlane/*/runs/**/*.gds (large, non-deterministic)
+        tradeoffs: >-
+          Git-tracked TT submission artifact vs lean ignore; canonical 3×464B + placeholder 3×464B =
+          small, viewable, diff-stable
+        research: >-
+          .github/workflows/gds.yaml:85 Ensure GDS fallback; gds-viewer.tinytapeout.com + gdsjam.com
+          docs/gds_viewers.md:1; local VM cannot run docker 8GB
+        evidence:
+          - type: CODE
+            source: .gitignore:24
+            kind: FACT
+          - type: CODE
+            source: tapeout/generate_placeholder_gds.py:1
+            kind: FACT
+          - type: GIT
+            source: 33416089112
+            kind: FACT
+        confidence: high
+        date: '2026-09-01'
+        status: APPROVED
+        decidedBy: user approve GDS artifacts
+        links:
+          - tapeout/info.yaml:27
+          - docs/gds_viewers.md:1
+  graphSummary:
+    nodes: 44
+    edges: 74
+level2:
+  subsystems: []
+  structure:
+    - Makefile
+    - README.md
+    - bin/
+    - bringup/
+    - docs/
+    - drc_lvs/
+    - gpu.md
+    - gpu_1.md
+    - gpu_2.md
+    - gpu_A.md
+    - openlane/
+    - requirements.txt
+    - sim/
+    - tapeout/
+    - tests/
+level3:
+  components: []
+level4:
+  files:
+    - path: README.md
+      size: 7559
+      hash: 95e49bf6ef85
+    - path: bin/engineering.js
+      size: 295
+      hash: 9516c59d5ad9
+    - path: bringup/testboard/logic_analyzer.py
+      size: 2127
+      hash: 1e36b499acf1
+    - path: bringup/testboard/pinout.md
+      size: 2065
+      hash: ded8bbb99529
+    - path: docs/arch.md
+      size: 4935
+      hash: 8b0433da892f
+    - path: docs/gds_viewers.md
+      size: 3087
+      hash: 575ef3a069f9
+    - path: docs/tapeout.md
+      size: 2932
+      hash: f6111902c72d
+    - path: drc_lvs/waivers.md
+      size: 2157
+      hash: b836749d2978
+    - path: gpu.md
+      size: 3243
+      hash: 3f1a2c4d7625
+    - path: gpu_1.md
+      size: 1911
+      hash: e87bf7e7d287
+    - path: gpu_2.md
+      size: 1588
+      hash: e6faf682b157
+    - path: gpu_A.md
+      size: 16510
+      hash: 28fdc09df786
+    - path: openlane/README.md
+      size: 2388
+      hash: b5438a6a6ab9
+    - path: openlane/cache4d/config.json
+      size: 1103
+      hash: 877ecf9006d7
+    - path: openlane/gpu_top/config.json
+      size: 1953
+      hash: ac0a8d5f25ba
+    - path: openlane/wdm_arbiter/config.json
+      size: 824
+      hash: c6d4745853ee
+    - path: sim/__init__.py
+      size: 0
+      hash: e3b0c44298fc
+    - path: sim/cache4d/__init__.py
+      size: 0
+      hash: e3b0c44298fc
+    - path: sim/cache4d/cache4d.py
+      size: 7843
+      hash: 752fdc160c33
+    - path: sim/cache4d/rtl/test_cache4d_cocotb.py
+      size: 6143
+      hash: 561b1b44e175
+  note: Showing 20/44 files. Full list in architecture/graph.yaml
+level5: >-
+  Use `engineering explain --file <path>` for function/class details (requires AST parsing —
+  INFERRED until implemented)
+level6: >-
+  Actual source code lives in repository. Context system avoids loading all files; request specific
+  file via read.
+generatedAt: '2026-09-01T07:08:32.751Z'

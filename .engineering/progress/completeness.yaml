@@ -1,0 +1,69 @@
+breakdown:
+  requirements:
+    value: 100
+    weight: 1
+    evidenceCount: 3
+    status: excellent
+  research:
+    value: 10
+    weight: 0.8
+    evidenceCount: 0
+    status: missing
+  architecture:
+    value: 85
+    weight: 1
+    evidenceCount: 1
+    status: good
+  implementation:
+    value: 100
+    weight: 1.2
+    evidenceCount: 3
+    status: excellent
+  integration:
+    value: 20
+    weight: 0.9
+    evidenceCount: 0
+    status: poor
+  testing:
+    value: 20
+    weight: 1
+    evidenceCount: 0
+    status: poor
+  security:
+    value: 60
+    weight: 1.1
+    evidenceCount: 5
+    status: partial
+  runtime_verification:
+    value: 40
+    weight: 1
+    evidenceCount: 1
+    status: poor
+  documentation:
+    value: 85
+    weight: 0.6
+    evidenceCount: 1
+    status: good
+  observability:
+    value: 20
+    weight: 0.7
+    evidenceCount: 0
+    status: poor
+  deployment:
+    value: 20
+    weight: 0.7
+    evidenceCount: 0
+    status: poor
+  performance:
+    value: 20
+    weight: 0.5
+    evidenceCount: 0
+    status: poor
+engineeringCompleteness: 52
+productionReadiness: 44
+explanation: >-
+  Engineering completeness 52% (weighted avg across 12 dims). Production readiness 44%. Weak areas:
+  research 10% (0 evidence), integration 20% (0 evidence), testing 20% (0 evidence),
+  runtime_verification 40% (1 evidence), observability 20% (0 evidence), deployment 20% (0
+  evidence), performance 20% (0 evidence). Strong areas: requirements, architecture, implementation,
+  documentation. Scores capped when evidence missing to avoid fake precision.

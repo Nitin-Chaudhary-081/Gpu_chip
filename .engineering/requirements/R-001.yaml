@@ -1,0 +1,24 @@
+id: R-001
+title: Engineering Intelligence skill exists
+description: Core skill with /engineering entry point and .engineering state — bin/engineering.js delegates to engineering-intelligence
+status: VERIFIED
+evidence:
+  - type: CODE
+    source: .engineering/manifest.yaml
+    kind: FACT
+    details: manifest exists
+  - type: CODE
+    source: .engineering/lifecycle.yaml
+    kind: FACT
+    details: lifecycle python-service robustify VERIFIED
+  - type: CODE
+    source: bin/engineering.js
+    kind: FACT
+    details: CLI wrapper exists delegates to /home/ubuntu/engineering-intelligence/bin/engineering.js
+files:
+  - .engineering/manifest.yaml
+  - .engineering/lifecycle.yaml
+  - bin/engineering.js
+risk: MEDIUM
+createdAt: '2026-09-01T07:01:51.759Z'
+verifiedAt: '2026-09-01T07:45:00.000Z'

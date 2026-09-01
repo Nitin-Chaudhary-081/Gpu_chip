@@ -1,0 +1,739 @@
+nodes:
+  - id: README.md
+    type: File
+    label: README.md
+    path: README.md
+    ext: .md
+    size: 7559
+    hash: 95e49bf6ef85
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: bin/engineering.js
+    type: File
+    label: engineering.js
+    path: bin/engineering.js
+    ext: .js
+    size: 295
+    hash: 9516c59d5ad9
+    language: js
+    evidence: CODE
+    verification: VERIFIED
+  - id: bringup/testboard/logic_analyzer.py
+    type: File
+    label: logic_analyzer.py
+    path: bringup/testboard/logic_analyzer.py
+    ext: .py
+    size: 2127
+    hash: 1e36b499acf1
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: bringup/testboard/pinout.md
+    type: File
+    label: pinout.md
+    path: bringup/testboard/pinout.md
+    ext: .md
+    size: 2065
+    hash: ded8bbb99529
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: docs/arch.md
+    type: File
+    label: arch.md
+    path: docs/arch.md
+    ext: .md
+    size: 4935
+    hash: 8b0433da892f
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: docs/gds_viewers.md
+    type: File
+    label: gds_viewers.md
+    path: docs/gds_viewers.md
+    ext: .md
+    size: 3087
+    hash: 575ef3a069f9
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: docs/tapeout.md
+    type: File
+    label: tapeout.md
+    path: docs/tapeout.md
+    ext: .md
+    size: 2932
+    hash: f6111902c72d
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: drc_lvs/waivers.md
+    type: File
+    label: waivers.md
+    path: drc_lvs/waivers.md
+    ext: .md
+    size: 2157
+    hash: b836749d2978
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: gpu.md
+    type: File
+    label: gpu.md
+    path: gpu.md
+    ext: .md
+    size: 3243
+    hash: 3f1a2c4d7625
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: gpu_1.md
+    type: File
+    label: gpu_1.md
+    path: gpu_1.md
+    ext: .md
+    size: 1911
+    hash: e87bf7e7d287
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: gpu_2.md
+    type: File
+    label: gpu_2.md
+    path: gpu_2.md
+    ext: .md
+    size: 1588
+    hash: e6faf682b157
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: gpu_A.md
+    type: File
+    label: gpu_A.md
+    path: gpu_A.md
+    ext: .md
+    size: 16510
+    hash: 28fdc09df786
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: openlane/README.md
+    type: File
+    label: README.md
+    path: openlane/README.md
+    ext: .md
+    size: 2388
+    hash: b5438a6a6ab9
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: openlane/cache4d/config.json
+    type: File
+    label: config.json
+    path: openlane/cache4d/config.json
+    ext: .json
+    size: 1103
+    hash: 877ecf9006d7
+    language: json
+    evidence: CODE
+    verification: VERIFIED
+  - id: openlane/gpu_top/config.json
+    type: File
+    label: config.json
+    path: openlane/gpu_top/config.json
+    ext: .json
+    size: 1953
+    hash: ac0a8d5f25ba
+    language: json
+    evidence: CODE
+    verification: VERIFIED
+  - id: openlane/wdm_arbiter/config.json
+    type: File
+    label: config.json
+    path: openlane/wdm_arbiter/config.json
+    ext: .json
+    size: 824
+    hash: c6d4745853ee
+    language: json
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/__init__.py
+    type: File
+    label: __init__.py
+    path: sim/__init__.py
+    ext: .py
+    size: 0
+    hash: e3b0c44298fc
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/cache4d/__init__.py
+    type: File
+    label: __init__.py
+    path: sim/cache4d/__init__.py
+    ext: .py
+    size: 0
+    hash: e3b0c44298fc
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/cache4d/cache4d.py
+    type: File
+    label: cache4d.py
+    path: sim/cache4d/cache4d.py
+    ext: .py
+    size: 7843
+    hash: 752fdc160c33
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/cache4d/rtl/test_cache4d_cocotb.py
+    type: File
+    label: test_cache4d_cocotb.py
+    path: sim/cache4d/rtl/test_cache4d_cocotb.py
+    ext: .py
+    size: 6143
+    hash: 561b1b44e175
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/cache4d/rtl/test_cosim_matmul.py
+    type: File
+    label: test_cosim_matmul.py
+    path: sim/cache4d/rtl/test_cosim_matmul.py
+    ext: .py
+    size: 6588
+    hash: 4a5859ce3d64
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/cache4d/rtl/test_gpu_top_cocotb.py
+    type: File
+    label: test_gpu_top_cocotb.py
+    path: sim/cache4d/rtl/test_gpu_top_cocotb.py
+    ext: .py
+    size: 2132
+    hash: aa2ad8b98eb4
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/cache4d/rtl/test_wdm_cocotb.py
+    type: File
+    label: test_wdm_cocotb.py
+    path: sim/cache4d/rtl/test_wdm_cocotb.py
+    ext: .py
+    size: 2896
+    hash: 3a51ab12fe1b
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/cnfet/__init__.py
+    type: File
+    label: __init__.py
+    path: sim/cnfet/__init__.py
+    ext: .py
+    size: 0
+    hash: e3b0c44298fc
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/cnfet/cnfet_model.py
+    type: File
+    label: cnfet_model.py
+    path: sim/cnfet/cnfet_model.py
+    ext: .py
+    size: 5963
+    hash: deb638e2d2ab
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/isa/__init__.py
+    type: File
+    label: __init__.py
+    path: sim/isa/__init__.py
+    ext: .py
+    size: 0
+    hash: e3b0c44298fc
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/isa/assembler.py
+    type: File
+    label: assembler.py
+    path: sim/isa/assembler.py
+    ext: .py
+    size: 7329
+    hash: 71a1cbe81806
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/isa/compiler_pass.py
+    type: File
+    label: compiler_pass.py
+    path: sim/isa/compiler_pass.py
+    ext: .py
+    size: 4272
+    hash: 14dc185e218c
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/isa/isa_spec.md
+    type: File
+    label: isa_spec.md
+    path: sim/isa/isa_spec.md
+    ext: .md
+    size: 1591
+    hash: ed56a00eda60
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/photonics/__init__.py
+    type: File
+    label: __init__.py
+    path: sim/photonics/__init__.py
+    ext: .py
+    size: 0
+    hash: e3b0c44298fc
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/photonics/interconnect.py
+    type: File
+    label: interconnect.py
+    path: sim/photonics/interconnect.py
+    ext: .py
+    size: 4441
+    hash: 9fc8e5b01d25
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/thermal/__init__.py
+    type: File
+    label: __init__.py
+    path: sim/thermal/__init__.py
+    ext: .py
+    size: 0
+    hash: e3b0c44298fc
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/thermal/thermal3d.py
+    type: File
+    label: thermal3d.py
+    path: sim/thermal/thermal3d.py
+    ext: .py
+    size: 6160
+    hash: 7ea18b69f1b9
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tapeout/generate_placeholder_gds.py
+    type: File
+    label: generate_placeholder_gds.py
+    path: tapeout/generate_placeholder_gds.py
+    ext: .py
+    size: 6343
+    hash: 358df596a941
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tapeout/info.yaml
+    type: File
+    label: info.yaml
+    path: tapeout/info.yaml
+    ext: .yaml
+    size: 2587
+    hash: bff8bf3c032a
+    language: yaml
+    evidence: CODE
+    verification: VERIFIED
+  - id: tapeout/submission.md
+    type: File
+    label: submission.md
+    path: tapeout/submission.md
+    ext: .md
+    size: 3711
+    hash: c009745a07bc
+    language: md
+    evidence: CODE
+    verification: VERIFIED
+  - id: tests/__init__.py
+    type: File
+    label: __init__.py
+    path: tests/__init__.py
+    ext: .py
+    size: 0
+    hash: e3b0c44298fc
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tests/test_cache4d.py
+    type: File
+    label: test_cache4d.py
+    path: tests/test_cache4d.py
+    ext: .py
+    size: 2504
+    hash: 136ccc6608ca
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tests/test_cnfer_burnaway.py
+    type: File
+    label: test_cnfer_burnaway.py
+    path: tests/test_cnfer_burnaway.py
+    ext: .py
+    size: 1483
+    hash: cd1f7ddddfd6
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tests/test_cosim_wrapper.py
+    type: File
+    label: test_cosim_wrapper.py
+    path: tests/test_cosim_wrapper.py
+    ext: .py
+    size: 4187
+    hash: 291473d37044
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tests/test_isa_compiler.py
+    type: File
+    label: test_isa_compiler.py
+    path: tests/test_isa_compiler.py
+    ext: .py
+    size: 2236
+    hash: a7b04b5313b8
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tests/test_photonics.py
+    type: File
+    label: test_photonics.py
+    path: tests/test_photonics.py
+    ext: .py
+    size: 1574
+    hash: f2365a327eb5
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tests/test_thermal.py
+    type: File
+    label: test_thermal.py
+    path: tests/test_thermal.py
+    ext: .py
+    size: 1406
+    hash: 60a982acf3e3
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: tests/workloads/matmul.py
+    type: File
+    label: matmul.py
+    path: tests/workloads/matmul.py
+    ext: .py
+    size: 5902
+    hash: dc7f7ee45345
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+edges:
+  - from: bin/engineering.js
+    to: node:child_process
+    relationship: depends_on
+    evidence: INFERRED
+  - from: bringup/testboard/logic_analyzer.py
+    to: bringup/testboard/sys
+    relationship: imports
+    evidence: INFERRED
+  - from: bringup/testboard/logic_analyzer.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/cache4d.py
+    to: sim/cache4d/hashlib
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/cache4d.py
+    to: sim/cache4d/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/cache4d.py
+    to: sim/cache4d/dataclasses
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/cache4d.py
+    to: sim/cache4d/typing
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+    to: sim/cache4d/rtl/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+    to: sim/cache4d/rtl/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+    to: sim/cache4d/rtl/from
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+    to: sim/cache4d/rtl/sys
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cache4d_cocotb.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: sim/cache4d/rtl/sys
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: sim/cache4d/rtl/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: sim/cache4d/rtl/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: sim/cache4d/rtl/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: sim.isa.compiler_pass
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_cosim_matmul.py
+    to: sim.isa.assembler
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_gpu_top_cocotb.py
+    to: sim/cache4d/rtl/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_gpu_top_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_gpu_top_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_wdm_cocotb.py
+    to: sim/cache4d/rtl/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_wdm_cocotb.py
+    to: sim/cache4d/rtl/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_wdm_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_wdm_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_model.py
+    to: sim/cnfet/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_model.py
+    to: sim/cnfet/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/isa/assembler.py
+    to: sim/isa/re
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/isa/assembler.py
+    to: sim/isa/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/isa/assembler.py
+    to: sim/isa/dataclasses
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/isa/assembler.py
+    to: sim/isa/typing
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/isa/assembler.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/isa/compiler_pass.py
+    to: sim/isa/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/isa/compiler_pass.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/isa/compiler_pass.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/isa/compiler_pass.py
+    to: sim.isa.assembler
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/isa/compiler_pass.py
+    to: sim/isa/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/isa/compiler_pass.py
+    to: sim.isa.assembler
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/photonics/interconnect.py
+    to: sim/photonics/math
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/photonics/interconnect.py
+    to: sim/photonics/dataclasses
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/thermal/thermal3d.py
+    to: sim/thermal/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: tapeout/generate_placeholder_gds.py
+    to: tapeout/struct
+    relationship: imports
+    evidence: INFERRED
+  - from: tapeout/generate_placeholder_gds.py
+    to: tapeout/math
+    relationship: imports
+    evidence: INFERRED
+  - from: tapeout/generate_placeholder_gds.py
+    to: tapeout/argparse
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/test_cache4d.py
+    to: tests/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/test_cache4d.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_cnfer_burnaway.py
+    to: tests/pytest
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/test_cnfer_burnaway.py
+    to: sim.cnfet.cnfet_model
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_cosim_wrapper.py
+    to: tests/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/test_cosim_wrapper.py
+    to: tests/pytest
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/test_cosim_wrapper.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_cosim_wrapper.py
+    to: sim.isa.compiler_pass
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_cosim_wrapper.py
+    to: sim.isa.assembler
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_isa_compiler.py
+    to: tests/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/test_isa_compiler.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_isa_compiler.py
+    to: sim.isa.assembler
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_isa_compiler.py
+    to: sim.isa.compiler_pass
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_isa_compiler.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_photonics.py
+    to: sim.photonics.interconnect
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/test_thermal.py
+    to: sim.thermal.thermal3d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: tests/workloads/argparse
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: tests/workloads/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: tests/workloads/time
+    relationship: imports
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: sim.cache4d.cache4d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: sim.isa.assembler
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: sim.cnfet.cnfet_model
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: sim.photonics.interconnect
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: sim.thermal.thermal3d
+    relationship: depends_on
+    evidence: INFERRED
+  - from: tests/workloads/matmul.py
+    to: sim.thermal.thermal3d
+    relationship: depends_on
+    evidence: INFERRED
+builtAt: '2026-09-01T07:08:32.659Z'

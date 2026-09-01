@@ -1,0 +1,54 @@
+languages:
+  counts:
+    markdown: 13
+    javascript: 1
+    python: 26
+    json: 3
+    yaml: 1
+  primary: python
+  totalFiles: 44
+frameworks:
+  - python-requirements
+packageManagers:
+  - python
+entryPoints: []
+config:
+  - .gitignore
+  - Makefile
+git:
+  branch: main
+  commit: 65a1ed408aff9dc565e144c8d52a59239f609e44
+  log:
+    - 65a1ed4 Top-level wrapper gpu_top + TT macro hardening + SDF post-layout (approve)
+    - 36a2150 Fix GDS action PDK 504 + viewer fallback (lean)
+    - '939776b Browser layout viewers — lean: TT GDS Viewer + GDSJam + GH Action GDS render'
+    - e99682b Virtual 4D CNFET GPU — Phase A+B+C + Track3 co-sim
+  dirty: true
+  status:
+    - M .gitignore
+    - ' M tapeout/info.yaml'
+    - ' M tapeout/submission.md'
+    - '?? .engineering/'
+    - '?? bin/'
+    - '?? gpu_A.md'
+    - '?? tapeout/gds/'
+envVars: []
+dependencies: {}
+structure:
+  - Makefile
+  - README.md
+  - bin/
+  - bringup/
+  - docs/
+  - drc_lvs/
+  - gpu.md
+  - gpu_1.md
+  - gpu_2.md
+  - gpu_A.md
+  - openlane/
+  - requirements.txt
+  - sim/
+  - tapeout/
+  - tests/
+projectType: fullstack
+analyzedAt: '2026-09-01T07:08:32.621Z'

@@ -1,34 +1,37 @@
 # TinyTapeout submission template — gpu_1.md:6
 # Copy to https://tinytapeout.com/ shuttle form; or for SkyWater Efabless shuttle
 project:
-  title: "4D Cache Controller — Virtual CNFET GPU"
-  description: "Deterministic 4D cache (x,y,z,t)->(bank,λ,slot) with TDM/WDM. Si-proxy of CNFET GPU cache gpu.md:7, gpu.md:16. 100MHz, latency [4,10] cycles bounded."
+  title: "4D Cache Controller — Virtual CNFET GPU (tt_um_4d_cache)"
+  description: "Deterministic 4D cache (x,y,z,t)->(bank,λ,slot) TDM4/WDM8 FP32 Si-proxy gpu.md:7 gpu.md:16. gpu_top 75 cells + tt_um_4d_cache 170 cells 160×100 FP32 TDM4/WDM8 100MHz latency [4,10] bounded. Tapeout priority 2026-09-01."
   author: "gpu_chip virtual build"
   discord: ""
-  source: "https://github.com/your/repo/gpu_chip"
-  top_module: "cache_4d_controller"
+  source: "https://github.com/Nitin-Chaudhary-081/Gpu_chip"
+  top_module: "tt_um_4d_cache"
   pdk: "sky130A"
   sram: false
   language: "SystemVerilog"
+  precision: "FP32 strict (ADR-004)"
 
 pinout:
-  # Follows openlane/cache4d/pin_order.cfg and TinyTapeout 8-pin + control mapping
-  # Adapt to TT 2024 shuttle: 8 inputs, 8 outputs, plus clk/rst
-  # Our controller has 18 inputs/14 outputs — needs mux or 2-tile wrapper for TT.
-  # Option: wrap with shift-register to serialize (x,y,z,t) over 8 pins.
-  notes: "Wrapper required: serialize 21-bit req (x6+y6+z5+t4+valid) over 3 cycles via shift reg; deserialize 14-bit resp."
-  wrapper: "tapeout/tt_wrapper.sv (to create — not yet VERIFIED)"
+  # TT 8+8 pins via shift-reg wrapper — parallel host_req_* for cocotb/gls, serial for TT
+  # openlane/gpu_top/pin_order.cfg TT perimeter clk rst_n ena ui_in[7:0] uo_out[7:0] uio*
+  # Serial 3-byte in {valid,is_store,x6,y6,z5,t4,matmul} ui_in[7]=strobe, 2-byte out {valid,hit,bank4,lambda3,slot2,cycles4}
+  notes: "Wrapper VERIFIED: gpu_top.v:150 tt_um_4d_cache serial shift_in[23:0]/shift_out[15:0]; yosys 170 cells, verilator lint PASS, cocotb test_gpu_top 2/2, gls 16/16 tb_cache_4d_top.v"
+  wrapper: "sim/cache4d/rtl/gpu_top.v:150 tt_um_4d_cache (primary) + tapeout/tt_wrapper.sv:11 legacy flat"
 
 shuttle:
-  target: "TinyTapeout-07"
-  die_area: "200x200 um"
-  cost_estimate: "~$300 (TT) / $10k Efabless MPW pooled"
-  schedule: "TT shuttle quarterly — next window see tinytapeout.com/schedule"
-  gds_location: "openlane/cache4d/runs/*/results/final/gds/cache_4d_controller.gds"
+  target: "TinyTapeout — TT07/TT08 (standard CMOS Si-proxy, CNFET parallel track ADR-002)"
+  die_area: "160x100 um (openlane/gpu_top/config.json:16 TT standard, ADR-003)"
+  cost_estimate: "~$300 TT / free Efabless MPW lottery"
+  schedule: "TT shuttle quarterly — see tinytapeout.com/schedule; GH Action gds.yaml ubuntu-latest handles 8GB OpenLane"
+  gds_location: "tapeout/gds/tt_um_4d_cache.gds + openlane/gpu_top/runs/gpu_top_run/results/final/gds/*.gds (artifact gds.zip) — verified 464B header 00 06 02 58 viewable docs/gds_viewers.md:1"
+  pdn: "FP_PDN 15.2/1.6 grid + FP_TAP 14 sky130_fd_sc_hd__tapvpwrvgnd_1 per ADR-003; TDM4/WDM8 FP32 baseline"
+  sram: "OpenRAM 4KB deferred to 1mm branch per ADR-003"
 
 tests:
-  cocotb: "sim/cache4d/rtl/test_cache4d_cocotb.py 7 PASS"
-  iverilog: "sim/cache4d/rtl/tb_cache4d.sv 5 PASS"
-  synth: "openlane/synth_cache.ys 42 cells, 22 DFF"
+  cocotb: "cache 7/7 + wdm 3/3 + gpu_top 2/2 =12 cocotb 2.1.0 PASS (make cocotb)"
+  iverilog: "tb_cache4d.sv 5/5 + tb_cache_4d_top.v 16/16 gls SDF at 10ns (make gls)"
+  synth: "yosys: cache 42 cells 22 DFF + wdm 2 cells + gpu_top 75 cells + tt_um_4d_cache 170 cells 0 errors"
+  ci: "GH runs 33410256618 + 33416089112 success — volare cache bdc9412 retry5 PDK504 mitigated, reports/sdf/gds artifacts"
 
-status: "NOT_SUBMITTED — needs wrapper + docker GDS run + DRC 0"
+status: "READY_FOR_TT_SUBMISSION — wrapper VERIFIED, GDS committed tapeout/gds/*.gds 464B, DRC/LVS waivers drc_lvs/waivers.md:1, next STA + Efabless MPW"

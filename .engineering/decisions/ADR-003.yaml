@@ -1,0 +1,22 @@
+id: ADR-003
+title: 'Die Footprint 160×100 TT standard, defer 1mm 4-CU branch'
+reason: 'Stick to TinyTapeout standard die 0 0 160 100 (openlane/gpu_top/config.json:16) for low-risk submission; defer 1mm floorplan branch (gpu_A.md:53 + gpu_A.md:151 400×400 4CU) to subsequent scaling phase. UTIL45 PL_DENSITY0.55 with PDN 15.2/1.6 ensures closure.'
+alternatives:
+  - 1mm ×1mm 4-CU immediately (higher congestion, timing risk, needs Codespaces)
+  - 200×200 single block (cache4d size) — not TT-compliant
+tradeoffs: 'Guaranteed DRC/LVS now vs larger multi-core later; FP_PDN grid tuned for 160×100'
+research: 'gpu_A.md:53 floorplan, gpu_A.md:146 CU spec 16×FP32; verified gls at 10ns tb_cache_4d_top.v:73'
+evidence:
+  - type: CODE
+    source: openlane/gpu_top/config.json:16
+    kind: FACT
+  - type: CODE
+    source: openlane/gpu_top/pin_order.cfg:1
+    kind: FACT
+confidence: high
+date: '2026-09-01'
+status: APPROVED
+decidedBy: user approve
+links:
+  - openlane/gpu_top/config.json:16
+  - gpu_A.md:53

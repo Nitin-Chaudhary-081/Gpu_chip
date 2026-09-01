@@ -1,0 +1,8 @@
+schemaVersion: 1.0.0
+projectName: gpu_chip
+projectType: fullstack
+description: 'Virtual 4D CNFET GPU — hybrid Python+SystemVerilog+OpenLane GDS, tapeout priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8'
+created: '2026-09-01T07:01:51.545Z'
+updated: '2026-09-01T07:45:00.000Z'
+engineeringStateVersion: 1
+evidencePolicy: evidence_required

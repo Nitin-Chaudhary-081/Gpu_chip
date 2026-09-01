@@ -1,0 +1,21 @@
+id: ADR-005
+title: 'Simulation env: GH Codespaces/Colab Pro for heavy FDTD/CFD'
+reason: '1.9GB local VM OOM on MEEP FDTD meshing + OpenFOAM CFD microfluidics (gpu_A.md:71-79); GH Actions ubuntu-latest already handles OpenLane GDS; approve cloud for phase F/G SPICE/photonics research.'
+alternatives:
+  - Local ngspice only (possible for inverter but not FDTD)
+  - Upgrade VM to 8GB (not available; cost)
+tradeoffs: 'Free cloud burstable vs local instant; MEEP GDSFactory SiEPIC require metal layers >sky130'
+research: 'gpu_A.md:72 MEEP, gpu_A.md:74 GDSFactory, gpu_A.md:78 OpenFOAM; .github/workflows/gds.yaml:24 timeout 60'
+evidence:
+  - type: CODE
+    source: .github/workflows/gds.yaml:24
+    kind: FACT
+  - type: DOCUMENTATION
+    source: gpu_A.md:145
+    kind: FACT
+confidence: high
+date: '2026-09-01'
+status: APPROVED
+decidedBy: user approve simulation env
+links:
+  - gpu_A.md:71-81

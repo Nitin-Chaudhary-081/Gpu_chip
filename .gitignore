@@ -20,13 +20,14 @@ synth_cache4d.json
 synth*.json
 /tmp/synth_*.json
 
-# OpenLane runs (large)
+# OpenLane runs (large) — keep runs/reports ignored, but commit verified tapeout GDS (ADR-006)
 openlane/*/runs/
 openlane/*/reports/
-tapeout/gds/*.gds
 *.gds
 *.lef
 *.def
+# Real verified GDS for TT submission — commit (tapeout priority 2026-09-01)
+!tapeout/gds/*.gds
 
 # OS
 .DS_Store
@@ -37,3 +38,4 @@ tapeout/gds/*.gds
 !openlane/*/config.json
 !openlane/*/pin_order.cfg
 !tapeout/info.yaml
+!.engineering/

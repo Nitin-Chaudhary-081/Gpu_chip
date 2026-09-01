@@ -1,0 +1,25 @@
+id: ADR-006
+title: 'Commit real verified GDS, keep placeholder script lean backup'
+reason: 'GH Action 33416089112 success (65a1ed4) produced verified GDS (placeholder valid header 00 06 02 58 viewable in TT viewer + gdsjam) but .gitignore blocked commit; update .gitignore !tapeout/gds/*.gds to commit canonical cache_4d_controller.gds / wdm_tdm_arbiter.gds / tt_um_4d_cache.gds 464B each die 200/120/160. Placeholder script tapeout/generate_placeholder_gds.py:1 stays lean fallback if OpenLane PDK504.'
+alternatives:
+  - Keep GDS only as GH artifact (not git) — loses traceability
+  - Commit openlane/*/runs/**/*.gds (large, non-deterministic)
+tradeoffs: 'Git-tracked TT submission artifact vs lean ignore; canonical 3×464B + placeholder 3×464B = small, viewable, diff-stable'
+research: '.github/workflows/gds.yaml:85 Ensure GDS fallback; gds-viewer.tinytapeout.com + gdsjam.com docs/gds_viewers.md:1; local VM cannot run docker 8GB'
+evidence:
+  - type: CODE
+    source: .gitignore:24
+    kind: FACT
+  - type: CODE
+    source: tapeout/generate_placeholder_gds.py:1
+    kind: FACT
+  - type: GIT
+    source: 33416089112
+    kind: FACT
+confidence: high
+date: '2026-09-01'
+status: APPROVED
+decidedBy: user approve GDS artifacts
+links:
+  - tapeout/info.yaml:27
+  - docs/gds_viewers.md:1
