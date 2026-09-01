@@ -1,6 +1,6 @@
 # Handoff — gpu_chip
 
-> Generated 2026-09-01T07:40:58.889Z — compact AI-to-AI transfer
+> Generated 2026-09-01T07:44:18.430Z — compact AI-to-AI transfer
 
 ## Project
 - **Name:** gpu_chip
@@ -12,14 +12,14 @@ Not set — define in manifest.yaml
 
 ## Architecture
 - Type: fullstack
-- Languages: {"counts":{"markdown":13,"javascript":1,"python":33,"json":5,"yaml":1},"primary":"python","totalFiles":53}
+- Languages: {"counts":{"markdown":14,"javascript":1,"python":33,"json":5,"yaml":1},"primary":"python","totalFiles":54}
 - Frameworks: python-requirements
-- Graph: 53 files, 108 edges
+- Graph: 54 files, 108 edges
 
 ## Lifecycle (b.md — 5-min transfer)
 - **Model:** Python Service (python-service) [high] — projectType python-project → python-service; hybrid automation hints (Makefile, .github/workflows/gds.yaml:1) map to python-service robustify/operate phases for tapeout; automation-project phases less fit for RTL/SPICE
-- **Current Phase:** Secure (secure) — updated 2026-09-01T07:40:57.545Z
-- **Phases:** setup[COMPLETED] → prototype[COMPLETED] → robustify[COMPLETED] → secure[IN_PROGRESS] → operate[NOT_STARTED]
+- **Current Phase:** Operate (operate) — updated 2026-09-01T07:44:17.770Z
+- **Phases:** setup[COMPLETED] → prototype[COMPLETED] → robustify[COMPLETED] → secure[COMPLETED] → operate[COMPLETED]
 - **Risks:** 1.9GB VM OOM - MEEP FDTD / OpenFOAM CFD cannot run locally; Volare PDK 504 Gateway Timeout blocks OpenLane SCL sky130_fd_sc_hd; 160x100 congestion - real SRAM/MAC may not close timing at 10ns; CNFET/photonics/M3D behavioral only - not fabricatable on sky130A; GDS gitignore blocks TT submission artifacts
 - **Next Actions:** Verify DRC/LVS via GH Action reports.zip + waivers — make drc + openlane reports; Run secrets scan — node bin/engineering.js security + git log --all -p | grep -i key; Input validation — add assert for coord bounds in cache_4d_controller.sv:42-44 + isa_spec.md; Deps audit — pip-audit requirements.txt + npm audit (if any) — resolve SEC-DEPS-001; Draft 2-page arXiv preprint — arch.md + sta_estimate power 17mW vs 115W
 - **Evidence:** .engineering/project.yaml, .engineering/architecture/graph.yaml
@@ -75,16 +75,16 @@ Not set — define in manifest.yaml
 ```
 
 ## Recent Changes
-- 2026-09-01T07:21:51.772Z verification: Verified 3/8 claims
-- 2026-09-01T07:22:31.065Z verification: Verified 3/8 claims
-- 2026-09-01T07:35:33.166Z architecture_changed: Synced state from codebase
-- 2026-09-01T07:35:33.691Z verification: Verified 3/8 claims
-- 2026-09-01T07:37:24.544Z verification: Verified 3/8 claims
-- 2026-09-01T07:37:30.926Z decision: Lifecycle phase secure entered
-- 2026-09-01T07:38:00.550Z security_finding: Security audit: 1 verified, 0 failed
 - 2026-09-01T07:38:37.946Z security_finding: Security audit: 1 verified, 0 failed
 - 2026-09-01T07:40:57.553Z architecture_changed: Synced state from codebase
 - 2026-09-01T07:40:58.240Z verification: Verified 3/8 claims
+- 2026-09-01T07:41:07.052Z decision: Lifecycle phase operate entered
+- 2026-09-01T07:42:18.661Z verification: Verified 3/8 claims
+- 2026-09-01T07:43:56.989Z verification: Verified 3/8 claims
+- 2026-09-01T07:44:04.434Z architecture_changed: Synced state from codebase
+- 2026-09-01T07:44:05.094Z verification: Verified 3/8 claims
+- 2026-09-01T07:44:16.981Z verification: Verified 3/8 claims
+- 2026-09-01T07:44:17.792Z architecture_changed: Synced state from codebase
 
 ## Highest Risks
 None flagged

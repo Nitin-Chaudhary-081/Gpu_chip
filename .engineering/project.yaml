@@ -1,12 +1,12 @@
 languages:
   counts:
-    markdown: 13
+    markdown: 14
     javascript: 1
     python: 33
     json: 5
     yaml: 1
   primary: python
-  totalFiles: 53
+  totalFiles: 54
 frameworks:
   - python-requirements
 packageManagers:
@@ -17,8 +17,9 @@ config:
   - Makefile
 git:
   branch: main
-  commit: 31d601a258c889f30d84d51c1211240729d50b71
+  commit: 3251b61e96b1af0a7363844a8693fd986d15a741
   log:
+    - 3251b61 Secure phase DRC/LVS + secrets + validation + deps audit — advance to operate
     - '31d601a Phase D systolic + STA: 4x4 MAC array + openSTA estimate (gpu_A.md:39,54)'
     - >-
       23d42ea Phase D shader compute: simd_alu 8-lane FP32 + regfile 256x32 + cnfet spice bridge
@@ -32,9 +33,13 @@ git:
     - e99682b Virtual 4D CNFET GPU — Phase A+B+C + Track3 co-sim
   dirty: true
   status:
-    - M .engineering/events/events.jsonl
+    - M .engineering/architecture/graph.yaml
+    - ' M .engineering/context/levels.yaml'
+    - ' M .engineering/events/events.jsonl'
     - ' M .engineering/lifecycle.yaml'
-    - ' M .engineering/security/controls.yaml'
+    - ' M .engineering/manifest.yaml'
+    - ' M .engineering/project.yaml'
+    - '?? docs/paper.md'
 envVars: []
 dependencies: {}
 structure:
@@ -55,4 +60,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T07:40:57.323Z'
+analyzedAt: '2026-09-01T07:44:17.521Z'

@@ -1,6 +1,6 @@
 level0: >-
   Project gpu_chip — Virtual 4D CNFET GPU — hybrid Python+SystemVerilog+OpenLane GDS, tapeout
-  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 53 files, 108
+  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 54 files, 108
   dependencies.
 level1:
   architecture:
@@ -62,6 +62,16 @@ level1:
         ext: .md
         size: 3087
         hash: 575ef3a069f9
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: docs/paper.md
+        type: File
+        label: paper.md
+        path: docs/paper.md
+        ext: .md
+        size: 6161
+        hash: be949fffca01
         language: md
         evidence: CODE
         verification: VERIFIED
@@ -968,7 +978,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T07:40:57.372Z'
+    builtAt: '2026-09-01T07:44:17.573Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1134,7 +1144,7 @@ level1:
           - tapeout/info.yaml:27
           - docs/gds_viewers.md:1
   graphSummary:
-    nodes: 53
+    nodes: 54
     edges: 108
 level2:
   subsystems: []
@@ -1177,6 +1187,9 @@ level4:
     - path: docs/gds_viewers.md
       size: 3087
       hash: 575ef3a069f9
+    - path: docs/paper.md
+      size: 6161
+      hash: be949fffca01
     - path: docs/tapeout.md
       size: 2932
       hash: f6111902c72d
@@ -1216,14 +1229,11 @@ level4:
     - path: scripts/sta_estimate.py
       size: 2409
       hash: ef41c7c760d1
-    - path: sim/__init__.py
-      size: 0
-      hash: e3b0c44298fc
-  note: Showing 20/53 files. Full list in architecture/graph.yaml
+  note: Showing 20/54 files. Full list in architecture/graph.yaml
 level5: >-
   Use `engineering explain --file <path>` for function/class details (requires AST parsing —
   INFERRED until implemented)
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T07:40:57.483Z'
+generatedAt: '2026-09-01T07:44:17.720Z'

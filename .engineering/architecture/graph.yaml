@@ -59,6 +59,16 @@ nodes:
     language: md
     evidence: CODE
     verification: VERIFIED
+  - id: docs/paper.md
+    type: File
+    label: paper.md
+    path: docs/paper.md
+    ext: .md
+    size: 6161
+    hash: be949fffca01
+    language: md
+    evidence: CODE
+    verification: VERIFIED
   - id: docs/tapeout.md
     type: File
     label: tapeout.md
@@ -962,4 +972,4 @@ edges:
     to: sim.thermal.thermal3d
     relationship: depends_on
     evidence: INFERRED
-builtAt: '2026-09-01T07:40:57.372Z'
+builtAt: '2026-09-01T07:44:17.573Z'
