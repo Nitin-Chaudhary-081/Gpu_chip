@@ -1,6 +1,6 @@
 # Handoff — gpu_chip
 
-> Generated 2026-09-01T07:22:09.091Z — compact AI-to-AI transfer
+> Generated 2026-09-01T07:35:34.215Z — compact AI-to-AI transfer
 
 ## Project
 - **Name:** gpu_chip
@@ -12,13 +12,13 @@ Not set — define in manifest.yaml
 
 ## Architecture
 - Type: fullstack
-- Languages: {"counts":{"markdown":13,"javascript":1,"python":30,"json":4,"yaml":1},"primary":"python","totalFiles":49}
+- Languages: {"counts":{"markdown":13,"javascript":1,"python":33,"json":5,"yaml":1},"primary":"python","totalFiles":53}
 - Frameworks: python-requirements
-- Graph: 49 files, 99 edges
+- Graph: 53 files, 108 edges
 
 ## Lifecycle (b.md — 5-min transfer)
 - **Model:** Python Service (python-service) [high] — projectType python-project → python-service; hybrid automation hints (Makefile, .github/workflows/gds.yaml:1) map to python-service robustify/operate phases for tapeout; automation-project phases less fit for RTL/SPICE
-- **Current Phase:** Robustify (robustify) — updated 2026-09-01T07:21:51.125Z
+- **Current Phase:** Robustify (robustify) — updated 2026-09-01T07:35:33.148Z
 - **Phases:** setup[COMPLETED] → prototype[COMPLETED] → robustify[IN_PROGRESS] → secure[NOT_STARTED] → operate[NOT_STARTED]
 - **Risks:** 1.9GB VM OOM - MEEP FDTD / OpenFOAM CFD cannot run locally; Volare PDK 504 Gateway Timeout blocks OpenLane SCL sky130_fd_sc_hd; 160x100 congestion - real SRAM/MAC may not close timing at 10ns; CNFET/photonics/M3D behavioral only - not fabricatable on sky130A; GDS gitignore blocks TT submission artifacts
 - **Next Actions:** Fix .gitignore !tapeout/gds/*.gds, commit real GDS from GH Action artifacts (verify 00 06 02 58 header); Implement sim/shader/simd_alu.sv FP32 8-lane + test_simd_alu_cocotb.py 50+ vectors gpu_A.md:45; Implement register_file.sv 256x32b and connect to SIMD in gpu_top.v:58; Build cnfet_spice_bridge.py in Codespaces - ngspice vs Python Vdd/2 3xIdrive; STA + 2-page arch preprint (arXiv) - gpu_A.md:172 credibility
@@ -75,9 +75,6 @@ Not set — define in manifest.yaml
 ```
 
 ## Recent Changes
-- 2026-09-01T07:08:36.817Z verification: Verified 2/3 claims
-- 2026-09-01T07:08:51.145Z verification: Verified 2/3 claims
-- 2026-09-01T07:09:16.002Z verification: Complexity check: 0 issues
 - 2026-09-01T07:09:18.111Z security_finding: Security audit: 1 verified, 0 failed
 - 2026-09-01T07:09:20.393Z verification: Runtime observed: UNKNOWN
 - 2026-09-01T07:09:52.614Z verification: Verified 3/8 claims
@@ -85,6 +82,9 @@ Not set — define in manifest.yaml
 - 2026-09-01T07:21:50.383Z verification: Verified 3/8 claims
 - 2026-09-01T07:21:51.140Z architecture_changed: Synced state from codebase
 - 2026-09-01T07:21:51.772Z verification: Verified 3/8 claims
+- 2026-09-01T07:22:31.065Z verification: Verified 3/8 claims
+- 2026-09-01T07:35:33.166Z architecture_changed: Synced state from codebase
+- 2026-09-01T07:35:33.691Z verification: Verified 3/8 claims
 
 ## Highest Risks
 None flagged

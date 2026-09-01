@@ -1,6 +1,6 @@
 level0: >-
   Project gpu_chip — Virtual 4D CNFET GPU — hybrid Python+SystemVerilog+OpenLane GDS, tapeout
-  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 49 files, 99
+  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 53 files, 108
   dependencies.
 level1:
   architecture:
@@ -165,6 +165,16 @@ level1:
         language: json
         evidence: CODE
         verification: VERIFIED
+      - id: openlane/systolic/config.json
+        type: File
+        label: config.json
+        path: openlane/systolic/config.json
+        ext: .json
+        size: 583
+        hash: d5eb23842f53
+        language: json
+        evidence: CODE
+        verification: VERIFIED
       - id: openlane/wdm_arbiter/config.json
         type: File
         label: config.json
@@ -173,6 +183,16 @@ level1:
         size: 824
         hash: c6d4745853ee
         language: json
+        evidence: CODE
+        verification: VERIFIED
+      - id: scripts/sta_estimate.py
+        type: File
+        label: sta_estimate.py
+        path: scripts/sta_estimate.py
+        ext: .py
+        size: 2409
+        hash: ef41c7c760d1
+        language: py
         evidence: CODE
         verification: VERIFIED
       - id: sim/__init__.py
@@ -345,6 +365,16 @@ level1:
         language: py
         evidence: CODE
         verification: VERIFIED
+      - id: sim/shader/systolic_golden.py
+        type: File
+        label: systolic_golden.py
+        path: sim/shader/systolic_golden.py
+        ext: .py
+        size: 1626
+        hash: 0fd168492433
+        language: py
+        evidence: CODE
+        verification: VERIFIED
       - id: sim/shader/test_register_file_cocotb.py
         type: File
         label: test_register_file_cocotb.py
@@ -362,6 +392,16 @@ level1:
         ext: .py
         size: 7602
         hash: 5eaa99369fb4
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/shader/test_systolic_cocotb.py
+        type: File
+        label: test_systolic_cocotb.py
+        path: sim/shader/test_systolic_cocotb.py
+        ext: .py
+        size: 3569
+        hash: '708118728506'
         language: py
         evidence: CODE
         verification: VERIFIED
@@ -507,6 +547,10 @@ level1:
       - from: bringup/testboard/logic_analyzer.py
         to: sim.cache4d.cache4d
         relationship: depends_on
+        evidence: INFERRED
+      - from: scripts/sta_estimate.py
+        to: scripts/subprocess
+        relationship: imports
         evidence: INFERRED
       - from: sim/cache4d/cache4d.py
         to: sim/cache4d/hashlib
@@ -720,6 +764,10 @@ level1:
         to: sim/shader/numpy
         relationship: imports
         evidence: INFERRED
+      - from: sim/shader/systolic_golden.py
+        to: sim/shader/numpy
+        relationship: imports
+        evidence: INFERRED
       - from: sim/shader/test_register_file_cocotb.py
         to: sim/shader/random
         relationship: imports
@@ -774,6 +822,34 @@ level1:
         evidence: INFERRED
       - from: sim/shader/test_simd_alu_cocotb.py
         to: sim.shader.simd_alu
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_systolic_cocotb.py
+        to: sim/shader/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_systolic_cocotb.py
+        to: sim/shader/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_systolic_cocotb.py
+        to: sim/shader/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_systolic_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_systolic_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_systolic_cocotb.py
+        to: sim/shader/sys
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_systolic_cocotb.py
+        to: sim.shader.systolic_golden
         relationship: depends_on
         evidence: INFERRED
       - from: sim/thermal/thermal3d.py
@@ -892,7 +968,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T07:21:50.974Z'
+    builtAt: '2026-09-01T07:35:32.973Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1058,8 +1134,8 @@ level1:
           - tapeout/info.yaml:27
           - docs/gds_viewers.md:1
   graphSummary:
-    nodes: 49
-    edges: 99
+    nodes: 53
+    edges: 108
 level2:
   subsystems: []
   structure:
@@ -1075,6 +1151,7 @@ level2:
     - gpu_A.md
     - openlane/
     - requirements.txt
+    - scripts/
     - sim/
     - tapeout/
     - tests/
@@ -1130,23 +1207,23 @@ level4:
     - path: openlane/shader/config.json
       size: 1177
       hash: e8782728f0f7
+    - path: openlane/systolic/config.json
+      size: 583
+      hash: d5eb23842f53
     - path: openlane/wdm_arbiter/config.json
       size: 824
       hash: c6d4745853ee
+    - path: scripts/sta_estimate.py
+      size: 2409
+      hash: ef41c7c760d1
     - path: sim/__init__.py
       size: 0
       hash: e3b0c44298fc
-    - path: sim/cache4d/__init__.py
-      size: 0
-      hash: e3b0c44298fc
-    - path: sim/cache4d/cache4d.py
-      size: 7843
-      hash: 752fdc160c33
-  note: Showing 20/49 files. Full list in architecture/graph.yaml
+  note: Showing 20/53 files. Full list in architecture/graph.yaml
 level5: >-
   Use `engineering explain --file <path>` for function/class details (requires AST parsing —
   INFERRED until implemented)
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T07:21:51.090Z'
+generatedAt: '2026-09-01T07:35:33.095Z'

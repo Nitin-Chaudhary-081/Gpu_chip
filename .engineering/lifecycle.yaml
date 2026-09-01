@@ -103,6 +103,14 @@ phases:
         source: openlane/shader/config.json:1
         kind: FACT
         details: shader macro 200x200 UTIL40 DELAY1 verified
+      - type: CODE
+        source: sim/shader/systolic_4x4.sv:1
+        kind: FACT
+        details: systolic_4x4 5 tests PASS 33243 cells 4-cycle
+      - type: COMMAND
+        source: scripts/sta_estimate.py:1
+        kind: FACT
+        details: STA slack 7.66ns PASS power 17mW vs 115W
   - id: secure
     name: Secure
     description: Input validation, secrets, deps audit - DRC/LVS, STA, secrets scan for tapeout
@@ -392,20 +400,46 @@ openTasks:
         details: Bridge done VALIDATED fallback lean
   - id: TASK-D3-MAC
     title: Replace dummy_systolic_8x8 with real 4x4 MAC PE array, STA 10ns openSTA
-    status: PENDING
+    status: COMPLETED
     priority: MEDIUM
     evidence:
       - type: CODE
-        source: sim/cache4d/rtl/gpu_top.v:22
+        source: sim/shader/systolic_4x4.sv:1
         kind: FACT
+        details: >-
+          4x4 INT8 MAC 16 PEs, 33243 cells yosys, 4-cycle LATENCY, simple drop-in
+          systolic_4x4_simple 24 GEMM
+      - type: TEST
+        source: sim/shader/test_systolic_cocotb.py:1
+        kind: FACT
+        details: 5 tests PASS 1760ns identity/random20/matmul vs numpy int32 exact
+      - type: CODE
+        source: sim/shader/systolic_golden.py:1
+        kind: FACT
+        details: numpy @ golden
+      - type: CODE
+        source: openlane/systolic/config.json:1
+        kind: FACT
+        details: 300x300 UTIL50 macro syst
   - id: TASK-STA
     title: Run OpenSTA / openroad_power on gpu_top GDS - get real Fmax + switching power vs Python 115W
-    status: PENDING
+    status: COMPLETED
     priority: MEDIUM
     evidence:
-      - type: DOCUMENTATION
-        source: gpu_A.md:54
+      - type: CODE
+        source: scripts/sta_estimate.py:1
         kind: FACT
+        details: >-
+          STA 10ns slack 7.66ns PASS tt 170 cells, simd 800, syst 33243, power 17mW proxy vs Python
+          115W docs/arch.md:61
+      - type: COMMAND
+        source: make sta
+        kind: FACT
+        details: /tmp/sta_report.txt tt 170 simd 800 rf 25072 syst 33243
+      - type: CODE
+        source: openlane/gpu_top/config.json:6
+        kind: FACT
+        details: CLOCK 10 UNCERTAINTY 0.25
 nextActions:
   - id: NEXT-gds-commit
     task: >-
@@ -457,7 +491,7 @@ evidenceLinks:
   - type: CODE
     source: .engineering/architecture/graph.yaml
     kind: FACT
-    details: 49 files
+    details: 53 files
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See VERIFICATION_STATES.
 history:
   - timestamp: '2026-09-01T07:01:51.750Z'
@@ -509,5 +543,20 @@ history:
   - timestamp: '2026-09-01T07:21:51.125Z'
     type: sync
     summary: 'Synced: 49 files, type fullstack'
+  - timestamp: '2026-09-01T07:35:27.745291Z'
+    type: file_created
+    summary: >-
+      Phase D completion: systolic_4x4 4x4 GEMM 5/5 + STA 7.66ns slack + power 17mW +
+      openlane/systolic 300x300 + Makefile cocotb 27/27 + sta target
+    files:
+      - sim/shader/systolic_4x4.sv
+      - sim/shader/systolic_golden.py
+      - sim/shader/test_systolic_cocotb.py
+      - openlane/systolic/config.json
+      - scripts/sta_estimate.py
+      - Makefile
+  - timestamp: '2026-09-01T07:35:33.148Z'
+    type: sync
+    summary: 'Synced: 53 files, type fullstack'
 generatedAt: '2026-09-01T07:01:51.750Z'
-updatedAt: '2026-09-01T07:21:51.125Z'
+updatedAt: '2026-09-01T07:35:33.148Z'

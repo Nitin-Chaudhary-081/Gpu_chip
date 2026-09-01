@@ -2,11 +2,11 @@ languages:
   counts:
     markdown: 13
     javascript: 1
-    python: 30
-    json: 4
+    python: 33
+    json: 5
     yaml: 1
   primary: python
-  totalFiles: 49
+  totalFiles: 53
 frameworks:
   - python-requirements
 packageManagers:
@@ -17,8 +17,11 @@ config:
   - Makefile
 git:
   branch: main
-  commit: b11805a8608bc5c0197725ed7febaf7b89db88b5
+  commit: 23d42eab6ba93330ae2ab9a695b4ffb81a57348f
   log:
+    - >-
+      23d42ea Phase D shader compute: simd_alu 8-lane FP32 + regfile 256x32 + cnfet spice bridge
+      (gpu_A.md:94-99)
     - >-
       b11805a Tapeout priority 160x100 FP32 TDM4/WDM8 — engineering lifecycle + real GDS commit
       (ADR-002..006)
@@ -29,13 +32,14 @@ git:
   dirty: true
   status:
     - M .engineering/events/events.jsonl
-    - ' M .engineering/handoff.md'
-    - ' M .engineering/handoff.yaml'
     - ' M .engineering/lifecycle.yaml'
     - ' M Makefile'
-    - '?? openlane/shader/'
-    - '?? sim/cnfet/cnfet_spice_bridge.py'
-    - '?? sim/shader/'
+    - ' M sim/shader/Makefile'
+    - '?? openlane/systolic/'
+    - '?? scripts/'
+    - '?? sim/shader/systolic_4x4.sv'
+    - '?? sim/shader/systolic_golden.py'
+    - '?? sim/shader/test_systolic_cocotb.py'
 envVars: []
 dependencies: {}
 structure:
@@ -51,8 +55,9 @@ structure:
   - gpu_A.md
   - openlane/
   - requirements.txt
+  - scripts/
   - sim/
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T07:21:50.901Z'
+analyzedAt: '2026-09-01T07:35:32.935Z'

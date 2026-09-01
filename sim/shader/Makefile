@@ -28,9 +28,27 @@ rf:
 		TOPLEVEL=$(TOPLEVEL_rf) MODULE=$(MODULE_rf) \
 		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
 
+systolic:
+	rm -rf $(CURDIR)/sim_build
+	$(MAKE) -f $(COCOTB_MAKEFILES)/Makefile.sim \
+		SIM=$(SIM) TOPLEVEL_LANG=$(TOPLEVEL_LANG) \
+		VERILOG_SOURCES="$(CURDIR)/systolic_4x4.sv" \
+		TOPLEVEL=systolic_4x4 MODULE=test_systolic_cocotb \
+		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
+
+# simple drop-in
+systolic-simple:
+	rm -rf $(CURDIR)/sim_build
+	$(MAKE) -f $(COCOTB_MAKEFILES)/Makefile.sim \
+		SIM=$(SIM) TOPLEVEL_LANG=$(TOPLEVEL_LANG) \
+		VERILOG_SOURCES="$(CURDIR)/systolic_4x4.sv" \
+		TOPLEVEL=systolic_4x4_simple MODULE=test_systolic_simple_cocotb \
+		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
+
 lint:
 	verilator --lint-only --top-module simd_alu $(CURDIR)/simd_alu.sv && echo "LINT simd_alu PASS"
-	verilator --lint-only --top-module register_file $(CURDIR)/register_file.sv && echo "LINT rf PASS" || true
+	verilator --lint-only --top-module register_file $(CURDIR)/register_file.sv && echo "LINT rf PASS"
+	verilator --lint-only --top-module systolic_4x4 $(CURDIR)/systolic_4x4.sv && echo "LINT systolic_4x4 PASS"
 
 clean::
 	rm -rf sim_build __pycache__ results.xml .pytest_cache

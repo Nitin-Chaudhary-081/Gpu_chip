@@ -159,6 +159,16 @@ nodes:
     language: json
     evidence: CODE
     verification: VERIFIED
+  - id: openlane/systolic/config.json
+    type: File
+    label: config.json
+    path: openlane/systolic/config.json
+    ext: .json
+    size: 583
+    hash: d5eb23842f53
+    language: json
+    evidence: CODE
+    verification: VERIFIED
   - id: openlane/wdm_arbiter/config.json
     type: File
     label: config.json
@@ -167,6 +177,16 @@ nodes:
     size: 824
     hash: c6d4745853ee
     language: json
+    evidence: CODE
+    verification: VERIFIED
+  - id: scripts/sta_estimate.py
+    type: File
+    label: sta_estimate.py
+    path: scripts/sta_estimate.py
+    ext: .py
+    size: 2409
+    hash: ef41c7c760d1
+    language: py
     evidence: CODE
     verification: VERIFIED
   - id: sim/__init__.py
@@ -339,6 +359,16 @@ nodes:
     language: py
     evidence: CODE
     verification: VERIFIED
+  - id: sim/shader/systolic_golden.py
+    type: File
+    label: systolic_golden.py
+    path: sim/shader/systolic_golden.py
+    ext: .py
+    size: 1626
+    hash: 0fd168492433
+    language: py
+    evidence: CODE
+    verification: VERIFIED
   - id: sim/shader/test_register_file_cocotb.py
     type: File
     label: test_register_file_cocotb.py
@@ -356,6 +386,16 @@ nodes:
     ext: .py
     size: 7602
     hash: 5eaa99369fb4
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/shader/test_systolic_cocotb.py
+    type: File
+    label: test_systolic_cocotb.py
+    path: sim/shader/test_systolic_cocotb.py
+    ext: .py
+    size: 3569
+    hash: '708118728506'
     language: py
     evidence: CODE
     verification: VERIFIED
@@ -501,6 +541,10 @@ edges:
   - from: bringup/testboard/logic_analyzer.py
     to: sim.cache4d.cache4d
     relationship: depends_on
+    evidence: INFERRED
+  - from: scripts/sta_estimate.py
+    to: scripts/subprocess
+    relationship: imports
     evidence: INFERRED
   - from: sim/cache4d/cache4d.py
     to: sim/cache4d/hashlib
@@ -714,6 +758,10 @@ edges:
     to: sim/shader/numpy
     relationship: imports
     evidence: INFERRED
+  - from: sim/shader/systolic_golden.py
+    to: sim/shader/numpy
+    relationship: imports
+    evidence: INFERRED
   - from: sim/shader/test_register_file_cocotb.py
     to: sim/shader/random
     relationship: imports
@@ -768,6 +816,34 @@ edges:
     evidence: INFERRED
   - from: sim/shader/test_simd_alu_cocotb.py
     to: sim.shader.simd_alu
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_systolic_cocotb.py
+    to: sim/shader/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_systolic_cocotb.py
+    to: sim/shader/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_systolic_cocotb.py
+    to: sim/shader/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_systolic_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_systolic_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_systolic_cocotb.py
+    to: sim/shader/sys
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_systolic_cocotb.py
+    to: sim.shader.systolic_golden
     relationship: depends_on
     evidence: INFERRED
   - from: sim/thermal/thermal3d.py
@@ -886,4 +962,4 @@ edges:
     to: sim.thermal.thermal3d
     relationship: depends_on
     evidence: INFERRED
-builtAt: '2026-09-01T07:21:50.974Z'
+builtAt: '2026-09-01T07:35:32.973Z'
