@@ -2,11 +2,11 @@ languages:
   counts:
     markdown: 15
     javascript: 1
-    python: 33
-    json: 6
+    python: 37
+    json: 9
     yaml: 1
   primary: python
-  totalFiles: 56
+  totalFiles: 63
 frameworks:
   - python-requirements
 packageManagers:
@@ -17,8 +17,9 @@ config:
   - Makefile
 git:
   branch: main
-  commit: 0b0183a2087718efb530275e04d81a406422a9bc
+  commit: 364e8f8f5555a3a4130b395e5e28efa0a3569f2a
   log:
+    - '364e8f8 Scaling scaffold 1mm 4-CU: gpu_top_1mm 1000x1000 + docs/scaling.md (ADR-003 defer)'
     - '0b0183a Operate: 2-page preprint docs/paper.md + lifecycle operate COMPLETED (5/5)'
     - 3251b61 Secure phase DRC/LVS + secrets + validation + deps audit — advance to operate
     - '31d601a Phase D systolic + STA: 4x4 MAC array + openSTA estimate (gpu_A.md:39,54)'
@@ -36,8 +37,14 @@ git:
   status:
     - M .engineering/lifecycle.yaml
     - ' M Makefile'
-    - '?? docs/scaling.md'
-    - '?? openlane/gpu_top_1mm/'
+    - ' M sim/shader/Makefile'
+    - '?? openlane/axi/'
+    - '?? openlane/sram_4k/'
+    - '?? openlane/warp/'
+    - '?? sim/axi/'
+    - '?? sim/shader/test_warp_cocotb.py'
+    - '?? sim/shader/warp_scheduler.sv'
+    - '?? sim/sram/'
 envVars: []
 dependencies: {}
 structure:
@@ -58,4 +65,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T07:46:36.415Z'
+analyzedAt: '2026-09-01T07:50:39.506Z'

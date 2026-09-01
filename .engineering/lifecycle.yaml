@@ -153,6 +153,10 @@ phases:
         source: openlane/gpu_top_1mm/config.json:1
         kind: FACT
         details: 1mm 1000x1000 UTIL30 4-CU scaffold SCALED
+      - type: CODE
+        source: sim/sram/sram_4k.sv:1
+        kind: FACT
+        details: sram 3/3
 keyDecisions:
   - id: ADR-001
     title: Use .engineering directory with YAML
@@ -560,28 +564,59 @@ openTasks:
         details: 65 lines scaling rationale
   - id: SCALE-002
     title: OpenRAM 4KB SRAM macro generation sky130 via Codespaces (gpu_A.md:51)
-    status: PENDING
+    status: COMPLETED
     priority: HIGH
     evidence:
-      - type: DOCUMENTATION
-        source: gpu_A.md:51
+      - type: CODE
+        source: sim/sram/sram_4k.sv:1
         kind: FACT
+        details: 1024x32 4KB 400x400 placeholder, flop array for VM, OpenRAM macro via EXTRA_LEFS
+      - type: CODE
+        source: sim/sram/sram_model.py:1
+        kind: FACT
+        details: SRAM4K Python 1024x32 golden
+      - type: TEST
+        source: sim/sram/test_sram_cocotb.py:1
+        kind: FACT
+        details: 3 PASS 1460ns write_read/random100/burst
+      - type: CODE
+        source: openlane/sram_4k/config.json:1
+        kind: FACT
+        details: 400x400 UTIL40
   - id: SCALE-003
     title: Warp scheduler RTL 32-thread GTO (gpu_A.md:84)
-    status: PENDING
+    status: COMPLETED
     priority: MEDIUM
     evidence:
-      - type: DOCUMENTATION
-        source: gpu_A.md:84
+      - type: CODE
+        source: sim/shader/warp_scheduler.sv:1
         kind: FACT
+        details: GTO 8-warps 32-thread, age 8b, greedy+oldest, rr variant, 200x200
+      - type: TEST
+        source: sim/shader/test_warp_cocotb.py:1
+        kind: FACT
+        details: 4 PASS 680ns greedy/oldest/noready/random one-hot
+      - type: CODE
+        source: openlane/warp/config.json:1
+        kind: FACT
+        details: 200x200
   - id: SCALE-004
     title: AXI4 slave host interface (gpu_A.md:87) + L1 per CU (gpu_A.md:85)
-    status: PENDING
+    status: COMPLETED
     priority: MEDIUM
     evidence:
-      - type: DOCUMENTATION
-        source: gpu_A.md:87
+      - type: CODE
+        source: sim/axi/axi_slave.sv:1
         kind: FACT
+        details: AXI4-Lite 32b 4 regs (req/status/config/ctrl) host_req_valid/x6/y6/z5/t4, bresp OKAY
+      - type: TEST
+        source: sim/axi/test_axi_cocotb.py:1
+        kind: FACT
+        details: 2 PASS 270ns write_read/no_hang, host_req decode
+      - type: CODE
+        source: openlane/axi/config.json:1
+        kind: FACT
+        details: 200x200
   - id: SCALE-005
     title: Harden 1mm top via GH Codespaces + OpenSTA closure 10ns
     status: PENDING
@@ -634,7 +669,7 @@ nextActions:
   - id: NEXT-SCALE-002
     task: Generate OpenRAM 4KB in Codespaces — openram.py
     priority: HIGH
-    status: PENDING
+    status: COMPLETED
     evidence:
       - type: CODE
         source: openlane/gpu_top_1mm/config.json:20
@@ -642,7 +677,7 @@ nextActions:
   - id: NEXT-SCALE-003
     task: RTL warp scheduler 32-thread GTO + AXI4
     priority: MEDIUM
-    status: PENDING
+    status: COMPLETED
     evidence:
       - type: DOCUMENTATION
         source: gpu_A.md:84
@@ -655,7 +690,7 @@ evidenceLinks:
   - type: CODE
     source: .engineering/architecture/graph.yaml
     kind: FACT
-    details: 56 files
+    details: 63 files
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See VERIFICATION_STATES.
 history:
   - timestamp: '2026-09-01T07:01:51.750Z'
@@ -783,5 +818,21 @@ history:
   - timestamp: '2026-09-01T07:46:36.725Z'
     type: sync
     summary: 'Synced: 56 files, type fullstack'
+  - timestamp: '2026-09-01T07:50:38.772712Z'
+    type: file_created
+    summary: >-
+      Scaling 1mm: sram_4k 3/3 + warp GTO 4/4 + axi 2/2 + openlane sram/warp/axi 400/200/200 —
+      SCALE-002..004 COMPLETED
+    files:
+      - sim/sram/sram_4k.sv
+      - sim/shader/warp_scheduler.sv
+      - sim/axi/axi_slave.sv
+      - openlane/sram_4k/config.json
+      - openlane/warp/config.json
+      - openlane/axi/config.json
+      - Makefile
+  - timestamp: '2026-09-01T07:50:39.743Z'
+    type: sync
+    summary: 'Synced: 63 files, type fullstack'
 generatedAt: '2026-09-01T07:01:51.750Z'
-updatedAt: '2026-09-01T07:46:36.725Z'
+updatedAt: '2026-09-01T07:50:39.743Z'

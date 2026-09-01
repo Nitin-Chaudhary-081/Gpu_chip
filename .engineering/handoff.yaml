@@ -12,17 +12,17 @@ currentArchitecture:
     counts:
       markdown: 15
       javascript: 1
-      python: 33
-      json: 6
+      python: 37
+      json: 9
       yaml: 1
     primary: python
-    totalFiles: 56
+    totalFiles: 63
   frameworks:
     - python-requirements
   components: []
   graphSummary:
-    nodes: 56
-    edges: 108
+    nodes: 63
+    edges: 121
 lifecycle:
   model:
     id: python-service
@@ -235,8 +235,8 @@ lifecycle:
     - type: CODE
       source: .engineering/architecture/graph.yaml
       kind: FACT
-      details: 56 files
-  updatedAt: '2026-09-01T07:46:36.725Z'
+      details: 63 files
+  updatedAt: '2026-09-01T07:50:39.743Z'
 completedWork:
   - Engineering Intelligence skill exists
 incompleteWork: []
@@ -504,10 +504,6 @@ runtimeState:
   systemVerified: UNKNOWN
   note: CODE EXISTS != CODE WORKS. Run full verification for SYSTEM VERIFIED.
 recentChanges:
-  - timestamp: '2026-09-01T07:40:57.553Z'
-    type: architecture_changed
-    summary: Synced state from codebase
-    files: []
   - timestamp: '2026-09-01T07:40:58.240Z'
     type: verification
     summary: Verified 3/8 claims
@@ -576,11 +572,15 @@ recentChanges:
     type: architecture_changed
     summary: Synced state from codebase
     files: []
+  - timestamp: '2026-09-01T07:50:39.753Z'
+    type: architecture_changed
+    summary: Synced state from codebase
+    files: []
 unverifiedAssumptions:
   - Dependencies have no known vulnerabilities
 conflicts: []
 highestRisks: []
 nextRecommendedActions:
   - Run `engineering verify` to check current state, then `engineering progress`
-generatedAt: '2026-09-01T07:46:45.361Z'
+generatedAt: '2026-09-01T07:50:44.409Z'
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See evidence.yaml

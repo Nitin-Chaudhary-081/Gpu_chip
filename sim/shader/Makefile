@@ -45,10 +45,27 @@ systolic-simple:
 		TOPLEVEL=systolic_4x4_simple MODULE=test_systolic_simple_cocotb \
 		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
 
+warp:
+	rm -rf $(CURDIR)/sim_build
+	$(MAKE) -f $(COCOTB_MAKEFILES)/Makefile.sim \
+		SIM=$(SIM) TOPLEVEL_LANG=$(TOPLEVEL_LANG) \
+		VERILOG_SOURCES="$(CURDIR)/warp_scheduler.sv" \
+		TOPLEVEL=warp_scheduler MODULE=test_warp_cocotb \
+		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
+
+sram:
+	rm -rf $(CURDIR)/sim_build_sram
+	$(MAKE) -f $(COCOTB_MAKEFILES)/Makefile.sim \
+		SIM=$(SIM) TOPLEVEL_LANG=$(TOPLEVEL_LANG) \
+		VERILOG_SOURCES="$(CURDIR)/../sram/sram_4k.sv" \
+		TOPLEVEL=sram_4k MODULE=test_sram_cocotb \
+		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
+
 lint:
 	verilator --lint-only --top-module simd_alu $(CURDIR)/simd_alu.sv && echo "LINT simd_alu PASS"
 	verilator --lint-only --top-module register_file $(CURDIR)/register_file.sv && echo "LINT rf PASS"
 	verilator --lint-only --top-module systolic_4x4 $(CURDIR)/systolic_4x4.sv && echo "LINT systolic_4x4 PASS"
+	verilator --lint-only --top-module warp_scheduler $(CURDIR)/warp_scheduler.sv && echo "LINT warp_scheduler PASS"
 
 clean::
 	rm -rf sim_build __pycache__ results.xml .pytest_cache

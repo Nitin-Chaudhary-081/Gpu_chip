@@ -1,0 +1,12 @@
+{
+  "DESIGN_NAME": "sram_4k",
+  "VERILOG_FILES": ["dir::../../sim/sram/sram_4k.sv"],
+  "CLOCK_PERIOD": 10,
+  "PDK": "sky130A",
+  "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+  "FP_SIZING": "absolute",
+  "DIE_AREA": "0 0 400 400",
+  "FP_CORE_UTIL": 40,
+  "PL_TARGET_DENSITY": 0.45,
+  "SYNTH_STRATEGY": "AREA 3"
+}

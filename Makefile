@@ -1,4 +1,4 @@
-.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper synth-top synth-shader bringup gds drc cocotb cocotb-cosim gls viewer shader sta
+.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper synth-top synth-shader bringup gds drc cocotb cocotb-cosim gls viewer shader sta scaling
 
 PYTHON=python3
 PIP=pip3
@@ -35,6 +35,9 @@ verilate:
 	@verilator --lint-only --top-module simd_alu sim/shader/simd_alu.sv && echo "LINT simd_alu PASS"
 	@verilator --lint-only --top-module register_file sim/shader/register_file.sv && echo "LINT regfile PASS"
 	@verilator --lint-only --top-module systolic_4x4 sim/shader/systolic_4x4.sv && echo "LINT systolic_4x4 PASS"
+	@verilator --lint-only --top-module sram_4k sim/sram/sram_4k.sv && echo "LINT sram_4k PASS"
+	@verilator --lint-only --top-module warp_scheduler sim/shader/warp_scheduler.sv && echo "LINT warp_scheduler PASS"
+	@verilator --lint-only --top-module axi_slave sim/axi/axi_slave.sv && echo "LINT axi_slave PASS"
 	@echo "Running RTL testbench via Icarus..."
 	@iverilog -g2012 -o /tmp/tb.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/tb_cache4d.sv && vvp /tmp/tb.vvp
 
@@ -49,6 +52,12 @@ cocotb:
 	$(MAKE) -C sim/shader rf SIM=icarus
 	@echo "=== Cocotb: systolic_4x4 4x4 GEMM gpu_A.md:39 ==="
 	$(MAKE) -C sim/shader systolic SIM=icarus
+	@echo "=== Cocotb: sram_4k 1024x32 gpu_A.md:51 ==="
+	$(MAKE) -C sim/sram sram SIM=icarus
+	@echo "=== Cocotb: warp_scheduler GTO gpu_A.md:84 ==="
+	$(MAKE) -C sim/shader warp SIM=icarus
+	@echo "=== Cocotb: axi_slave gpu_A.md:87 ==="
+	$(MAKE) -C sim/axi axi SIM=icarus
 
 cocotb-cosim:
 	@echo "=== Track 3 Co-Sim  gpu_2.md:8  compiler_pass -> RTL  gpu.md:17->gpu.md:16 ==="
@@ -90,6 +99,9 @@ synth-shader:
 	@yosys -p "read_verilog -sv sim/shader/register_file.sv; hierarchy -check -top register_file; proc; opt; synth -top register_file; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
 	@yosys -p "read_verilog -sv sim/shader/systolic_4x4.sv; hierarchy -check -top systolic_4x4; proc; opt; synth -top systolic_4x4; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
 	@yosys -p "read_verilog -sv sim/shader/systolic_4x4.sv; hierarchy -check -top systolic_4x4_simple; proc; opt; synth -top systolic_4x4_simple; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@yosys -p "read_verilog -sv sim/sram/sram_4k.sv; hierarchy -check -top sram_4k; proc; opt; synth -top sram_4k; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@yosys -p "read_verilog -sv sim/shader/warp_scheduler.sv; hierarchy -check -top warp_scheduler; proc; opt; synth -top warp_scheduler; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@yosys -p "read_verilog -sv sim/axi/axi_slave.sv; hierarchy -check -top axi_slave; proc; opt; synth -top axi_slave; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
 	@echo "Shader DIE 200x200 simd_alu openlane/shader/config.json — FP32 TDM4/WDM8, systolic 300x300"
 
 shader:
@@ -97,8 +109,19 @@ shader:
 	@$(MAKE) -C sim/shader simd SIM=icarus 2>&1 | grep -E "PASS|FAIL|test_"
 	@$(MAKE) -C sim/shader rf SIM=icarus 2>&1 | grep -E "PASS|FAIL|test_"
 	@$(MAKE) -C sim/shader systolic SIM=icarus 2>&1 | grep -E "PASS|FAIL|test_"
+	@$(MAKE) -C sim/sram sram SIM=icarus 2>&1 | grep -E "PASS|FAIL|test_"
+	@$(MAKE) -C sim/shader warp SIM=icarus 2>&1 | grep -E "PASS|FAIL|test_"
+	@$(MAKE) -C sim/axi axi SIM=icarus 2>&1 | grep -E "PASS|FAIL|test_"
 	@$(PYTHON) sim/cnfet/cnfet_spice_bridge.py --synthetic 2>&1 | tail -20
 	@echo "CNFET bridge synthetic plot /tmp/cnfet_spice_vs_python.png"
+
+scaling:
+	@echo "=== Scaling 1mm 4-CU + SRAM + warp + AXI  gpu_A.md:51,84,87 ==="
+	@$(MAKE) -C sim/sram sram SIM=icarus 2>&1 | grep -E "PASS|FAIL"
+	@$(MAKE) -C sim/shader warp SIM=icarus 2>&1 | grep -E "PASS|FAIL"
+	@$(MAKE) -C sim/axi axi SIM=icarus 2>&1 | grep -E "PASS|FAIL"
+	@echo "OpenLANE macros: shader 200x200 systolic 300x300 sram 400x400 warp 200x200 axi 200x200"
+	@cat docs/scaling.md | head -30
 
 sta:
 	@echo "=== STA estimate  gpu_A.md:54  10ns +0.25 ==="

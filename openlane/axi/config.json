@@ -1,0 +1,10 @@
+{
+  "DESIGN_NAME": "axi_slave",
+  "VERILOG_FILES": ["dir::../../sim/axi/axi_slave.sv"],
+  "CLOCK_PERIOD": 10,
+  "PDK": "sky130A",
+  "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+  "FP_SIZING": "absolute",
+  "DIE_AREA": "0 0 200 200",
+  "FP_CORE_UTIL": 40
+}

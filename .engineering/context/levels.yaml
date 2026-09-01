@@ -1,6 +1,6 @@
 level0: >-
   Project gpu_chip — Virtual 4D CNFET GPU — hybrid Python+SystemVerilog+OpenLane GDS, tapeout
-  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 56 files, 108
+  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 63 files, 121
   dependencies.
 level1:
   architecture:
@@ -155,6 +155,16 @@ level1:
         language: md
         evidence: CODE
         verification: VERIFIED
+      - id: openlane/axi/config.json
+        type: File
+        label: config.json
+        path: openlane/axi/config.json
+        ext: .json
+        size: 250
+        hash: fe5ad40cbd42
+        language: json
+        evidence: CODE
+        verification: VERIFIED
       - id: openlane/cache4d/config.json
         type: File
         label: config.json
@@ -195,6 +205,16 @@ level1:
         language: json
         evidence: CODE
         verification: VERIFIED
+      - id: openlane/sram_4k/config.json
+        type: File
+        label: config.json
+        path: openlane/sram_4k/config.json
+        ext: .json
+        size: 306
+        hash: 303f5e3b688f
+        language: json
+        evidence: CODE
+        verification: VERIFIED
       - id: openlane/systolic/config.json
         type: File
         label: config.json
@@ -202,6 +222,16 @@ level1:
         ext: .json
         size: 583
         hash: d5eb23842f53
+        language: json
+        evidence: CODE
+        verification: VERIFIED
+      - id: openlane/warp/config.json
+        type: File
+        label: config.json
+        path: openlane/warp/config.json
+        ext: .json
+        size: 292
+        hash: c820ec4aa2fe
         language: json
         evidence: CODE
         verification: VERIFIED
@@ -232,6 +262,16 @@ level1:
         ext: .py
         size: 0
         hash: e3b0c44298fc
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/axi/test_axi_cocotb.py
+        type: File
+        label: test_axi_cocotb.py
+        path: sim/axi/test_axi_cocotb.py
+        ext: .py
+        size: 1991
+        hash: f15fc33f5e20
         language: py
         evidence: CODE
         verification: VERIFIED
@@ -435,6 +475,36 @@ level1:
         language: py
         evidence: CODE
         verification: VERIFIED
+      - id: sim/shader/test_warp_cocotb.py
+        type: File
+        label: test_warp_cocotb.py
+        path: sim/shader/test_warp_cocotb.py
+        ext: .py
+        size: 3256
+        hash: 7bac0f8f3369
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/sram/sram_model.py
+        type: File
+        label: sram_model.py
+        path: sim/sram/sram_model.py
+        ext: .py
+        size: 973
+        hash: 9fefaa29a3db
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/sram/test_sram_cocotb.py
+        type: File
+        label: test_sram_cocotb.py
+        path: sim/sram/test_sram_cocotb.py
+        ext: .py
+        size: 2122
+        hash: 0cbb737e51de
+        language: py
+        evidence: CODE
+        verification: VERIFIED
       - id: sim/thermal/__init__.py
         type: File
         label: __init__.py
@@ -581,6 +651,18 @@ level1:
       - from: scripts/sta_estimate.py
         to: scripts/subprocess
         relationship: imports
+        evidence: INFERRED
+      - from: sim/axi/test_axi_cocotb.py
+        to: sim/axi/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/axi/test_axi_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/axi/test_axi_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
         evidence: INFERRED
       - from: sim/cache4d/cache4d.py
         to: sim/cache4d/hashlib
@@ -882,6 +964,46 @@ level1:
         to: sim.shader.systolic_golden
         relationship: depends_on
         evidence: INFERRED
+      - from: sim/shader/test_warp_cocotb.py
+        to: sim/shader/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_warp_cocotb.py
+        to: sim/shader/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_warp_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_warp_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/sram/test_sram_cocotb.py
+        to: sim/sram/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/sram/test_sram_cocotb.py
+        to: sim/sram/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/sram/test_sram_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/sram/test_sram_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/sram/test_sram_cocotb.py
+        to: sim/sram/sys
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/sram/test_sram_cocotb.py
+        to: sim.sram.sram_model
+        relationship: depends_on
+        evidence: INFERRED
       - from: sim/thermal/thermal3d.py
         to: sim/thermal/numpy
         relationship: imports
@@ -998,7 +1120,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T07:46:36.498Z'
+    builtAt: '2026-09-01T07:50:39.551Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1164,8 +1286,8 @@ level1:
           - tapeout/info.yaml:27
           - docs/gds_viewers.md:1
   graphSummary:
-    nodes: 56
-    edges: 108
+    nodes: 63
+    edges: 121
 level2:
   subsystems: []
   structure:
@@ -1234,6 +1356,9 @@ level4:
     - path: openlane/README.md
       size: 2388
       hash: b5438a6a6ab9
+    - path: openlane/axi/config.json
+      size: 250
+      hash: fe5ad40cbd42
     - path: openlane/cache4d/config.json
       size: 1103
       hash: 877ecf9006d7
@@ -1246,14 +1371,11 @@ level4:
     - path: openlane/shader/config.json
       size: 1177
       hash: e8782728f0f7
-    - path: openlane/systolic/config.json
-      size: 583
-      hash: d5eb23842f53
-  note: Showing 20/56 files. Full list in architecture/graph.yaml
+  note: Showing 20/63 files. Full list in architecture/graph.yaml
 level5: >-
   Use `engineering explain --file <path>` for function/class details (requires AST parsing —
   INFERRED until implemented)
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T07:46:36.630Z'
+generatedAt: '2026-09-01T07:50:39.700Z'

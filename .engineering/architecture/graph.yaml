@@ -149,6 +149,16 @@ nodes:
     language: md
     evidence: CODE
     verification: VERIFIED
+  - id: openlane/axi/config.json
+    type: File
+    label: config.json
+    path: openlane/axi/config.json
+    ext: .json
+    size: 250
+    hash: fe5ad40cbd42
+    language: json
+    evidence: CODE
+    verification: VERIFIED
   - id: openlane/cache4d/config.json
     type: File
     label: config.json
@@ -189,6 +199,16 @@ nodes:
     language: json
     evidence: CODE
     verification: VERIFIED
+  - id: openlane/sram_4k/config.json
+    type: File
+    label: config.json
+    path: openlane/sram_4k/config.json
+    ext: .json
+    size: 306
+    hash: 303f5e3b688f
+    language: json
+    evidence: CODE
+    verification: VERIFIED
   - id: openlane/systolic/config.json
     type: File
     label: config.json
@@ -196,6 +216,16 @@ nodes:
     ext: .json
     size: 583
     hash: d5eb23842f53
+    language: json
+    evidence: CODE
+    verification: VERIFIED
+  - id: openlane/warp/config.json
+    type: File
+    label: config.json
+    path: openlane/warp/config.json
+    ext: .json
+    size: 292
+    hash: c820ec4aa2fe
     language: json
     evidence: CODE
     verification: VERIFIED
@@ -226,6 +256,16 @@ nodes:
     ext: .py
     size: 0
     hash: e3b0c44298fc
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/axi/test_axi_cocotb.py
+    type: File
+    label: test_axi_cocotb.py
+    path: sim/axi/test_axi_cocotb.py
+    ext: .py
+    size: 1991
+    hash: f15fc33f5e20
     language: py
     evidence: CODE
     verification: VERIFIED
@@ -429,6 +469,36 @@ nodes:
     language: py
     evidence: CODE
     verification: VERIFIED
+  - id: sim/shader/test_warp_cocotb.py
+    type: File
+    label: test_warp_cocotb.py
+    path: sim/shader/test_warp_cocotb.py
+    ext: .py
+    size: 3256
+    hash: 7bac0f8f3369
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/sram/sram_model.py
+    type: File
+    label: sram_model.py
+    path: sim/sram/sram_model.py
+    ext: .py
+    size: 973
+    hash: 9fefaa29a3db
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/sram/test_sram_cocotb.py
+    type: File
+    label: test_sram_cocotb.py
+    path: sim/sram/test_sram_cocotb.py
+    ext: .py
+    size: 2122
+    hash: 0cbb737e51de
+    language: py
+    evidence: CODE
+    verification: VERIFIED
   - id: sim/thermal/__init__.py
     type: File
     label: __init__.py
@@ -575,6 +645,18 @@ edges:
   - from: scripts/sta_estimate.py
     to: scripts/subprocess
     relationship: imports
+    evidence: INFERRED
+  - from: sim/axi/test_axi_cocotb.py
+    to: sim/axi/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/axi/test_axi_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/axi/test_axi_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
     evidence: INFERRED
   - from: sim/cache4d/cache4d.py
     to: sim/cache4d/hashlib
@@ -876,6 +958,46 @@ edges:
     to: sim.shader.systolic_golden
     relationship: depends_on
     evidence: INFERRED
+  - from: sim/shader/test_warp_cocotb.py
+    to: sim/shader/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_warp_cocotb.py
+    to: sim/shader/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_warp_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_warp_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/sram/test_sram_cocotb.py
+    to: sim/sram/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/sram/test_sram_cocotb.py
+    to: sim/sram/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/sram/test_sram_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/sram/test_sram_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/sram/test_sram_cocotb.py
+    to: sim/sram/sys
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/sram/test_sram_cocotb.py
+    to: sim.sram.sram_model
+    relationship: depends_on
+    evidence: INFERRED
   - from: sim/thermal/thermal3d.py
     to: sim/thermal/numpy
     relationship: imports
@@ -992,4 +1114,4 @@ edges:
     to: sim.thermal.thermal3d
     relationship: depends_on
     evidence: INFERRED
-builtAt: '2026-09-01T07:46:36.498Z'
+builtAt: '2026-09-01T07:50:39.551Z'
