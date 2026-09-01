@@ -69,6 +69,16 @@ nodes:
     language: md
     evidence: CODE
     verification: VERIFIED
+  - id: docs/scaling.md
+    type: File
+    label: scaling.md
+    path: docs/scaling.md
+    ext: .md
+    size: 3612
+    hash: 4d58ba70a985
+    language: md
+    evidence: CODE
+    verification: VERIFIED
   - id: docs/tapeout.md
     type: File
     label: tapeout.md
@@ -156,6 +166,16 @@ nodes:
     ext: .json
     size: 1953
     hash: ac0a8d5f25ba
+    language: json
+    evidence: CODE
+    verification: VERIFIED
+  - id: openlane/gpu_top_1mm/config.json
+    type: File
+    label: config.json
+    path: openlane/gpu_top_1mm/config.json
+    ext: .json
+    size: 2386
+    hash: 3ae2146ae4fd
     language: json
     evidence: CODE
     verification: VERIFIED
@@ -972,4 +992,4 @@ edges:
     to: sim.thermal.thermal3d
     relationship: depends_on
     evidence: INFERRED
-builtAt: '2026-09-01T07:44:17.573Z'
+builtAt: '2026-09-01T07:46:36.498Z'

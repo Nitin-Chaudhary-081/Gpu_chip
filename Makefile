@@ -136,3 +136,12 @@ clean:
 	find . -type d -name __pycache__ -exec rm -rf {} +
 	find . -name "*.pyc" -delete
 	rm -rf .pytest_cache sim_build sim/cache4d/rtl/sim_build /tmp/wave.vcd /tmp/tb.vvp /tmp/tb_vcd.vvp /tmp/synth_*.json
+
+gds-1mm:
+	@echo "=== OpenLane 1mm 4-CU  gpu_A.md:53 ==="
+	@echo "Requires Codespaces 8GB+ (RISK-001) — see docs/scaling.md"
+	@cat openlane/gpu_top_1mm/config.json | grep -E "DESIGN_NAME|DIE_AREA|FP_PDN|MACRO_PLACEMENT"
+	@echo "Run: docker run --rm -v \$$PWD:/project -w /project efabless/openlane:latest --design openlane/gpu_top_1mm --tag gpu_1mm_run"
+
+lint-1mm:
+	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top gpu_top; proc; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -5

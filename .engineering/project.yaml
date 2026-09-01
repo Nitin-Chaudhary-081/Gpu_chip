@@ -1,12 +1,12 @@
 languages:
   counts:
-    markdown: 14
+    markdown: 15
     javascript: 1
     python: 33
-    json: 5
+    json: 6
     yaml: 1
   primary: python
-  totalFiles: 54
+  totalFiles: 56
 frameworks:
   - python-requirements
 packageManagers:
@@ -17,8 +17,9 @@ config:
   - Makefile
 git:
   branch: main
-  commit: 3251b61e96b1af0a7363844a8693fd986d15a741
+  commit: 0b0183a2087718efb530275e04d81a406422a9bc
   log:
+    - '0b0183a Operate: 2-page preprint docs/paper.md + lifecycle operate COMPLETED (5/5)'
     - 3251b61 Secure phase DRC/LVS + secrets + validation + deps audit — advance to operate
     - '31d601a Phase D systolic + STA: 4x4 MAC array + openSTA estimate (gpu_A.md:39,54)'
     - >-
@@ -33,13 +34,10 @@ git:
     - e99682b Virtual 4D CNFET GPU — Phase A+B+C + Track3 co-sim
   dirty: true
   status:
-    - M .engineering/architecture/graph.yaml
-    - ' M .engineering/context/levels.yaml'
-    - ' M .engineering/events/events.jsonl'
-    - ' M .engineering/lifecycle.yaml'
-    - ' M .engineering/manifest.yaml'
-    - ' M .engineering/project.yaml'
-    - '?? docs/paper.md'
+    - M .engineering/lifecycle.yaml
+    - ' M Makefile'
+    - '?? docs/scaling.md'
+    - '?? openlane/gpu_top_1mm/'
 envVars: []
 dependencies: {}
 structure:
@@ -60,4 +58,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T07:44:17.521Z'
+analyzedAt: '2026-09-01T07:46:36.415Z'

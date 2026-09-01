@@ -149,6 +149,10 @@ phases:
         source: make test && make cocotb
         kind: FACT
         details: 33+27 PASS operate ready
+      - type: CODE
+        source: openlane/gpu_top_1mm/config.json:1
+        kind: FACT
+        details: 1mm 1000x1000 UTIL30 4-CU scaffold SCALED
 keyDecisions:
   - id: ADR-001
     title: Use .engineering directory with YAML
@@ -541,6 +545,51 @@ openTasks:
         source: cat docs/paper.md | wc -l
         kind: FACT
         details: 65 lines
+  - id: SCALE-001
+    title: 1mm 4-CU floorplan scaffold openlane/gpu_top_1mm 1000x1000 + macro_placement + docs/scaling.md
+    status: COMPLETED
+    priority: HIGH
+    evidence:
+      - type: CODE
+        source: openlane/gpu_top_1mm/config.json:1
+        kind: FACT
+        details: DIE 0 0 1000 1000 UTIL30 MACRO_PLACEMENT 4-CU
+      - type: CODE
+        source: docs/scaling.md:1
+        kind: FACT
+        details: 65 lines scaling rationale
+  - id: SCALE-002
+    title: OpenRAM 4KB SRAM macro generation sky130 via Codespaces (gpu_A.md:51)
+    status: PENDING
+    priority: HIGH
+    evidence:
+      - type: DOCUMENTATION
+        source: gpu_A.md:51
+        kind: FACT
+  - id: SCALE-003
+    title: Warp scheduler RTL 32-thread GTO (gpu_A.md:84)
+    status: PENDING
+    priority: MEDIUM
+    evidence:
+      - type: DOCUMENTATION
+        source: gpu_A.md:84
+        kind: FACT
+  - id: SCALE-004
+    title: AXI4 slave host interface (gpu_A.md:87) + L1 per CU (gpu_A.md:85)
+    status: PENDING
+    priority: MEDIUM
+    evidence:
+      - type: DOCUMENTATION
+        source: gpu_A.md:87
+        kind: FACT
+  - id: SCALE-005
+    title: Harden 1mm top via GH Codespaces + OpenSTA closure 10ns
+    status: PENDING
+    priority: HIGH
+    evidence:
+      - type: CODE
+        source: openlane/gpu_top_1mm/macro_placement.cfg:1
+        kind: FACT
 nextActions:
   - id: NEXT-SEC-001
     task: Verify DRC/LVS via GH Action reports.zip + waivers — make drc + openlane reports
@@ -582,6 +631,22 @@ nextActions:
       - type: DOCUMENTATION
         source: docs/arch.md:56
         kind: FACT
+  - id: NEXT-SCALE-002
+    task: Generate OpenRAM 4KB in Codespaces — openram.py
+    priority: HIGH
+    status: PENDING
+    evidence:
+      - type: CODE
+        source: openlane/gpu_top_1mm/config.json:20
+        kind: FACT
+  - id: NEXT-SCALE-003
+    task: RTL warp scheduler 32-thread GTO + AXI4
+    priority: MEDIUM
+    status: PENDING
+    evidence:
+      - type: DOCUMENTATION
+        source: gpu_A.md:84
+        kind: FACT
 evidenceLinks:
   - type: CODE
     source: .engineering/project.yaml
@@ -590,7 +655,7 @@ evidenceLinks:
   - type: CODE
     source: .engineering/architecture/graph.yaml
     kind: FACT
-    details: 54 files
+    details: 56 files
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See VERIFICATION_STATES.
 history:
   - timestamp: '2026-09-01T07:01:51.750Z'
@@ -705,5 +770,18 @@ history:
   - timestamp: '2026-09-01T07:44:17.770Z'
     type: sync
     summary: 'Synced: 54 files, type fullstack'
+  - timestamp: '2026-09-01T07:46:35.578576Z'
+    type: file_created
+    summary: >-
+      Scaling scaffold 1mm 1000x1000 4-CU + docs/scaling.md + Makefile gds-1mm/lint-1mm — SCALE-001
+      COMPLETED
+    files:
+      - openlane/gpu_top_1mm/config.json
+      - openlane/gpu_top_1mm/macro_placement.cfg
+      - docs/scaling.md
+      - Makefile
+  - timestamp: '2026-09-01T07:46:36.725Z'
+    type: sync
+    summary: 'Synced: 56 files, type fullstack'
 generatedAt: '2026-09-01T07:01:51.750Z'
-updatedAt: '2026-09-01T07:44:17.770Z'
+updatedAt: '2026-09-01T07:46:36.725Z'

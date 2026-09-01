@@ -10,18 +10,18 @@ currentArchitecture:
   type: fullstack
   languages:
     counts:
-      markdown: 14
+      markdown: 15
       javascript: 1
       python: 33
-      json: 5
+      json: 6
       yaml: 1
     primary: python
-    totalFiles: 54
+    totalFiles: 56
   frameworks:
     - python-requirements
   components: []
   graphSummary:
-    nodes: 54
+    nodes: 56
     edges: 108
 lifecycle:
   model:
@@ -235,8 +235,8 @@ lifecycle:
     - type: CODE
       source: .engineering/architecture/graph.yaml
       kind: FACT
-      details: 54 files
-  updatedAt: '2026-09-01T07:44:17.770Z'
+      details: 56 files
+  updatedAt: '2026-09-01T07:46:36.725Z'
 completedWork:
   - Engineering Intelligence skill exists
 incompleteWork: []
@@ -504,14 +504,6 @@ runtimeState:
   systemVerified: UNKNOWN
   note: CODE EXISTS != CODE WORKS. Run full verification for SYSTEM VERIFIED.
 recentChanges:
-  - timestamp: '2026-09-01T07:38:37.946Z'
-    type: security_finding
-    summary: 'Security audit: 1 verified, 0 failed'
-    metadata:
-      total: 5
-      verified: 1
-      failed: 0
-      unknown: 1
   - timestamp: '2026-09-01T07:40:57.553Z'
     type: architecture_changed
     summary: Synced state from codebase
@@ -580,11 +572,15 @@ recentChanges:
     type: architecture_changed
     summary: Synced state from codebase
     files: []
+  - timestamp: '2026-09-01T07:46:36.763Z'
+    type: architecture_changed
+    summary: Synced state from codebase
+    files: []
 unverifiedAssumptions:
   - Dependencies have no known vulnerabilities
 conflicts: []
 highestRisks: []
 nextRecommendedActions:
   - Run `engineering verify` to check current state, then `engineering progress`
-generatedAt: '2026-09-01T07:44:18.430Z'
+generatedAt: '2026-09-01T07:46:45.361Z'
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See evidence.yaml

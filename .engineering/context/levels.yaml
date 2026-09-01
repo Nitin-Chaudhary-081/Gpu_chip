@@ -1,6 +1,6 @@
 level0: >-
   Project gpu_chip — Virtual 4D CNFET GPU — hybrid Python+SystemVerilog+OpenLane GDS, tapeout
-  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 54 files, 108
+  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 56 files, 108
   dependencies.
 level1:
   architecture:
@@ -72,6 +72,16 @@ level1:
         ext: .md
         size: 6161
         hash: be949fffca01
+        language: md
+        evidence: CODE
+        verification: VERIFIED
+      - id: docs/scaling.md
+        type: File
+        label: scaling.md
+        path: docs/scaling.md
+        ext: .md
+        size: 3612
+        hash: 4d58ba70a985
         language: md
         evidence: CODE
         verification: VERIFIED
@@ -162,6 +172,16 @@ level1:
         ext: .json
         size: 1953
         hash: ac0a8d5f25ba
+        language: json
+        evidence: CODE
+        verification: VERIFIED
+      - id: openlane/gpu_top_1mm/config.json
+        type: File
+        label: config.json
+        path: openlane/gpu_top_1mm/config.json
+        ext: .json
+        size: 2386
+        hash: 3ae2146ae4fd
         language: json
         evidence: CODE
         verification: VERIFIED
@@ -978,7 +998,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T07:44:17.573Z'
+    builtAt: '2026-09-01T07:46:36.498Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1144,7 +1164,7 @@ level1:
           - tapeout/info.yaml:27
           - docs/gds_viewers.md:1
   graphSummary:
-    nodes: 54
+    nodes: 56
     edges: 108
 level2:
   subsystems: []
@@ -1190,6 +1210,9 @@ level4:
     - path: docs/paper.md
       size: 6161
       hash: be949fffca01
+    - path: docs/scaling.md
+      size: 3612
+      hash: 4d58ba70a985
     - path: docs/tapeout.md
       size: 2932
       hash: f6111902c72d
@@ -1217,23 +1240,20 @@ level4:
     - path: openlane/gpu_top/config.json
       size: 1953
       hash: ac0a8d5f25ba
+    - path: openlane/gpu_top_1mm/config.json
+      size: 2386
+      hash: 3ae2146ae4fd
     - path: openlane/shader/config.json
       size: 1177
       hash: e8782728f0f7
     - path: openlane/systolic/config.json
       size: 583
       hash: d5eb23842f53
-    - path: openlane/wdm_arbiter/config.json
-      size: 824
-      hash: c6d4745853ee
-    - path: scripts/sta_estimate.py
-      size: 2409
-      hash: ef41c7c760d1
-  note: Showing 20/54 files. Full list in architecture/graph.yaml
+  note: Showing 20/56 files. Full list in architecture/graph.yaml
 level5: >-
   Use `engineering explain --file <path>` for function/class details (requires AST parsing —
   INFERRED until implemented)
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T07:44:17.720Z'
+generatedAt: '2026-09-01T07:46:36.630Z'
