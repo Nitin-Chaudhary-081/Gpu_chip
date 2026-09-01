@@ -10,8 +10,8 @@ level1:
         label: README.md
         path: README.md
         ext: .md
-        size: 7559
-        hash: 95e49bf6ef85
+        size: 9824
+        hash: 66a8ad5fa29e
         language: md
         evidence: CODE
         verification: VERIFIED
@@ -1120,7 +1120,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T07:59:07.787Z'
+    builtAt: '2026-09-01T10:07:23.993Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1312,8 +1312,8 @@ level3:
 level4:
   files:
     - path: README.md
-      size: 7559
-      hash: 95e49bf6ef85
+      size: 9824
+      hash: 66a8ad5fa29e
     - path: bin/engineering.js
       size: 295
       hash: 9516c59d5ad9
@@ -1378,4 +1378,4 @@ level5: >-
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T07:59:07.930Z'
+generatedAt: '2026-09-01T10:07:24.207Z'
