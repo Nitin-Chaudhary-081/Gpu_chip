@@ -1,6 +1,6 @@
 # Handoff — gpu_chip
 
-> Generated 2026-09-01T10:07:25.018Z — compact AI-to-AI transfer
+> Generated 2026-09-01T19:21:57.238Z — compact AI-to-AI transfer
 
 ## Project
 - **Name:** gpu_chip
@@ -12,13 +12,13 @@ Not set — define in manifest.yaml
 
 ## Architecture
 - Type: fullstack
-- Languages: {"counts":{"markdown":15,"javascript":1,"python":37,"json":9,"yaml":1},"primary":"python","totalFiles":63}
+- Languages: {"counts":{"markdown":16,"javascript":1,"python":37,"json":9,"yaml":1},"primary":"python","totalFiles":64}
 - Frameworks: python-requirements
-- Graph: 63 files, 121 edges
+- Graph: 64 files, 122 edges
 
 ## Lifecycle (b.md — 5-min transfer)
 - **Model:** Python Service (python-service) [high] — projectType python-project → python-service; hybrid automation hints (Makefile, .github/workflows/gds.yaml:1) map to python-service robustify/operate phases for tapeout; automation-project phases less fit for RTL/SPICE
-- **Current Phase:** Operate (operate) — updated 2026-09-01T10:07:24.258Z
+- **Current Phase:** Operate (operate) — updated 2026-09-01T19:20:38.059Z
 - **Phases:** setup[COMPLETED] → prototype[COMPLETED] → robustify[COMPLETED] → secure[COMPLETED] → operate[COMPLETED]
 - **Risks:** 1.9GB VM OOM - MEEP FDTD / OpenFOAM CFD cannot run locally; Volare PDK 504 Gateway Timeout blocks OpenLane SCL sky130_fd_sc_hd; 160x100 congestion - real SRAM/MAC may not close timing at 10ns; CNFET/photonics/M3D behavioral only - not fabricatable on sky130A; GDS gitignore blocks TT submission artifacts
 - **Next Actions:** Verify DRC/LVS via GH Action reports.zip + waivers — make drc + openlane reports; Run secrets scan — node bin/engineering.js security + git log --all -p | grep -i key; Input validation — add assert for coord bounds in cache_4d_controller.sv:42-44 + isa_spec.md; Deps audit — pip-audit requirements.txt + npm audit (if any) — resolve SEC-DEPS-001; Draft 2-page arXiv preprint — arch.md + sta_estimate power 17mW vs 115W
@@ -75,8 +75,6 @@ Not set — define in manifest.yaml
 ```
 
 ## Recent Changes
-- 2026-09-01T07:46:36.763Z architecture_changed: Synced state from codebase
-- 2026-09-01T07:50:39.753Z architecture_changed: Synced state from codebase
 - 2026-09-01T07:52:26.871Z architecture_changed: Synced state from codebase
 - 2026-09-01T07:52:27.508Z verification: Verified 3/8 claims
 - 2026-09-01T07:53:52.058Z architecture_changed: Synced state from codebase
@@ -85,6 +83,8 @@ Not set — define in manifest.yaml
 - 2026-09-01T07:59:08.798Z verification: Verified 3/8 claims
 - 2026-09-01T10:07:19.420Z verification: Verified 3/8 claims
 - 2026-09-01T10:07:24.280Z architecture_changed: Synced state from codebase
+- 2026-09-01T19:19:21.835Z verification: Verified 3/8 claims
+- 2026-09-01T19:20:38.079Z architecture_changed: Synced state from codebase
 
 ## Highest Risks
 None flagged

@@ -139,6 +139,16 @@ nodes:
     language: md
     evidence: CODE
     verification: VERIFIED
+  - id: gpu_arc.md
+    type: File
+    label: gpu_arc.md
+    path: gpu_arc.md
+    ext: .md
+    size: 26662
+    hash: 01af251ace4c
+    language: md
+    evidence: CODE
+    verification: VERIFIED
   - id: openlane/README.md
     type: File
     label: README.md
@@ -225,7 +235,7 @@ nodes:
     path: openlane/warp/config.json
     ext: .json
     size: 292
-    hash: c820ec4aa2fe
+    hash: 99816705bce9
     language: json
     evidence: CODE
     verification: VERIFIED
@@ -324,8 +334,8 @@ nodes:
     label: test_wdm_cocotb.py
     path: sim/cache4d/rtl/test_wdm_cocotb.py
     ext: .py
-    size: 2896
-    hash: 3a51ab12fe1b
+    size: 8487
+    hash: 9286ae66d6b2
     language: py
     evidence: CODE
     verification: VERIFIED
@@ -424,8 +434,8 @@ nodes:
     label: simd_alu.py
     path: sim/shader/simd_alu.py
     ext: .py
-    size: 2242
-    hash: 2b6d99382ada
+    size: 3504
+    hash: d24965b2ab64
     language: py
     evidence: CODE
     verification: VERIFIED
@@ -454,8 +464,8 @@ nodes:
     label: test_simd_alu_cocotb.py
     path: sim/shader/test_simd_alu_cocotb.py
     ext: .py
-    size: 7602
-    hash: 5eaa99369fb4
+    size: 9082
+    hash: a8216289deec
     language: py
     evidence: CODE
     verification: VERIFIED
@@ -764,6 +774,10 @@ edges:
     evidence: INFERRED
   - from: sim/cache4d/rtl/test_wdm_cocotb.py
     to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cache4d/rtl/test_wdm_cocotb.py
+    to: cocotb.types
     relationship: depends_on
     evidence: INFERRED
   - from: sim/cnfet/cnfet_model.py
@@ -1114,4 +1128,4 @@ edges:
     to: sim.thermal.thermal3d
     relationship: depends_on
     evidence: INFERRED
-builtAt: '2026-09-01T10:07:23.993Z'
+builtAt: '2026-09-01T19:20:37.867Z'

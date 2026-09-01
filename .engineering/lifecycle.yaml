@@ -728,7 +728,7 @@ evidenceLinks:
   - type: CODE
     source: .engineering/architecture/graph.yaml
     kind: FACT
-    details: 63 files
+    details: 64 files
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See VERIFICATION_STATES.
 history:
   - timestamp: '2026-09-01T07:01:51.750Z'
@@ -906,5 +906,8 @@ history:
   - timestamp: '2026-09-01T10:07:24.259Z'
     type: sync
     summary: 'Synced: 63 files, type fullstack'
+  - timestamp: '2026-09-01T19:20:38.059Z'
+    type: sync
+    summary: 'Synced: 64 files, type fullstack'
 generatedAt: '2026-09-01T07:01:51.750Z'
-updatedAt: '2026-09-01T10:07:24.258Z'
+updatedAt: '2026-09-01T19:20:38.059Z'

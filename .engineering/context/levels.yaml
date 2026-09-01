@@ -1,6 +1,6 @@
 level0: >-
   Project gpu_chip — Virtual 4D CNFET GPU — hybrid Python+SystemVerilog+OpenLane GDS, tapeout
-  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 63 files, 121
+  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 64 files, 122
   dependencies.
 level1:
   architecture:
@@ -145,6 +145,16 @@ level1:
         language: md
         evidence: CODE
         verification: VERIFIED
+      - id: gpu_arc.md
+        type: File
+        label: gpu_arc.md
+        path: gpu_arc.md
+        ext: .md
+        size: 26662
+        hash: 01af251ace4c
+        language: md
+        evidence: CODE
+        verification: VERIFIED
       - id: openlane/README.md
         type: File
         label: README.md
@@ -231,7 +241,7 @@ level1:
         path: openlane/warp/config.json
         ext: .json
         size: 292
-        hash: c820ec4aa2fe
+        hash: 99816705bce9
         language: json
         evidence: CODE
         verification: VERIFIED
@@ -330,8 +340,8 @@ level1:
         label: test_wdm_cocotb.py
         path: sim/cache4d/rtl/test_wdm_cocotb.py
         ext: .py
-        size: 2896
-        hash: 3a51ab12fe1b
+        size: 8487
+        hash: 9286ae66d6b2
         language: py
         evidence: CODE
         verification: VERIFIED
@@ -430,8 +440,8 @@ level1:
         label: simd_alu.py
         path: sim/shader/simd_alu.py
         ext: .py
-        size: 2242
-        hash: 2b6d99382ada
+        size: 3504
+        hash: d24965b2ab64
         language: py
         evidence: CODE
         verification: VERIFIED
@@ -460,8 +470,8 @@ level1:
         label: test_simd_alu_cocotb.py
         path: sim/shader/test_simd_alu_cocotb.py
         ext: .py
-        size: 7602
-        hash: 5eaa99369fb4
+        size: 9082
+        hash: a8216289deec
         language: py
         evidence: CODE
         verification: VERIFIED
@@ -770,6 +780,10 @@ level1:
         evidence: INFERRED
       - from: sim/cache4d/rtl/test_wdm_cocotb.py
         to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cache4d/rtl/test_wdm_cocotb.py
+        to: cocotb.types
         relationship: depends_on
         evidence: INFERRED
       - from: sim/cnfet/cnfet_model.py
@@ -1120,7 +1134,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T10:07:23.993Z'
+    builtAt: '2026-09-01T19:20:37.867Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1286,8 +1300,8 @@ level1:
           - tapeout/info.yaml:27
           - docs/gds_viewers.md:1
   graphSummary:
-    nodes: 63
-    edges: 121
+    nodes: 64
+    edges: 122
 level2:
   subsystems: []
   structure:
@@ -1301,6 +1315,7 @@ level2:
     - gpu_1.md
     - gpu_2.md
     - gpu_A.md
+    - gpu_arc.md
     - openlane/
     - requirements.txt
     - scripts/
@@ -1353,6 +1368,9 @@ level4:
     - path: gpu_A.md
       size: 16510
       hash: 28fdc09df786
+    - path: gpu_arc.md
+      size: 26662
+      hash: 01af251ace4c
     - path: openlane/README.md
       size: 2388
       hash: b5438a6a6ab9
@@ -1368,14 +1386,11 @@ level4:
     - path: openlane/gpu_top_1mm/config.json
       size: 3091
       hash: e7fb88cc311c
-    - path: openlane/shader/config.json
-      size: 1177
-      hash: e8782728f0f7
-  note: Showing 20/63 files. Full list in architecture/graph.yaml
+  note: Showing 20/64 files. Full list in architecture/graph.yaml
 level5: >-
   Use `engineering explain --file <path>` for function/class details (requires AST parsing —
   INFERRED until implemented)
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T10:07:24.207Z'
+generatedAt: '2026-09-01T19:20:37.998Z'

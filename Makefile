@@ -89,8 +89,8 @@ synth-wrapper:
 
 synth-top:
 	@echo "=== Yosys synth top  gpu_top + tt_um_4d_cache  approve spec: macro hardening, 8x8 BRAM ==="
-	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top gpu_top; proc; opt; synth -top gpu_top; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
-	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top tt_um_4d_cache; proc; opt; synth -top tt_um_4d_cache; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/shader/simd_alu.sv sim/shader/register_file.sv sim/shader/systolic_4x4.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top gpu_top; proc; opt; synth -top gpu_top; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/shader/simd_alu.sv sim/shader/register_file.sv sim/shader/systolic_4x4.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top tt_um_4d_cache; proc; opt; synth -top tt_um_4d_cache; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
 	@echo "Top DIE 160x100 tt_um_4d_cache openlane/gpu_top/config.json:12 — macro hardening cache_4d"
 
 synth-shader:

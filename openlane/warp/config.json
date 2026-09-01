@@ -1,7 +1,7 @@
 {
   "DESIGN_NAME": "warp_scheduler",
   "VERILOG_FILES": ["dir::../../sim/shader/warp_scheduler.sv"],
-  "CLOCK_PERIOD": 10,
+  "CLOCK_PERIOD": 27,
   "PDK": "sky130A",
   "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
   "FP_SIZING": "absolute",

@@ -1,12 +1,12 @@
 languages:
   counts:
-    markdown: 15
+    markdown: 16
     javascript: 1
     python: 37
     json: 9
     yaml: 1
   primary: python
-  totalFiles: 63
+  totalFiles: 64
 frameworks:
   - python-requirements
 packageManagers:
@@ -17,8 +17,9 @@ config:
   - Makefile
 git:
   branch: main
-  commit: f3c381fe3113cf309b4406cb09fbae614e736597
+  commit: 0ae1b5a047c395a74180051573b240137e894e64
   log:
+    - 0ae1b5a Docs README operate 5/5 + scaling 1mm + 36 cocotb (final)
     - f3c381f 1mm RTL gpu_top_1mm 4-CU 246 cells + warp yosys fix + openlane DESIGN_NAME gpu_top_1mm
     - '32318e3 SCALE-005 harden 1mm: 18 gds files + GH 120min 6 macros VERIFIED'
     - '99b8cf7 GH gds: extend for scaling 1mm 6 macros 120min + fallback placeholders (SCALE-005)'
@@ -30,15 +31,21 @@ git:
     - >-
       23d42ea Phase D shader compute: simd_alu 8-lane FP32 + regfile 256x32 + cnfet spice bridge
       (gpu_A.md:94-99)
-    - >-
-      b11805a Tapeout priority 160x100 FP32 TDM4/WDM8 — engineering lifecycle + real GDS commit
-      (ADR-002..006)
   dirty: true
   status:
     - M .engineering/events/events.jsonl
-    - ' M .engineering/handoff.md'
-    - ' M .engineering/handoff.yaml'
-    - ' M README.md'
+    - ' M Makefile'
+    - ' M openlane/warp/config.json'
+    - ' M sim/cache4d/rtl/gpu_top.v'
+    - ' M sim/cache4d/rtl/test_wdm_cocotb.py'
+    - ' M sim/cache4d/rtl/wdm_tdm_arbiter.sv'
+    - ' M sim/shader/simd_alu.py'
+    - ' M sim/shader/simd_alu.sv'
+    - ' M sim/shader/systolic_4x4.sv'
+    - ' M sim/shader/test_simd_alu_cocotb.py'
+    - ' M sim/sram/sram_4k.sv'
+    - '?? gpu_arc.md'
+    - '?? sim/cache4d/rtl/tb_wdm_arbiter.v'
 envVars: []
 dependencies: {}
 structure:
@@ -52,6 +59,7 @@ structure:
   - gpu_1.md
   - gpu_2.md
   - gpu_A.md
+  - gpu_arc.md
   - openlane/
   - requirements.txt
   - scripts/
@@ -59,4 +67,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T10:07:23.950Z'
+analyzedAt: '2026-09-01T19:20:37.818Z'
