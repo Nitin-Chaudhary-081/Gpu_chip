@@ -17,8 +17,9 @@ config:
   - Makefile
 git:
   branch: main
-  commit: a6147b8298b3122a8f24a28c95d525a11fe8ac3a
+  commit: 99b8cf7d0d30a9b685114e36d1da2c304ef350cd
   log:
+    - '99b8cf7 GH gds: extend for scaling 1mm 6 macros 120min + fallback placeholders (SCALE-005)'
     - 'a6147b8 Scaling 1mm: SRAM 4KB + warp GTO + AXI4-Lite host (SCALE-002..004)'
     - '364e8f8 Scaling scaffold 1mm 4-CU: gpu_top_1mm 1000x1000 + docs/scaling.md (ADR-003 defer)'
     - '0b0183a Operate: 2-page preprint docs/paper.md + lifecycle operate COMPLETED (5/5)'
@@ -32,11 +33,21 @@ git:
       (ADR-002..006)
     - 65a1ed4 Top-level wrapper gpu_top + TT macro hardening + SDF post-layout (approve)
     - 36a2150 Fix GDS action PDK 504 + viewer fallback (lean)
-    - '939776b Browser layout viewers — lean: TT GDS Viewer + GDSJam + GH Action GDS render'
   dirty: true
   status:
     - M .engineering/lifecycle.yaml
-    - ' M .github/workflows/gds.yaml'
+    - '?? tapeout/gds/axi_slave.gds'
+    - '?? tapeout/gds/axi_slave.placeholder.gds'
+    - '?? tapeout/gds/gpu_top_1mm.gds'
+    - '?? tapeout/gds/gpu_top_1mm.placeholder.gds'
+    - '?? tapeout/gds/simd_alu.gds'
+    - '?? tapeout/gds/simd_alu.placeholder.gds'
+    - '?? tapeout/gds/sram_4k.gds'
+    - '?? tapeout/gds/sram_4k.placeholder.gds'
+    - '?? tapeout/gds/systolic_4x4.gds'
+    - '?? tapeout/gds/systolic_4x4.placeholder.gds'
+    - '?? tapeout/gds/warp_scheduler.gds'
+    - '?? tapeout/gds/warp_scheduler.placeholder.gds'
 envVars: []
 dependencies: {}
 structure:
@@ -57,4 +68,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T07:52:26.616Z'
+analyzedAt: '2026-09-01T07:53:51.708Z'

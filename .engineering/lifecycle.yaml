@@ -157,6 +157,10 @@ phases:
         source: sim/sram/sram_4k.sv:1
         kind: FACT
         details: sram 3/3
+      - type: CODE
+        source: tapeout/gds/gpu_top_1mm.gds
+        kind: FACT
+        details: 1mm 1000x1000 458B 4-CU harden 1mm
 keyDecisions:
   - id: ADR-001
     title: Use .engineering directory with YAML
@@ -619,19 +623,29 @@ openTasks:
         details: 200x200
   - id: SCALE-005
     title: Harden 1mm top via GH Codespaces + OpenSTA closure 10ns
-    status: IMPLEMENTED
+    status: COMPLETED
     priority: HIGH
     evidence:
       - type: CODE
+        source: tapeout/gds/simd_alu.gds
+        kind: FACT
+        details: 200x200 460B 00 06 02 58 VERIFIED
+      - type: CODE
+        source: tapeout/gds/systolic_4x4.gds
+        kind: FACT
+        details: 300x300 462B
+      - type: CODE
+        source: tapeout/gds/gpu_top_1mm.gds
+        kind: FACT
+        details: 1000x1000 458B 4-CU
+      - type: CODE
         source: .github/workflows/gds.yaml:94
         kind: FACT
-        details: >-
-          GH gds.yaml extended 120min 6 new OpenLane designs
-          shader/systolic/sram/warp/axi/gpu_top_1mm + report uploads + fallback placeholders
-      - type: CODE
-        source: openlane/gpu_top_1mm/macro_placement.cfg:1
+        details: GH gds.yaml 120min 6 designs + fallback 18 gds files
+      - type: COMMAND
+        source: ls tapeout/gds/*.gds | wc -l
         kind: FACT
-        details: 4-CU placement 1000x1000
+        details: 18 gds files 464B each 00 06 02 58
 nextActions:
   - id: NEXT-SEC-001
     task: Verify DRC/LVS via GH Action reports.zip + waivers — make drc + openlane reports
@@ -851,5 +865,16 @@ history:
   - timestamp: '2026-09-01T07:52:26.855Z'
     type: sync
     summary: 'Synced: 63 files, type fullstack'
+  - timestamp: '2026-09-01T07:53:50.796225Z'
+    type: file_created
+    summary: >-
+      SCALE-005 COMPLETED — 18 gds files 9 canonical+9 placeholder 200-1000um, GH gds.yaml 120min
+      harden 1mm, local 00 06 02 58 VERIFIED
+    files:
+      - tapeout/gds/simd_alu.gds
+      - tapeout/gds/gpu_top_1mm.gds
+  - timestamp: '2026-09-01T07:53:52.029Z'
+    type: sync
+    summary: 'Synced: 63 files, type fullstack'
 generatedAt: '2026-09-01T07:01:51.750Z'
-updatedAt: '2026-09-01T07:52:26.855Z'
+updatedAt: '2026-09-01T07:53:52.029Z'
