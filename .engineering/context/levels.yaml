@@ -190,8 +190,8 @@ level1:
         label: config.json
         path: openlane/gpu_top_1mm/config.json
         ext: .json
-        size: 2386
-        hash: 3ae2146ae4fd
+        size: 3091
+        hash: e7fb88cc311c
         language: json
         evidence: CODE
         verification: VERIFIED
@@ -1120,7 +1120,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T07:53:51.791Z'
+    builtAt: '2026-09-01T07:59:07.787Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1366,8 +1366,8 @@ level4:
       size: 1953
       hash: ac0a8d5f25ba
     - path: openlane/gpu_top_1mm/config.json
-      size: 2386
-      hash: 3ae2146ae4fd
+      size: 3091
+      hash: e7fb88cc311c
     - path: openlane/shader/config.json
       size: 1177
       hash: e8782728f0f7
@@ -1378,4 +1378,4 @@ level5: >-
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T07:53:51.956Z'
+generatedAt: '2026-09-01T07:59:07.930Z'

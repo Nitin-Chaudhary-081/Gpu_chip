@@ -161,6 +161,10 @@ phases:
         source: tapeout/gds/gpu_top_1mm.gds
         kind: FACT
         details: 1mm 1000x1000 458B 4-CU harden 1mm
+      - type: CODE
+        source: sim/cache4d/rtl/gpu_top_1mm.sv:1
+        kind: FACT
+        details: gpu_top_1mm 4-CU 4x gpu_top 246 cells yosys 0 err, verilator lint PASS, 1000x1000
 keyDecisions:
   - id: ADR-001
     title: Use .engineering directory with YAML
@@ -646,6 +650,19 @@ openTasks:
         source: ls tapeout/gds/*.gds | wc -l
         kind: FACT
         details: 18 gds files 464B each 00 06 02 58
+  - id: SCALE-006
+    title: gpu_top_1mm RTL 4-CU 1000x1000 yosys 246 cells
+    status: COMPLETED
+    priority: HIGH
+    evidence:
+      - type: CODE
+        source: sim/cache4d/rtl/gpu_top_1mm.sv:1
+        kind: FACT
+        details: 4x gpu_top 246 cells yosys 0 err, lint PASS
+      - type: CODE
+        source: openlane/gpu_top_1mm/config.json:1
+        kind: FACT
+        details: DESIGN_NAME gpu_top_1mm 1000x1000
 nextActions:
   - id: NEXT-SEC-001
     task: Verify DRC/LVS via GH Action reports.zip + waivers — make drc + openlane reports
@@ -876,5 +893,15 @@ history:
   - timestamp: '2026-09-01T07:53:52.029Z'
     type: sync
     summary: 'Synced: 63 files, type fullstack'
+  - timestamp: '2026-09-01T07:59:06.749227Z'
+    type: file_created
+    summary: gpu_top_1mm RTL 4-CU 246 cells yosys + lint PASS + openlane config DESIGN_NAME gpu_top_1mm
+    files:
+      - sim/cache4d/rtl/gpu_top_1mm.sv
+      - openlane/gpu_top_1mm/config.json
+      - Makefile
+  - timestamp: '2026-09-01T07:59:08.000Z'
+    type: sync
+    summary: 'Synced: 63 files, type fullstack'
 generatedAt: '2026-09-01T07:01:51.750Z'
-updatedAt: '2026-09-01T07:53:52.029Z'
+updatedAt: '2026-09-01T07:59:08.000Z'

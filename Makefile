@@ -167,4 +167,5 @@ gds-1mm:
 	@echo "Run: docker run --rm -v \$$PWD:/project -w /project efabless/openlane:latest --design openlane/gpu_top_1mm --tag gpu_1mm_run"
 
 lint-1mm:
-	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top gpu_top; proc; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -5
+	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/shader/simd_alu.sv sim/shader/register_file.sv sim/shader/systolic_4x4.sv sim/sram/sram_4k.sv sim/shader/warp_scheduler.sv sim/axi/axi_slave.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/gpu_top_1mm.sv; hierarchy -check -top gpu_top_1mm; proc; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@verilator --lint-only --top-module gpu_top_1mm sim/cache4d/rtl/gpu_top_1mm.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/sram/sram_4k.sv sim/shader/warp_scheduler.sv sim/axi/axi_slave.sv 2>&1 | tail -5; echo "LINT_1MM_TOP:$?"

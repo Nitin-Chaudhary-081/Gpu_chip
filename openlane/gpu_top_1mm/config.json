@@ -1,12 +1,16 @@
 {
-  "DESIGN_NAME": "gpu_top",
+  "DESIGN_NAME": "gpu_top_1mm",
   "VERILOG_FILES": [
     "dir::../../sim/cache4d/rtl/cache_4d_controller.sv",
     "dir::../../sim/cache4d/rtl/wdm_tdm_arbiter.sv",
     "dir::../../sim/shader/simd_alu.sv",
     "dir::../../sim/shader/register_file.sv",
     "dir::../../sim/shader/systolic_4x4.sv",
-    "dir::../../sim/cache4d/rtl/gpu_top.v"
+    "dir::../../sim/sram/sram_4k.sv",
+    "dir::../../sim/shader/warp_scheduler.sv",
+    "dir::../../sim/axi/axi_slave.sv",
+    "dir::../../sim/cache4d/rtl/gpu_top.v",
+    "dir::../../sim/cache4d/rtl/gpu_top_1mm.sv"
   ],
   "CLOCK_PERIOD": 10,
   "CLOCK_PORT": "clk",
@@ -64,15 +68,24 @@
   "MACRO_PLACEMENT_CFG": "dir::macro_placement.cfg",
   "VERILOG_FILES_BLACKBOX": [
     "dir::../../sim/shader/simd_alu.sv",
-    "dir::../../sim/shader/systolic_4x4.sv"
+    "dir::../../sim/shader/systolic_4x4.sv",
+    "dir::../../sim/sram/sram_4k.sv",
+    "dir::../../sim/shader/warp_scheduler.sv",
+    "dir::../../sim/axi/axi_slave.sv"
   ],
   "EXTRA_LEFS": [
     "dir::../shader/runs/shader_run/results/final/lef/simd_alu.lef",
-    "dir::../systolic/runs/systolic_run/results/final/lef/systolic_4x4.lef"
+    "dir::../systolic/runs/systolic_run/results/final/lef/systolic_4x4.lef",
+    "dir::../sram_4k/runs/sram_run/results/final/lef/sram_4k.lef",
+    "dir::../warp/runs/warp_run/results/final/lef/warp_scheduler.lef",
+    "dir::../axi/runs/axi_run/results/final/lef/axi_slave.lef"
   ],
   "EXTRA_GDS": [
     "dir::../shader/runs/shader_run/results/final/gds/simd_alu.gds",
-    "dir::../systolic/runs/systolic_run/results/final/gds/systolic_4x4.gds"
+    "dir::../systolic/runs/systolic_run/results/final/gds/systolic_4x4.gds",
+    "dir::../sram_4k/runs/sram_run/results/final/gds/sram_4k.gds",
+    "dir::../warp/runs/warp_run/results/final/gds/warp_scheduler.gds",
+    "dir::../axi/runs/axi_run/results/final/gds/axi_slave.gds"
   ],
   "pdk::sky130*": {
     "scl::sky130_fd_sc_hd": {
