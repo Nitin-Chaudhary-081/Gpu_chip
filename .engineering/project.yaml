@@ -17,8 +17,9 @@ config:
   - Makefile
 git:
   branch: main
-  commit: 364e8f8f5555a3a4130b395e5e28efa0a3569f2a
+  commit: a6147b8298b3122a8f24a28c95d525a11fe8ac3a
   log:
+    - 'a6147b8 Scaling 1mm: SRAM 4KB + warp GTO + AXI4-Lite host (SCALE-002..004)'
     - '364e8f8 Scaling scaffold 1mm 4-CU: gpu_top_1mm 1000x1000 + docs/scaling.md (ADR-003 defer)'
     - '0b0183a Operate: 2-page preprint docs/paper.md + lifecycle operate COMPLETED (5/5)'
     - 3251b61 Secure phase DRC/LVS + secrets + validation + deps audit — advance to operate
@@ -32,19 +33,10 @@ git:
     - 65a1ed4 Top-level wrapper gpu_top + TT macro hardening + SDF post-layout (approve)
     - 36a2150 Fix GDS action PDK 504 + viewer fallback (lean)
     - '939776b Browser layout viewers — lean: TT GDS Viewer + GDSJam + GH Action GDS render'
-    - e99682b Virtual 4D CNFET GPU — Phase A+B+C + Track3 co-sim
   dirty: true
   status:
     - M .engineering/lifecycle.yaml
-    - ' M Makefile'
-    - ' M sim/shader/Makefile'
-    - '?? openlane/axi/'
-    - '?? openlane/sram_4k/'
-    - '?? openlane/warp/'
-    - '?? sim/axi/'
-    - '?? sim/shader/test_warp_cocotb.py'
-    - '?? sim/shader/warp_scheduler.sv'
-    - '?? sim/sram/'
+    - ' M .github/workflows/gds.yaml'
 envVars: []
 dependencies: {}
 structure:
@@ -65,4 +57,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T07:50:39.506Z'
+analyzedAt: '2026-09-01T07:52:26.616Z'

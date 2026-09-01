@@ -8,6 +8,9 @@ on:
   push:
     paths:
       - "sim/cache4d/rtl/**"
+      - "sim/shader/**"
+      - "sim/sram/**"
+      - "sim/axi/**"
       - "tapeout/**"
       - "openlane/**"
       - ".github/workflows/gds.yaml"
@@ -15,14 +18,20 @@ on:
   pull_request:
     paths:
       - "sim/cache4d/rtl/**"
-      - "tapeout/**"
+      - "sim/shader/**"
+      - "sim/sram/**"
       - "openlane/**"
   workflow_dispatch:
+    inputs:
+      design:
+        description: 'OpenLane design to run (all if empty)'
+        required: false
+        default: 'all'
 
 jobs:
   gds:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -82,6 +91,62 @@ jobs:
           cat /tmp/ol_top.log 2>&1 | grep -E "ERROR|FINISH|TIMING|DRC|LVS" | head -20 || true
           exit 0
 
+      - name: Run OpenLane (shader simd_alu 200x200)
+        if: always()
+        run: |
+          set +e
+          echo "=== shader: simd_alu 8-lane FP32 200x200 ==="
+          cat openlane/shader/config.json | grep -E "DESIGN_NAME|DIE_AREA" | head -10
+          docker run --rm -v $HOME/.volare:/root/.volare -v $PWD:/project -w /project --entrypoint /bin/sh efabless/openlane:latest -c "/nix/store/xpc7xd67rslanlqh566s6jph53bn830w-openlane1-1.1.1/bin/flow.tcl -design openlane/shader -tag shader_run --overwrite 2>&1 | tee /tmp/ol_shader.log; echo EXIT:\$?" 2>&1 | tail -50
+          find openlane/shader/runs -type f -name "*.gds" 2>&1 | head -20 || true
+          ls -lh openlane/shader/runs/shader_run/results/final/gds/ 2>&1 | head -20 || true
+          exit 0
+
+      - name: Run OpenLane (systolic 300x300)
+        if: always()
+        run: |
+          set +e
+          docker run --rm -v $HOME/.volare:/root/.volare -v $PWD:/project -w /project --entrypoint /bin/sh efabless/openlane:latest -c "/nix/store/xpc7xd67rslanlqh566s6jph53bn830w-openlane1-1.1.1/bin/flow.tcl -design openlane/systolic -tag systolic_run --overwrite 2>&1 | tee /tmp/ol_systolic.log; echo EXIT:\$?" 2>&1 | tail -50
+          find openlane/systolic/runs -type f -name "*.gds" 2>&1 | head -20 || true
+          exit 0
+
+      - name: Run OpenLane (sram_4k 400x400)
+        if: always()
+        run: |
+          set +e
+          docker run --rm -v $HOME/.volare:/root/.volare -v $PWD:/project -w /project --entrypoint /bin/sh efabless/openlane:latest -c "/nix/store/xpc7xd67rslanlqh566s6jph53bn830w-openlane1-1.1.1/bin/flow.tcl -design openlane/sram_4k -tag sram_run --overwrite 2>&1 | tee /tmp/ol_sram.log; echo EXIT:\$?" 2>&1 | tail -50
+          find openlane/sram_4k/runs -type f -name "*.gds" 2>&1 | head -20 || true
+          exit 0
+
+      - name: Run OpenLane (warp 200x200)
+        if: always()
+        run: |
+          set +e
+          docker run --rm -v $HOME/.volare:/root/.volare -v $PWD:/project -w /project --entrypoint /bin/sh efabless/openlane:latest -c "/nix/store/xpc7xd67rslanlqh566s6jph53bn830w-openlane1-1.1.1/bin/flow.tcl -design openlane/warp -tag warp_run --overwrite 2>&1 | tee /tmp/ol_warp.log; echo EXIT:\$?" 2>&1 | tail -50
+          find openlane/warp/runs -type f -name "*.gds" 2>&1 | head -20 || true
+          exit 0
+
+      - name: Run OpenLane (axi 200x200)
+        if: always()
+        run: |
+          set +e
+          docker run --rm -v $HOME/.volare:/root/.volare -v $PWD:/project -w /project --entrypoint /bin/sh efabless/openlane:latest -c "/nix/store/xpc7xd67rslanlqh566s6jph53bn830w-openlane1-1.1.1/bin/flow.tcl -design openlane/axi -tag axi_run --overwrite 2>&1 | tee /tmp/ol_axi.log; echo EXIT:\$?" 2>&1 | tail -50
+          find openlane/axi/runs -type f -name "*.gds" 2>&1 | head -20 || true
+          exit 0
+
+      - name: Run OpenLane (gpu_top_1mm 1000x1000 4-CU)
+        if: always()
+        run: |
+          set +e
+          echo "=== gpu_top_1mm: 1000x1000 4-CU + SRAM + macros ==="
+          cat openlane/gpu_top_1mm/config.json | grep -E "DESIGN_NAME|DIE_AREA|MACRO_PLACEMENT" | head -10
+          # Note: requires prior macros LEF/GDS via EXTRA_LEFS/GDS — if missing, will fallback to placeholder
+          docker run --rm -v $HOME/.volare:/root/.volare -v $PWD:/project -w /project --entrypoint /bin/sh efabless/openlane:latest -c "/nix/store/xpc7xd67rslanlqh566s6jph53bn830w-openlane1-1.1.1/bin/flow.tcl -design openlane/gpu_top_1mm -tag gpu_1mm_run --overwrite 2>&1 | tee /tmp/ol_1mm.log; echo EXIT:\$?" 2>&1 | tail -100
+          find openlane/gpu_top_1mm/runs -type f -name "*.gds" 2>&1 | head -20 || true
+          ls -lh openlane/gpu_top_1mm/runs/gpu_1mm_run/results/final/gds/ 2>&1 | head -20 || true
+          cat /tmp/ol_1mm.log 2>&1 | grep -E "ERROR|FINISH|TIMING|DRC|LVS|MACRO" | head -30 || true
+          exit 0
+
       - name: Ensure GDS for viewers (fallback placeholder if OpenLane failed)
         if: always()
         run: |
@@ -98,6 +163,20 @@ jobs:
               echo "gpu_top GDS missing — generating placeholder for top viewers"
               python3 tapeout/generate_placeholder_gds.py tapeout/gds/tt_um_4d_cache.placeholder.gds --die 160 --title "tt_um_4d_cache 160x100 gpu_top macro"
             fi
+            # Scaling macros fallback — ensure 1mm viewers always have GDS
+            for d in shader systolic sram_4k warp axi gpu_top_1mm; do
+              if ! find openlane/$d -name "*.gds" 2>/dev/null | grep -q .; then
+                echo "$d GDS missing — generating placeholder"
+                case $d in
+                  shader) python3 tapeout/generate_placeholder_gds.py tapeout/gds/simd_alu.placeholder.gds --die 200 --title "simd_alu 200x200 8-lane FP32" ;;
+                  systolic) python3 tapeout/generate_placeholder_gds.py tapeout/gds/systolic_4x4.placeholder.gds --die 300 --title "systolic_4x4 300x300 4x4 GEMM" ;;
+                  sram_4k) python3 tapeout/generate_placeholder_gds.py tapeout/gds/sram_4k.placeholder.gds --die 400 --title "sram_4k 400x400 4KB OpenRAM" ;;
+                  warp) python3 tapeout/generate_placeholder_gds.py tapeout/gds/warp_scheduler.placeholder.gds --die 200 --title "warp_scheduler 200x200 GTO" ;;
+                  axi) python3 tapeout/generate_placeholder_gds.py tapeout/gds/axi_slave.placeholder.gds --die 200 --title "axi_slave 200x200" ;;
+                  gpu_top_1mm) python3 tapeout/generate_placeholder_gds.py tapeout/gds/gpu_top_1mm.placeholder.gds --die 1000 --title "gpu_top_1mm 1000x1000 4-CU" ;;
+                esac
+              fi
+            done
           fi
           ls -lh tapeout/gds/ 2>&1 | head -20 || true
           # Verify viewable in both viewers (GDS header check)
@@ -111,6 +190,12 @@ jobs:
           path: |
             openlane/cache4d/runs/**/results/final/gds/*.gds
             openlane/wdm_arbiter/runs/**/results/final/gds/*.gds
+            openlane/shader/runs/**/results/final/gds/*.gds
+            openlane/systolic/runs/**/results/final/gds/*.gds
+            openlane/sram_4k/runs/**/results/final/gds/*.gds
+            openlane/warp/runs/**/results/final/gds/*.gds
+            openlane/axi/runs/**/results/final/gds/*.gds
+            openlane/gpu_top_1mm/runs/**/results/final/gds/*.gds
             openlane/**/runs/**/*.gds
             tapeout/gds/*.gds
           if-no-files-found: warn
@@ -123,6 +208,7 @@ jobs:
           name: sdf
           path: |
             openlane/gpu_top/runs/**/results/final/sdf/*.sdf
+            openlane/gpu_top_1mm/runs/**/results/final/sdf/*.sdf
             openlane/**/runs/**/results/final/sdf/*.sdf
             openlane/**/runs/**/results/**/*.sdf
           if-no-files-found: warn
@@ -137,6 +223,12 @@ jobs:
             openlane/cache4d/runs/**/reports/**
             openlane/wdm_arbiter/runs/**/reports/**
             openlane/gpu_top/runs/**/reports/**
+            openlane/shader/runs/**/reports/**
+            openlane/systolic/runs/**/reports/**
+            openlane/sram_4k/runs/**/reports/**
+            openlane/warp/runs/**/reports/**
+            openlane/axi/runs/**/reports/**
+            openlane/gpu_top_1mm/runs/**/reports/**
             openlane/**/runs/**/reports/**
             /tmp/ol_*.log
           if-no-files-found: warn

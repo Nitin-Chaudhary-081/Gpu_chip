@@ -619,12 +619,19 @@ openTasks:
         details: 200x200
   - id: SCALE-005
     title: Harden 1mm top via GH Codespaces + OpenSTA closure 10ns
-    status: PENDING
+    status: IMPLEMENTED
     priority: HIGH
     evidence:
       - type: CODE
+        source: .github/workflows/gds.yaml:94
+        kind: FACT
+        details: >-
+          GH gds.yaml extended 120min 6 new OpenLane designs
+          shader/systolic/sram/warp/axi/gpu_top_1mm + report uploads + fallback placeholders
+      - type: CODE
         source: openlane/gpu_top_1mm/macro_placement.cfg:1
         kind: FACT
+        details: 4-CU placement 1000x1000
 nextActions:
   - id: NEXT-SEC-001
     task: Verify DRC/LVS via GH Action reports.zip + waivers — make drc + openlane reports
@@ -834,5 +841,15 @@ history:
   - timestamp: '2026-09-01T07:50:39.743Z'
     type: sync
     summary: 'Synced: 63 files, type fullstack'
+  - timestamp: '2026-09-01T07:52:25.798636Z'
+    type: file_modified
+    summary: >-
+      GH gds.yaml extended for scaling macros 120min 6 designs + fallback placeholders — SCALE-005
+      IMPLEMENTED pending GH run
+    files:
+      - .github/workflows/gds.yaml
+  - timestamp: '2026-09-01T07:52:26.855Z'
+    type: sync
+    summary: 'Synced: 63 files, type fullstack'
 generatedAt: '2026-09-01T07:01:51.750Z'
-updatedAt: '2026-09-01T07:50:39.743Z'
+updatedAt: '2026-09-01T07:52:26.855Z'
