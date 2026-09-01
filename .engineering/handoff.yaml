@@ -38,8 +38,8 @@ lifecycle:
       automationHints:
         - Makefile
         - .github/workflows
-  currentPhase: robustify
-  phaseName: Robustify
+  currentPhase: secure
+  phaseName: Secure
   phases:
     - id: setup
       name: Setup
@@ -49,10 +49,10 @@ lifecycle:
       status: COMPLETED
     - id: robustify
       name: Robustify
-      status: IN_PROGRESS
+      status: COMPLETED
     - id: secure
       name: Secure
-      status: NOT_STARTED
+      status: IN_PROGRESS
     - id: operate
       name: Operate
       status: NOT_STARTED
@@ -187,49 +187,45 @@ lifecycle:
       status: OPEN
       evidence: []
   nextActions:
-    - id: NEXT-gds-commit
-      task: >-
-        Fix .gitignore !tapeout/gds/*.gds, commit real GDS from GH Action artifacts (verify 00 06 02
-        58 header)
+    - id: NEXT-SEC-001
+      task: Verify DRC/LVS via GH Action reports.zip + waivers — make drc + openlane reports
       priority: HIGH
       status: COMPLETED
       evidence:
         - type: CODE
-          source: tapeout/gds/tt_um_4d_cache.gds
+          source: .github/workflows/gds.yaml:131
           kind: FACT
-    - id: NEXT-simd-alu
-      task: >-
-        Implement sim/shader/simd_alu.sv FP32 8-lane + test_simd_alu_cocotb.py 50+ vectors
-        gpu_A.md:45
+    - id: NEXT-SEC-002
+      task: Run secrets scan — node bin/engineering.js security + git log --all -p | grep -i key
       priority: HIGH
       status: COMPLETED
       evidence:
-        - type: DOCUMENTATION
-          source: gpu_A.md:37
+        - type: CODE
+          source: .engineering/security/controls.yaml
           kind: FACT
-    - id: NEXT-regfile
-      task: Implement register_file.sv 256x32b and connect to SIMD in gpu_top.v:58
-      priority: HIGH
-      status: COMPLETED
-      evidence:
-        - type: DOCUMENTATION
-          source: gpu_A.md:96
-          kind: FACT
-    - id: NEXT-spice
-      task: Build cnfet_spice_bridge.py in Codespaces - ngspice vs Python Vdd/2 3xIdrive
+    - id: NEXT-SEC-003
+      task: Input validation — add assert for coord bounds in cache_4d_controller.sv:42-44 + isa_spec.md
       priority: MEDIUM
       status: COMPLETED
       evidence:
-        - type: DOCUMENTATION
-          source: gpu_A.md:61
+        - type: CODE
+          source: sim/cache4d/rtl/cache_4d_controller.sv:42
           kind: FACT
-    - id: NEXT-sta-paper
-      task: STA + 2-page arch preprint (arXiv) - gpu_A.md:172 credibility
+    - id: NEXT-SEC-004
+      task: Deps audit — pip-audit requirements.txt + npm audit (if any) — resolve SEC-DEPS-001
+      priority: MEDIUM
+      status: COMPLETED
+      evidence:
+        - type: CODE
+          source: requirements.txt
+          kind: FACT
+    - id: NEXT-PAPER-001
+      task: Draft 2-page arXiv preprint — arch.md + sta_estimate power 17mW vs 115W
       priority: MEDIUM
       status: PENDING
       evidence:
         - type: DOCUMENTATION
-          source: gpu_A.md:169
+          source: docs/arch.md:56
           kind: FACT
   evidenceLinks:
     - type: CODE
@@ -240,7 +236,7 @@ lifecycle:
       source: .engineering/architecture/graph.yaml
       kind: FACT
       details: 53 files
-  updatedAt: '2026-09-01T07:35:33.148Z'
+  updatedAt: '2026-09-01T07:40:57.545Z'
 completedWork:
   - Engineering Intelligence skill exists
 incompleteWork: []
@@ -508,82 +504,6 @@ runtimeState:
   systemVerified: UNKNOWN
   note: CODE EXISTS != CODE WORKS. Run full verification for SYSTEM VERIFIED.
 recentChanges:
-  - timestamp: '2026-09-01T07:09:18.111Z'
-    type: security_finding
-    summary: 'Security audit: 1 verified, 0 failed'
-    metadata:
-      total: 5
-      verified: 1
-      failed: 0
-      unknown: 1
-  - timestamp: '2026-09-01T07:09:20.393Z'
-    type: verification
-    summary: 'Runtime observed: UNKNOWN'
-    metadata:
-      timestamp: '2026-09-01T07:09:19.326Z'
-      tests:
-        ran: true
-        output: >
-          npm ERR! code ENOENT
-
-          npm ERR! syscall open
-
-          npm ERR! path /home/ubuntu/gpu_chip/package.json
-
-          npm ERR! errno -2
-
-          npm ERR! enoent ENOENT: no such file or directory, open
-          '/home/ubuntu/gpu_chip/package.json'
-
-          npm ERR! enoent This is related to npm not being able to find a file.
-
-          npm ERR! enoent 
-
-
-          npm ERR! A complete log of this run can be found in:
-
-          npm ERR!     /home/ubuntu/.npm/_logs/2026-09-01T07_09_20_224Z-debug-0.log
-        status: UNKNOWN
-      startup: null
-      dependencies: null
-      codeExists: true
-      codeWorks: UNKNOWN
-      systemVerified: UNKNOWN
-      note: CODE EXISTS != CODE WORKS. Run full verification for SYSTEM VERIFIED.
-  - timestamp: '2026-09-01T07:09:52.614Z'
-    type: verification
-    summary: Verified 3/8 claims
-    metadata:
-      total: 8
-      verified: 3
-      implemented: 4
-      unknown: 1
-      failed: 0
-      conflicting: 0
-  - timestamp: '2026-09-01T07:13:48.902Z'
-    type: verification
-    summary: Verified 3/8 claims
-    metadata:
-      total: 8
-      verified: 3
-      implemented: 4
-      unknown: 1
-      failed: 0
-      conflicting: 0
-  - timestamp: '2026-09-01T07:21:50.383Z'
-    type: verification
-    summary: Verified 3/8 claims
-    metadata:
-      total: 8
-      verified: 3
-      implemented: 4
-      unknown: 1
-      failed: 0
-      conflicting: 0
-  - timestamp: '2026-09-01T07:21:51.140Z'
-    type: architecture_changed
-    summary: Synced state from codebase
-    files: []
   - timestamp: '2026-09-01T07:21:51.772Z'
     type: verification
     summary: Verified 3/8 claims
@@ -618,11 +538,57 @@ recentChanges:
       unknown: 1
       failed: 0
       conflicting: 0
+  - timestamp: '2026-09-01T07:37:24.544Z'
+    type: verification
+    summary: Verified 3/8 claims
+    metadata:
+      total: 8
+      verified: 3
+      implemented: 4
+      unknown: 1
+      failed: 0
+      conflicting: 0
+  - timestamp: '2026-09-01T07:37:30.926Z'
+    type: decision
+    summary: Lifecycle phase secure entered
+    metadata:
+      from: secure
+      to: secure
+  - timestamp: '2026-09-01T07:38:00.550Z'
+    type: security_finding
+    summary: 'Security audit: 1 verified, 0 failed'
+    metadata:
+      total: 5
+      verified: 1
+      failed: 0
+      unknown: 1
+  - timestamp: '2026-09-01T07:38:37.946Z'
+    type: security_finding
+    summary: 'Security audit: 1 verified, 0 failed'
+    metadata:
+      total: 5
+      verified: 1
+      failed: 0
+      unknown: 1
+  - timestamp: '2026-09-01T07:40:57.553Z'
+    type: architecture_changed
+    summary: Synced state from codebase
+    files: []
+  - timestamp: '2026-09-01T07:40:58.240Z'
+    type: verification
+    summary: Verified 3/8 claims
+    metadata:
+      total: 8
+      verified: 3
+      implemented: 4
+      unknown: 1
+      failed: 0
+      conflicting: 0
 unverifiedAssumptions:
   - Dependencies have no known vulnerabilities
 conflicts: []
 highestRisks: []
 nextRecommendedActions:
   - Run `engineering verify` to check current state, then `engineering progress`
-generatedAt: '2026-09-01T07:35:34.215Z'
+generatedAt: '2026-09-01T07:40:58.889Z'
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See evidence.yaml

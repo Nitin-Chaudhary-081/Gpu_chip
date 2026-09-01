@@ -17,8 +17,9 @@ config:
   - Makefile
 git:
   branch: main
-  commit: 23d42eab6ba93330ae2ab9a695b4ffb81a57348f
+  commit: 31d601a258c889f30d84d51c1211240729d50b71
   log:
+    - '31d601a Phase D systolic + STA: 4x4 MAC array + openSTA estimate (gpu_A.md:39,54)'
     - >-
       23d42ea Phase D shader compute: simd_alu 8-lane FP32 + regfile 256x32 + cnfet spice bridge
       (gpu_A.md:94-99)
@@ -33,13 +34,7 @@ git:
   status:
     - M .engineering/events/events.jsonl
     - ' M .engineering/lifecycle.yaml'
-    - ' M Makefile'
-    - ' M sim/shader/Makefile'
-    - '?? openlane/systolic/'
-    - '?? scripts/'
-    - '?? sim/shader/systolic_4x4.sv'
-    - '?? sim/shader/systolic_golden.py'
-    - '?? sim/shader/test_systolic_cocotb.py'
+    - ' M .engineering/security/controls.yaml'
 envVars: []
 dependencies: {}
 structure:
@@ -60,4 +55,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T07:35:32.935Z'
+analyzedAt: '2026-09-01T07:40:57.323Z'

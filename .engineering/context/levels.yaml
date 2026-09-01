@@ -968,7 +968,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T07:35:32.973Z'
+    builtAt: '2026-09-01T07:40:57.372Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1226,4 +1226,4 @@ level5: >-
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T07:35:33.095Z'
+generatedAt: '2026-09-01T07:40:57.483Z'
