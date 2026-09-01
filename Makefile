@@ -1,4 +1,4 @@
-.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper synth-top bringup gds drc cocotb-cosim gls viewer
+.PHONY: install test sim matmul thermal cnfet cache clean verilate lint synth synth-wrapper synth-top synth-shader bringup gds drc cocotb cocotb-cosim gls viewer shader
 
 PYTHON=python3
 PIP=pip3
@@ -32,6 +32,8 @@ verilate:
 	@echo "Lint 4D controller..."
 	@verilator --lint-only --top-module cache_4d_controller sim/cache4d/rtl/cache_4d_controller.sv && echo "LINT cache4d PASS"
 	@verilator --lint-only --top-module wdm_tdm_arbiter sim/cache4d/rtl/wdm_tdm_arbiter.sv && echo "LINT wdm PASS"
+	@verilator --lint-only --top-module simd_alu sim/shader/simd_alu.sv && echo "LINT simd_alu PASS"
+	@verilator --lint-only --top-module register_file sim/shader/register_file.sv && echo "LINT regfile PASS"
 	@echo "Running RTL testbench via Icarus..."
 	@iverilog -g2012 -o /tmp/tb.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/tb_cache4d.sv && vvp /tmp/tb.vvp
 
@@ -40,6 +42,10 @@ cocotb:
 	$(MAKE) -C sim/cache4d/rtl cache SIM=icarus
 	@echo "=== Cocotb: wdm_tdm_arbiter gpu.md:6 ==="
 	$(MAKE) -C sim/cache4d/rtl wdm SIM=icarus
+	@echo "=== Cocotb: simd_alu 8-lane FP32 gpu_A.md:94 ==="
+	$(MAKE) -C sim/shader simd SIM=icarus
+	@echo "=== Cocotb: register_file 256x32 gpu_A.md:96 ==="
+	$(MAKE) -C sim/shader rf SIM=icarus
 
 cocotb-cosim:
 	@echo "=== Track 3 Co-Sim  gpu_2.md:8  compiler_pass -> RTL  gpu.md:17->gpu.md:16 ==="
@@ -74,6 +80,19 @@ synth-top:
 	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top gpu_top; proc; opt; synth -top gpu_top; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
 	@yosys -p "read_verilog -sv sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v; hierarchy -check -top tt_um_4d_cache; proc; opt; synth -top tt_um_4d_cache; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
 	@echo "Top DIE 160x100 tt_um_4d_cache openlane/gpu_top/config.json:12 — macro hardening cache_4d"
+
+synth-shader:
+	@echo "=== Yosys synth shader  simd_alu + regfile  gpu_A.md:37,49 ==="
+	@yosys -p "read_verilog -sv sim/shader/simd_alu.sv; hierarchy -check -top simd_alu; proc; opt; synth -top simd_alu; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@yosys -p "read_verilog -sv sim/shader/register_file.sv; hierarchy -check -top register_file; proc; opt; synth -top register_file; stat" 2>&1 | grep -E "Number of cells|ERROR" | tail -10
+	@echo "Shader DIE 200x200 simd_alu openlane/shader/config.json — FP32 TDM4/WDM8"
+
+shader:
+	@echo "=== Shader Phase D: simd_alu + regfile + cnfet bridge gpu_A.md:94-98 ==="
+	@$(MAKE) -C sim/shader simd SIM=icarus 2>&1 | grep -E "PASS|FAIL|test_"
+	@$(MAKE) -C sim/shader rf SIM=icarus 2>&1 | grep -E "PASS|FAIL|test_"
+	@$(PYTHON) sim/cnfet/cnfet_spice_bridge.py --synthetic 2>&1 | tail -20
+	@echo "CNFET bridge synthetic plot /tmp/cnfet_spice_vs_python.png"
 
 bringup:
 	@echo "=== Bring-up check  gpu_1.md:8  (logic_analyzer.py mocked) ==="

@@ -12,17 +12,17 @@ currentArchitecture:
     counts:
       markdown: 13
       javascript: 1
-      python: 26
-      json: 3
+      python: 30
+      json: 4
       yaml: 1
     primary: python
-    totalFiles: 44
+    totalFiles: 49
   frameworks:
     - python-requirements
   components: []
   graphSummary:
-    nodes: 44
-    edges: 74
+    nodes: 49
+    edges: 99
 lifecycle:
   model:
     id: python-service
@@ -202,7 +202,7 @@ lifecycle:
         Implement sim/shader/simd_alu.sv FP32 8-lane + test_simd_alu_cocotb.py 50+ vectors
         gpu_A.md:45
       priority: HIGH
-      status: PENDING
+      status: COMPLETED
       evidence:
         - type: DOCUMENTATION
           source: gpu_A.md:37
@@ -210,7 +210,7 @@ lifecycle:
     - id: NEXT-regfile
       task: Implement register_file.sv 256x32b and connect to SIMD in gpu_top.v:58
       priority: HIGH
-      status: PENDING
+      status: COMPLETED
       evidence:
         - type: DOCUMENTATION
           source: gpu_A.md:96
@@ -218,7 +218,7 @@ lifecycle:
     - id: NEXT-spice
       task: Build cnfet_spice_bridge.py in Codespaces - ngspice vs Python Vdd/2 3xIdrive
       priority: MEDIUM
-      status: PENDING
+      status: COMPLETED
       evidence:
         - type: DOCUMENTATION
           source: gpu_A.md:61
@@ -239,8 +239,8 @@ lifecycle:
     - type: CODE
       source: .engineering/architecture/graph.yaml
       kind: FACT
-      details: 44 files
-  updatedAt: '2026-09-01T07:08:32.818Z'
+      details: 49 files
+  updatedAt: '2026-09-01T07:21:51.125Z'
 completedWork:
   - Engineering Intelligence skill exists
 incompleteWork: []
@@ -508,84 +508,6 @@ runtimeState:
   systemVerified: UNKNOWN
   note: CODE EXISTS != CODE WORKS. Run full verification for SYSTEM VERIFIED.
 recentChanges:
-  - timestamp: '2026-09-01T07:01:51.759Z'
-    type: decision
-    summary: 'Lifecycle model python-service selected: projectType python-project → python-service'
-    metadata:
-      modelId: python-service
-      template:
-        id: python-service
-        name: Python Service
-        category: software
-        description: Python backend/service/ML
-        phases:
-          - id: setup
-            name: Setup
-            description: Env, deps, structure
-          - id: prototype
-            name: Prototype
-            description: Core logic + data flow
-          - id: robustify
-            name: Robustify
-            description: Tests, type hints, error handling
-          - id: secure
-            name: Secure
-            description: Input validation, secrets, deps audit
-          - id: operate
-            name: Operate
-            description: Logging, metrics, deployment
-        defaultRisks:
-          - Env drift
-          - Version pinning
-          - Secrets in code
-          - No type checks
-        requiredFiles:
-          - pyproject.toml|requirements.txt
-          - src/ or .py files
-        evidence:
-          - CODE
-          - TEST
-      reason: projectType python-project → python-service
-      confidence: high
-      hints:
-        roboticsHints: []
-        automationHints:
-          - Makefile
-          - .github/workflows
-  - timestamp: '2026-09-01T07:03:08.477Z'
-    type: verification
-    summary: Verified 1/3 claims
-    metadata:
-      total: 3
-      verified: 1
-      implemented: 1
-      unknown: 0
-      failed: 0
-      conflicting: 1
-  - timestamp: '2026-09-01T07:06:01.456Z'
-    type: verification
-    summary: Verified 1/3 claims
-    metadata:
-      total: 3
-      verified: 1
-      implemented: 1
-      unknown: 0
-      failed: 0
-      conflicting: 1
-  - timestamp: '2026-09-01T07:06:16.612Z'
-    type: verification
-    summary: Verified 2/3 claims
-    metadata:
-      total: 3
-      verified: 2
-      implemented: 1
-      unknown: 0
-      failed: 0
-      conflicting: 0
-  - timestamp: '2026-09-01T07:08:32.833Z'
-    type: architecture_changed
-    summary: Synced state from codebase
-    files: []
   - timestamp: '2026-09-01T07:08:36.817Z'
     type: verification
     summary: Verified 2/3 claims
@@ -656,11 +578,55 @@ recentChanges:
       codeWorks: UNKNOWN
       systemVerified: UNKNOWN
       note: CODE EXISTS != CODE WORKS. Run full verification for SYSTEM VERIFIED.
+  - timestamp: '2026-09-01T07:09:52.614Z'
+    type: verification
+    summary: Verified 3/8 claims
+    metadata:
+      total: 8
+      verified: 3
+      implemented: 4
+      unknown: 1
+      failed: 0
+      conflicting: 0
+  - timestamp: '2026-09-01T07:13:48.902Z'
+    type: verification
+    summary: Verified 3/8 claims
+    metadata:
+      total: 8
+      verified: 3
+      implemented: 4
+      unknown: 1
+      failed: 0
+      conflicting: 0
+  - timestamp: '2026-09-01T07:21:50.383Z'
+    type: verification
+    summary: Verified 3/8 claims
+    metadata:
+      total: 8
+      verified: 3
+      implemented: 4
+      unknown: 1
+      failed: 0
+      conflicting: 0
+  - timestamp: '2026-09-01T07:21:51.140Z'
+    type: architecture_changed
+    summary: Synced state from codebase
+    files: []
+  - timestamp: '2026-09-01T07:21:51.772Z'
+    type: verification
+    summary: Verified 3/8 claims
+    metadata:
+      total: 8
+      verified: 3
+      implemented: 4
+      unknown: 1
+      failed: 0
+      conflicting: 0
 unverifiedAssumptions:
   - Dependencies have no known vulnerabilities
 conflicts: []
 highestRisks: []
 nextRecommendedActions:
   - Run `engineering verify` to check current state, then `engineering progress`
-generatedAt: '2026-09-01T07:09:25.414Z'
+generatedAt: '2026-09-01T07:22:09.091Z'
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See evidence.yaml

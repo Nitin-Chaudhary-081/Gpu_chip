@@ -2,11 +2,11 @@ languages:
   counts:
     markdown: 13
     javascript: 1
-    python: 26
-    json: 3
+    python: 30
+    json: 4
     yaml: 1
   primary: python
-  totalFiles: 44
+  totalFiles: 49
 frameworks:
   - python-requirements
 packageManagers:
@@ -17,21 +17,25 @@ config:
   - Makefile
 git:
   branch: main
-  commit: 65a1ed408aff9dc565e144c8d52a59239f609e44
+  commit: b11805a8608bc5c0197725ed7febaf7b89db88b5
   log:
+    - >-
+      b11805a Tapeout priority 160x100 FP32 TDM4/WDM8 — engineering lifecycle + real GDS commit
+      (ADR-002..006)
     - 65a1ed4 Top-level wrapper gpu_top + TT macro hardening + SDF post-layout (approve)
     - 36a2150 Fix GDS action PDK 504 + viewer fallback (lean)
     - '939776b Browser layout viewers — lean: TT GDS Viewer + GDSJam + GH Action GDS render'
     - e99682b Virtual 4D CNFET GPU — Phase A+B+C + Track3 co-sim
   dirty: true
   status:
-    - M .gitignore
-    - ' M tapeout/info.yaml'
-    - ' M tapeout/submission.md'
-    - '?? .engineering/'
-    - '?? bin/'
-    - '?? gpu_A.md'
-    - '?? tapeout/gds/'
+    - M .engineering/events/events.jsonl
+    - ' M .engineering/handoff.md'
+    - ' M .engineering/handoff.yaml'
+    - ' M .engineering/lifecycle.yaml'
+    - ' M Makefile'
+    - '?? openlane/shader/'
+    - '?? sim/cnfet/cnfet_spice_bridge.py'
+    - '?? sim/shader/'
 envVars: []
 dependencies: {}
 structure:
@@ -51,4 +55,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-01T07:08:32.621Z'
+analyzedAt: '2026-09-01T07:21:50.901Z'

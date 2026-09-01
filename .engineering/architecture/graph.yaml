@@ -149,6 +149,16 @@ nodes:
     language: json
     evidence: CODE
     verification: VERIFIED
+  - id: openlane/shader/config.json
+    type: File
+    label: config.json
+    path: openlane/shader/config.json
+    ext: .json
+    size: 1177
+    hash: e8782728f0f7
+    language: json
+    evidence: CODE
+    verification: VERIFIED
   - id: openlane/wdm_arbiter/config.json
     type: File
     label: config.json
@@ -249,6 +259,16 @@ nodes:
     language: py
     evidence: CODE
     verification: VERIFIED
+  - id: sim/cnfet/cnfet_spice_bridge.py
+    type: File
+    label: cnfet_spice_bridge.py
+    path: sim/cnfet/cnfet_spice_bridge.py
+    ext: .py
+    size: 9043
+    hash: 50add5d6f017
+    language: py
+    evidence: CODE
+    verification: VERIFIED
   - id: sim/isa/__init__.py
     type: File
     label: __init__.py
@@ -306,6 +326,36 @@ nodes:
     ext: .py
     size: 4441
     hash: 9fc8e5b01d25
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/shader/simd_alu.py
+    type: File
+    label: simd_alu.py
+    path: sim/shader/simd_alu.py
+    ext: .py
+    size: 2242
+    hash: 2b6d99382ada
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/shader/test_register_file_cocotb.py
+    type: File
+    label: test_register_file_cocotb.py
+    path: sim/shader/test_register_file_cocotb.py
+    ext: .py
+    size: 3827
+    hash: 112aa9ca5ae4
+    language: py
+    evidence: CODE
+    verification: VERIFIED
+  - id: sim/shader/test_simd_alu_cocotb.py
+    type: File
+    label: test_simd_alu_cocotb.py
+    path: sim/shader/test_simd_alu_cocotb.py
+    ext: .py
+    size: 7602
+    hash: 5eaa99369fb4
     language: py
     evidence: CODE
     verification: VERIFIED
@@ -568,6 +618,42 @@ edges:
     to: sim/cnfet/random
     relationship: imports
     evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: sim/cnfet/argparse
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: sim/cnfet/pathlib
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: sim/cnfet/subprocess
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: sim/cnfet/sys
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: sim/cnfet/math
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: sim/cnfet/shutil
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: sim.cnfet.cnfet_model
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: sim/cnfet/re
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/cnfet/cnfet_spice_bridge.py
+    to: matplotlib.pyplot
+    relationship: depends_on
+    evidence: INFERRED
   - from: sim/isa/assembler.py
     to: sim/isa/re
     relationship: imports
@@ -619,6 +705,70 @@ edges:
   - from: sim/photonics/interconnect.py
     to: sim/photonics/dataclasses
     relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/simd_alu.py
+    to: sim/shader/struct
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/simd_alu.py
+    to: sim/shader/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_register_file_cocotb.py
+    to: sim/shader/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_register_file_cocotb.py
+    to: sim/shader/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_register_file_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_register_file_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_register_file_cocotb.py
+    to: sim/shader/struct
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_register_file_cocotb.py
+    to: sim.shader.simd_alu
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_simd_alu_cocotb.py
+    to: sim/shader/random
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_simd_alu_cocotb.py
+    to: sim/shader/struct
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_simd_alu_cocotb.py
+    to: sim/shader/numpy
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_simd_alu_cocotb.py
+    to: sim/shader/cocotb
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_simd_alu_cocotb.py
+    to: cocotb.clock
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_simd_alu_cocotb.py
+    to: cocotb.triggers
+    relationship: depends_on
+    evidence: INFERRED
+  - from: sim/shader/test_simd_alu_cocotb.py
+    to: sim/shader/sys
+    relationship: imports
+    evidence: INFERRED
+  - from: sim/shader/test_simd_alu_cocotb.py
+    to: sim.shader.simd_alu
+    relationship: depends_on
     evidence: INFERRED
   - from: sim/thermal/thermal3d.py
     to: sim/thermal/numpy
@@ -736,4 +886,4 @@ edges:
     to: sim.thermal.thermal3d
     relationship: depends_on
     evidence: INFERRED
-builtAt: '2026-09-01T07:08:32.659Z'
+builtAt: '2026-09-01T07:21:50.974Z'

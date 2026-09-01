@@ -1,4 +1,7 @@
-level0: Project gpu_chip — fullstack. Primary language python. 44 files, 74 dependencies.
+level0: >-
+  Project gpu_chip — Virtual 4D CNFET GPU — hybrid Python+SystemVerilog+OpenLane GDS, tapeout
+  priority tt_um_4d_cache 160x100 FP32 TDM4/WDM8. Primary language python. 49 files, 99
+  dependencies.
 level1:
   architecture:
     nodes:
@@ -152,6 +155,16 @@ level1:
         language: json
         evidence: CODE
         verification: VERIFIED
+      - id: openlane/shader/config.json
+        type: File
+        label: config.json
+        path: openlane/shader/config.json
+        ext: .json
+        size: 1177
+        hash: e8782728f0f7
+        language: json
+        evidence: CODE
+        verification: VERIFIED
       - id: openlane/wdm_arbiter/config.json
         type: File
         label: config.json
@@ -252,6 +265,16 @@ level1:
         language: py
         evidence: CODE
         verification: VERIFIED
+      - id: sim/cnfet/cnfet_spice_bridge.py
+        type: File
+        label: cnfet_spice_bridge.py
+        path: sim/cnfet/cnfet_spice_bridge.py
+        ext: .py
+        size: 9043
+        hash: 50add5d6f017
+        language: py
+        evidence: CODE
+        verification: VERIFIED
       - id: sim/isa/__init__.py
         type: File
         label: __init__.py
@@ -309,6 +332,36 @@ level1:
         ext: .py
         size: 4441
         hash: 9fc8e5b01d25
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/shader/simd_alu.py
+        type: File
+        label: simd_alu.py
+        path: sim/shader/simd_alu.py
+        ext: .py
+        size: 2242
+        hash: 2b6d99382ada
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/shader/test_register_file_cocotb.py
+        type: File
+        label: test_register_file_cocotb.py
+        path: sim/shader/test_register_file_cocotb.py
+        ext: .py
+        size: 3827
+        hash: 112aa9ca5ae4
+        language: py
+        evidence: CODE
+        verification: VERIFIED
+      - id: sim/shader/test_simd_alu_cocotb.py
+        type: File
+        label: test_simd_alu_cocotb.py
+        path: sim/shader/test_simd_alu_cocotb.py
+        ext: .py
+        size: 7602
+        hash: 5eaa99369fb4
         language: py
         evidence: CODE
         verification: VERIFIED
@@ -571,6 +624,42 @@ level1:
         to: sim/cnfet/random
         relationship: imports
         evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: sim/cnfet/argparse
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: sim/cnfet/pathlib
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: sim/cnfet/subprocess
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: sim/cnfet/sys
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: sim/cnfet/math
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: sim/cnfet/shutil
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: sim.cnfet.cnfet_model
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: sim/cnfet/re
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/cnfet/cnfet_spice_bridge.py
+        to: matplotlib.pyplot
+        relationship: depends_on
+        evidence: INFERRED
       - from: sim/isa/assembler.py
         to: sim/isa/re
         relationship: imports
@@ -622,6 +711,70 @@ level1:
       - from: sim/photonics/interconnect.py
         to: sim/photonics/dataclasses
         relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/simd_alu.py
+        to: sim/shader/struct
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/simd_alu.py
+        to: sim/shader/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_register_file_cocotb.py
+        to: sim/shader/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_register_file_cocotb.py
+        to: sim/shader/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_register_file_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_register_file_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_register_file_cocotb.py
+        to: sim/shader/struct
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_register_file_cocotb.py
+        to: sim.shader.simd_alu
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_simd_alu_cocotb.py
+        to: sim/shader/random
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_simd_alu_cocotb.py
+        to: sim/shader/struct
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_simd_alu_cocotb.py
+        to: sim/shader/numpy
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_simd_alu_cocotb.py
+        to: sim/shader/cocotb
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_simd_alu_cocotb.py
+        to: cocotb.clock
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_simd_alu_cocotb.py
+        to: cocotb.triggers
+        relationship: depends_on
+        evidence: INFERRED
+      - from: sim/shader/test_simd_alu_cocotb.py
+        to: sim/shader/sys
+        relationship: imports
+        evidence: INFERRED
+      - from: sim/shader/test_simd_alu_cocotb.py
+        to: sim.shader.simd_alu
+        relationship: depends_on
         evidence: INFERRED
       - from: sim/thermal/thermal3d.py
         to: sim/thermal/numpy
@@ -739,7 +892,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-01T07:08:32.659Z'
+    builtAt: '2026-09-01T07:21:50.974Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -905,8 +1058,8 @@ level1:
           - tapeout/info.yaml:27
           - docs/gds_viewers.md:1
   graphSummary:
-    nodes: 44
-    edges: 74
+    nodes: 49
+    edges: 99
 level2:
   subsystems: []
   structure:
@@ -974,6 +1127,9 @@ level4:
     - path: openlane/gpu_top/config.json
       size: 1953
       hash: ac0a8d5f25ba
+    - path: openlane/shader/config.json
+      size: 1177
+      hash: e8782728f0f7
     - path: openlane/wdm_arbiter/config.json
       size: 824
       hash: c6d4745853ee
@@ -986,14 +1142,11 @@ level4:
     - path: sim/cache4d/cache4d.py
       size: 7843
       hash: 752fdc160c33
-    - path: sim/cache4d/rtl/test_cache4d_cocotb.py
-      size: 6143
-      hash: 561b1b44e175
-  note: Showing 20/44 files. Full list in architecture/graph.yaml
+  note: Showing 20/49 files. Full list in architecture/graph.yaml
 level5: >-
   Use `engineering explain --file <path>` for function/class details (requires AST parsing —
   INFERRED until implemented)
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-01T07:08:32.751Z'
+generatedAt: '2026-09-01T07:21:51.090Z'

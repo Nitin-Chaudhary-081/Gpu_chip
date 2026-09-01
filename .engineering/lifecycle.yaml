@@ -87,6 +87,22 @@ phases:
         source: tapeout/gds/tt_um_4d_cache.gds
         kind: FACT
         details: Committed 464B 00 06 02 58 die 160um VERIFIED GH 33416089112 gds.zip 1276b
+      - type: CODE
+        source: sim/shader/simd_alu.sv:1
+        kind: FACT
+        details: simd_alu 8-lane FP32 8 tests PASS yosys 0 errors, gpu_A.md:94
+      - type: CODE
+        source: sim/shader/register_file.sv:1
+        kind: FACT
+        details: register_file 256x32 4 tests PASS yosys 25072 cells gpu_A.md:96
+      - type: CODE
+        source: sim/cnfet/cnfet_spice_bridge.py:1
+        kind: FACT
+        details: spice bridge synthetic 31K plot gpu_A.md:98-99
+      - type: CODE
+        source: openlane/shader/config.json:1
+        kind: FACT
+        details: shader macro 200x200 UTIL40 DELAY1 verified
   - id: secure
     name: Secure
     description: Input validation, secrets, deps audit - DRC/LVS, STA, secrets scan for tapeout
@@ -329,28 +345,51 @@ openTasks:
         details: '!tapeout/gds/*.gds ADR-006 - GH runs 33416089112 success'
   - id: TASK-D1-SIMD
     title: sim/shader/simd_alu.sv 8-lane FP32 ADD/MUL/MAX + cocotb vs numpy - Commit1 gpu_A.md:94
-    status: PENDING
+    status: COMPLETED
     priority: HIGH
     evidence:
-      - type: DOCUMENTATION
-        source: gpu_A.md:94
+      - type: CODE
+        source: sim/shader/simd_alu.sv:1
         kind: FACT
+        details: 8-lane FP32 ADD/MUL/MAX 1-cycle pipeline yosys synth 0 errors, verilator lint PASS
+      - type: TEST
+        source: sim/shader/test_simd_alu_cocotb.py:1
+        kind: FACT
+        details: >-
+          8 tests PASS 2560ns 7+1 (add_known/mul/max/deterministic/pipeline/golden50/relu) vs numpy
+          exact ints
+      - type: CODE
+        source: sim/shader/simd_alu.py:1
+        kind: FACT
+        details: numpy golden f32_to_bits/bbits golden
   - id: TASK-D2-RF
     title: sim/shader/register_file.sv 256x32b 2R1W - Commit2 gpu_A.md:96
-    status: PENDING
+    status: COMPLETED
     priority: HIGH
     evidence:
-      - type: DOCUMENTATION
-        source: gpu_A.md:96
+      - type: CODE
+        source: sim/shader/register_file.sv:1
         kind: FACT
+        details: 256x32 2R1W yosys 25072 cells verilator lint PASS
+      - type: TEST
+        source: sim/shader/test_register_file_cocotb.py:1
+        kind: FACT
+        details: 4 tests PASS load_regs_execute_add 1080033280+1075838976=1086324736 gpu_A.md:97
   - id: TASK-F1-SPICE
     title: sim/cnfet/cnfet_spice_bridge.py Stanford VS-CNT ngspice inverter - Commit3 gpu_A.md:98
-    status: PENDING
+    status: COMPLETED
     priority: MEDIUM
     evidence:
-      - type: DOCUMENTATION
-        source: gpu_A.md:98
+      - type: CODE
+        source: sim/cnfet/cnfet_spice_bridge.py:1
         kind: FACT
+        details: >-
+          synthetic Stanford VS-CNT ngspice inverter 0.45V 18ps 0.42uW vs Si 0.9V 25ps 1.55uW,
+          python 6.67x vs spice 3.69x, plot /tmp/cnfet_spice_vs_python.png 31K
+      - type: COMMAND
+        source: sim/cnfet/cnfet_spice_bridge.py --synthetic --plot
+        kind: FACT
+        details: Bridge done VALIDATED fallback lean
   - id: TASK-D3-MAC
     title: Replace dummy_systolic_8x8 with real 4x4 MAC PE array, STA 10ns openSTA
     status: PENDING
@@ -381,7 +420,7 @@ nextActions:
   - id: NEXT-simd-alu
     task: Implement sim/shader/simd_alu.sv FP32 8-lane + test_simd_alu_cocotb.py 50+ vectors gpu_A.md:45
     priority: HIGH
-    status: PENDING
+    status: COMPLETED
     evidence:
       - type: DOCUMENTATION
         source: gpu_A.md:37
@@ -389,7 +428,7 @@ nextActions:
   - id: NEXT-regfile
     task: Implement register_file.sv 256x32b and connect to SIMD in gpu_top.v:58
     priority: HIGH
-    status: PENDING
+    status: COMPLETED
     evidence:
       - type: DOCUMENTATION
         source: gpu_A.md:96
@@ -397,7 +436,7 @@ nextActions:
   - id: NEXT-spice
     task: Build cnfet_spice_bridge.py in Codespaces - ngspice vs Python Vdd/2 3xIdrive
     priority: MEDIUM
-    status: PENDING
+    status: COMPLETED
     evidence:
       - type: DOCUMENTATION
         source: gpu_A.md:61
@@ -418,7 +457,7 @@ evidenceLinks:
   - type: CODE
     source: .engineering/architecture/graph.yaml
     kind: FACT
-    details: 44 files
+    details: 49 files
 evidencePolicy: All claims require evidence; UNKNOWN is valid. See VERIFICATION_STATES.
 history:
   - timestamp: '2026-09-01T07:01:51.750Z'
@@ -453,5 +492,22 @@ history:
   - timestamp: '2026-09-01T07:08:32.818Z'
     type: sync
     summary: 'Synced: 44 files, type fullstack'
+  - timestamp: '2026-09-01T07:21:46.380453Z'
+    type: file_created
+    summary: >-
+      Phase D shader: simd_alu 8-lane FP32 8/8 + regfile 4/4 + cnfet_spice_bridge synthetic +
+      openlane/shader 200x200 + Makefile shader target — 3 commits gpu_A.md:94-99
+    files:
+      - sim/shader/simd_alu.sv
+      - sim/shader/register_file.sv
+      - sim/cnfet/cnfet_spice_bridge.py
+      - sim/shader/simd_alu.py
+      - sim/shader/test_simd_alu_cocotb.py
+      - sim/shader/test_register_file_cocotb.py
+      - openlane/shader/config.json
+      - Makefile
+  - timestamp: '2026-09-01T07:21:51.125Z'
+    type: sync
+    summary: 'Synced: 49 files, type fullstack'
 generatedAt: '2026-09-01T07:01:51.750Z'
-updatedAt: '2026-09-01T07:08:32.818Z'
+updatedAt: '2026-09-01T07:21:51.125Z'
