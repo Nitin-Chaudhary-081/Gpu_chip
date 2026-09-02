@@ -70,8 +70,8 @@ level1:
         label: paper.md
         path: docs/paper.md
         ext: .md
-        size: 6161
-        hash: be949fffca01
+        size: 6499
+        hash: 43ba379e834a
         language: md
         evidence: CODE
         verification: VERIFIED
@@ -150,8 +150,8 @@ level1:
         label: gpu_arc.md
         path: gpu_arc.md
         ext: .md
-        size: 26662
-        hash: 01af251ace4c
+        size: 27642
+        hash: aaad3194c157
         language: md
         evidence: CODE
         verification: VERIFIED
@@ -560,8 +560,8 @@ level1:
         label: info.yaml
         path: tapeout/info.yaml
         ext: .yaml
-        size: 2587
-        hash: bff8bf3c032a
+        size: 3263
+        hash: 93d59f187463
         language: yaml
         evidence: CODE
         verification: VERIFIED
@@ -1156,7 +1156,7 @@ level1:
         to: sim.thermal.thermal3d
         relationship: depends_on
         evidence: INFERRED
-    builtAt: '2026-09-02T05:15:31.800Z'
+    builtAt: '2026-09-02T05:21:18.240Z'
   dataflow:
     flows: []
     note: Dataflow INFERRED from imports; verify with runtime
@@ -1367,8 +1367,8 @@ level4:
       size: 3087
       hash: 575ef3a069f9
     - path: docs/paper.md
-      size: 6161
-      hash: be949fffca01
+      size: 6499
+      hash: 43ba379e834a
     - path: docs/scaling.md
       size: 3612
       hash: 4d58ba70a985
@@ -1391,8 +1391,8 @@ level4:
       size: 16510
       hash: 28fdc09df786
     - path: gpu_arc.md
-      size: 26662
-      hash: 01af251ace4c
+      size: 27642
+      hash: aaad3194c157
     - path: openlane/README.md
       size: 2388
       hash: b5438a6a6ab9
@@ -1415,4 +1415,4 @@ level5: >-
 level6: >-
   Actual source code lives in repository. Context system avoids loading all files; request specific
   file via read.
-generatedAt: '2026-09-02T05:15:31.961Z'
+generatedAt: '2026-09-02T05:21:18.380Z'

@@ -64,8 +64,8 @@ nodes:
     label: paper.md
     path: docs/paper.md
     ext: .md
-    size: 6161
-    hash: be949fffca01
+    size: 6499
+    hash: 43ba379e834a
     language: md
     evidence: CODE
     verification: VERIFIED
@@ -144,8 +144,8 @@ nodes:
     label: gpu_arc.md
     path: gpu_arc.md
     ext: .md
-    size: 26662
-    hash: 01af251ace4c
+    size: 27642
+    hash: aaad3194c157
     language: md
     evidence: CODE
     verification: VERIFIED
@@ -554,8 +554,8 @@ nodes:
     label: info.yaml
     path: tapeout/info.yaml
     ext: .yaml
-    size: 2587
-    hash: bff8bf3c032a
+    size: 3263
+    hash: 93d59f187463
     language: yaml
     evidence: CODE
     verification: VERIFIED
@@ -1150,4 +1150,4 @@ edges:
     to: sim.thermal.thermal3d
     relationship: depends_on
     evidence: INFERRED
-builtAt: '2026-09-02T05:15:31.800Z'
+builtAt: '2026-09-02T05:21:18.240Z'

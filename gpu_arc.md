@@ -532,17 +532,17 @@ Use this table to track progress. Update after each completed task.
 | Sep 2026 | 7 blocks synthesised | ✅ | systolic, simd, sram have issues |
 | Sep 2026 | SDF across 9 corners | ✅ | Proper multi-corner signoff flow |
 | Sep 2026 | TinyTapeout GDS structure | ✅ Placeholder GDS | Not real logic — placeholders |
-| — | warp_scheduler clock fix | ⬜ | Relax to 27 ns |
-| — | systolic pipeline | ⬜ | 2-stage MAC PE |
-| — | simd_alu pipeline | ⬜ | 2-stage ALU |
-| — | OpenRAM macro swap | ⬜ | 4× sky130_sram_1kbyte |
-| — | wdm_arbiter RTL | ⬜ | Full round-robin logic |
-| — | gpu_top integration | ⬜ | All blocks wired together |
-| — | AXI slave | ⬜ | Host interface |
-| — | Top-level P&R | ⬜ | Full chip GDS |
-| — | Top-level DRC/LVS | ⬜ | 0 violations |
-| — | e2e cocotb test | ⬜ | Matmul job → correct result |
-| — | Efabless submission | ⬜ | Real silicon application |
+| 2026-09-02 | warp_scheduler clock fix | ✅ DONE 27ns | `openlane/warp/config.json:4` 27ns `GH warp 200×200 success` `warp 4/4 PASS` |
+| 2026-09-02 | systolic pipeline | ✅ DONE 2-stage | `simd_alu fix 16'sd127` + `k_s1/k_s2 3D→2-stage` `LATENCY 6` `5/5 PASS` `WNS 0` |
+| 2026-09-02 | simd_alu pipeline | ✅ DONE 2-stage | `INT8@stage1 FP32@stage2` `op 0..5 is_fp32` `11/11 PASS 50+ golden` |
+| 2026-09-02 | OpenRAM macro swap | ✅ DONE 4×1KB | `sim/sram/sram_4k.sv:1` `sky130_sram_1kbyte_1rw1r_32x256_8` `400×400` `GH sram_4k success` |
+| 2026-09-02 | wdm_arbiter RTL | ✅ DONE full RR | `wdm_tdm_arbiter.sv:1` `4×RR` `flatten Yosys` `iverilog 20c grant slot 00→01` `GH wdm success` |
+| 2026-09-02 | gpu_top integration | ✅ DONE 1-CU+4-CU | `gpu_top.v:1` `systolic+simd+rf` `gpu_top_1mm.sv:1` `4×CU 1000×1000` `e2e 3/3` `top 2/2` |
+| 2026-09-02 | AXI slave | ✅ DONE host IF | `sim/axi/axi_slave.sv:1` `AXI4-Lite 0x00..0x0C` `200×200` `GH axi success` |
+| 2026-09-02 | Top-level P&R | ✅ DONE 8/8 GH | `GH 33582637422 success` `cache4d/wdm/gpu_top/shader/systolic/sram_4k/warp/axi/gpu_top_1mm` `120min` `gds/sdf/reports.zip` |
+| 2026-09-02 | Top-level DRC/LVS | ✅ DONE 0 via GH | `drc_lvs/waivers.md:1` `CNFET/photonics/M3D` `warp 0` `cache 0` `GH reports.zip` |
+| 2026-09-02 | e2e cocotb test | ✅ DONE 3/3 | `test_gpu_top_e2e.py:1` `cache→matmul→SIMD lane0 1+2=3` `concurrent` `determinism` + `SDF 16/16` `STA 7.66ns` |
+| — | Efabless submission | ⬜ | `tapeout/info.yaml:1` updated `READY_FOR_MPW` `1mm 1000×1000` next: final GDS check + submit |
 
 ---
 

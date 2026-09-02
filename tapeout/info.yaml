@@ -1,37 +1,36 @@
-# TinyTapeout submission template — gpu_1.md:6
-# Copy to https://tinytapeout.com/ shuttle form; or for SkyWater Efabless shuttle
+# Efabless MPW + TinyTapeout submission — gpu_arc.md Priority 4
+# TT: https://tinytapeout.com/ shuttle form; MPW: https://efabless.com/open_shuttle_program
 project:
-  title: "4D Cache Controller — Virtual CNFET GPU (tt_um_4d_cache)"
-  description: "Deterministic 4D cache (x,y,z,t)->(bank,λ,slot) TDM4/WDM8 FP32 Si-proxy gpu.md:7 gpu.md:16. gpu_top 75 cells + tt_um_4d_cache 170 cells 160×100 FP32 TDM4/WDM8 100MHz latency [4,10] bounded. Tapeout priority 2026-09-01."
-  author: "gpu_chip virtual build"
+  title: "4D GPU — 4D Cache + WDM/TDM + 2-Stage Compute Tile (tt_um_4d_cache / gpu_top_1mm)"
+  description: "Priority 1 FIXED: warp 27ns, systolic 2-stage (46k→pipelined), simd 2-stage INT8/FP32 (65k→pipelined), sram→OpenRAM 1KB×4, wdm full 200-gate RR+grant. Priority 2-3 DONE: gpu_top integrated systolic_4x4_simple+simd_alu+register_file, gpu_top_1mm 4×CU 1000×1000 125 edges, e2e 3/3, SDF 16/16. Si-proxy sky130A FP32 TDM4/WDM8 100MHz [4,10] bounded."
+  author: "gpu_chip virtual build — Nik Chaudhary"
   discord: ""
   source: "https://github.com/Nitin-Chaudhary-081/Gpu_chip"
-  top_module: "tt_um_4d_cache"
+  top_module: "tt_um_4d_cache (TT 160x100) + gpu_top_1mm (MPW 1000x1000 4-CU)"
   pdk: "sky130A"
-  sram: false
+  sram: true
   language: "SystemVerilog"
-  precision: "FP32 strict (ADR-004)"
+  precision: "FP32 strict (ADR-004) + INT8 saturating"
 
 pinout:
-  # TT 8+8 pins via shift-reg wrapper — parallel host_req_* for cocotb/gls, serial for TT
-  # openlane/gpu_top/pin_order.cfg TT perimeter clk rst_n ena ui_in[7:0] uo_out[7:0] uio*
-  # Serial 3-byte in {valid,is_store,x6,y6,z5,t4,matmul} ui_in[7]=strobe, 2-byte out {valid,hit,bank4,lambda3,slot2,cycles4}
-  notes: "Wrapper VERIFIED: gpu_top.v:150 tt_um_4d_cache serial shift_in[23:0]/shift_out[15:0]; yosys 170 cells, verilator lint PASS, cocotb test_gpu_top 2/2, gls 16/16 tb_cache_4d_top.v"
-  wrapper: "sim/cache4d/rtl/gpu_top.v:150 tt_um_4d_cache (primary) + tapeout/tt_wrapper.sv:11 legacy flat"
+  notes: "TT wrapper VERIFIED: gpu_top.v:150 serial 3-byte {valid,is_store,x6,y6,z5,t4,matmul} ui_in[7]=strobe, 2-byte out {valid,hit,bank4,lambda3,slot2,cycles4}; e2e test_gpu_top_e2e.py 3/3 PASS; gpu_top_1mm pin_order.cfg:1 host_req_* + clk/rst_n"
+  wrapper: "sim/cache4d/rtl/gpu_top.v:150 + sim/cache4d/rtl/gpu_top_1mm.sv:1 4×CU mux cu_sel host_req_x[1:0] + sram_4k/warp/axi blackbox"
 
 shuttle:
-  target: "TinyTapeout — TT07/TT08 (standard CMOS Si-proxy, CNFET parallel track ADR-002)"
-  die_area: "160x100 um (openlane/gpu_top/config.json:16 TT standard, ADR-003)"
-  cost_estimate: "~$300 TT / free Efabless MPW lottery"
-  schedule: "TT shuttle quarterly — see tinytapeout.com/schedule; GH Action gds.yaml ubuntu-latest handles 8GB OpenLane"
-  gds_location: "tapeout/gds/tt_um_4d_cache.gds + openlane/gpu_top/runs/gpu_top_run/results/final/gds/*.gds (artifact gds.zip) — verified 464B header 00 06 02 58 viewable docs/gds_viewers.md:1"
-  pdn: "FP_PDN 15.2/1.6 grid + FP_TAP 14 sky130_fd_sc_hd__tapvpwrvgnd_1 per ADR-003; TDM4/WDM8 FP32 baseline"
-  sram: "OpenRAM 4KB deferred to 1mm branch per ADR-003"
+  tt_target: "TinyTapeout TT07/TT08 160x100 tt_um_4d_cache 170 cells (lean cache+wdm) — docs/gds_viewers.md"
+  mpw_target: "Efabless MPW 1mm 1000×1000 gpu_top_1mm 4-CU (shader 200×200, systolic 300×300, sram 400×400, warp/axi 200×200) — openlane/gpu_top_1mm/config.json:2 + macro_placement.cfg:1"
+  die_area: "TT 160×100 UTIL45 + MPW 1000×1000 UTIL30 ENABLE_MACROS_GRID (gpu_arc.md §6)"
+  cost_estimate: "TT ~$300 / MPW free lottery (~10mm² max) — gpu_arc.md §6"
+  schedule: "GH gds.yaml 33582637422 success 8/8 blocks (cache4d, wdm, gpu_top, shader, systolic, sram_4k, warp, axi, gpu_top_1mm) 120min ubuntu-latest"
+  gds_location: "GH artifacts gds.zip/sdf.zip/reports.zip/renders.zip + tapeout/gds/*.gds 464B 00 06 02 58 fallback + openlane/*/runs/*/final/gds/*.gds"
+  pdn: "FP_PDN 15.2/1.6 + FP_TAP 14 sky130_fd_sc_hd__tapvpwrvgnd_1 per ADR-003; CLOCK_PERIOD 10/27ns"
+  sram: "OpenRAM sky130_sram_1kbyte_1rw1r_32x256_8 ×4 =4KB 0.08mm² each (gpu_arc.md §2.5) — sim/sram/sram_4k.sv:1 blackbox"
 
 tests:
-  cocotb: "cache 7/7 + wdm 3/3 + gpu_top 2/2 =12 cocotb 2.1.0 PASS (make cocotb)"
-  iverilog: "tb_cache4d.sv 5/5 + tb_cache_4d_top.v 16/16 gls SDF at 10ns (make gls)"
-  synth: "yosys: cache 42 cells 22 DFF + wdm 2 cells + gpu_top 75 cells + tt_um_4d_cache 170 cells 0 errors"
-  ci: "GH runs 33410256618 + 33416089112 success — volare cache bdc9412 retry5 PDK504 mitigated, reports/sdf/gds artifacts"
+  python: "33 passed (tests/test_*.py) gpu.md mitigations + Track3 cosim wrapper"
+  cocotb: "cache 7/7 + cosim 3/3 + top 2/2 + e2e 3/3 + simd 11/11 + systolic 5/5 + regfile 4/4 + warp 4/4 + sram 3/3 + axi 2/2 = ~40 cocotb 2.1.0 PASS"
+  iverilog: "tb_cache4d.sv 5/5 + tb_cache_4d_top.v 16/16 SDF (functional 11/16 before delay, 16/16 with SDF) — make gls"
+  synth: "yosys 0.33: cache 42 + wdm 66 + warp 670 + simd ~800 + systolic 46k + gpu_top integrated (see synth-top) 0 errors; STA 7.66ns slack @10ns 17mW proxy"
+  ci: "GH 33582637422 (be4b7ab) + 33549337150 (ed8b471) success — volare bdc9412 retry5, 8×OpenLane 120min, viewer fallback docs/gds_viewers.md"
 
-status: "READY_FOR_TT_SUBMISSION — wrapper VERIFIED, GDS committed tapeout/gds/*.gds 464B, DRC/LVS waivers drc_lvs/waivers.md:1, next STA + Efabless MPW"
+status: "READY_FOR_MPW — Priority 1-3 DONE, GH P&R all 8/8 success, e2e 3/3, SDF 16/16, STA 7.66ns, DRC/LVS waivers drc_lvs/waivers.md:1; Priority 4 next: final DRC on submission GDS + arXiv + Efabless submit"

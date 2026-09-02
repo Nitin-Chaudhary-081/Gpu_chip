@@ -17,8 +17,9 @@ config:
   - Makefile
 git:
   branch: main
-  commit: a0cbfca046c42ffe7981f14efabf8e945339a6ef
+  commit: 6db5deee0722772be51d28ad96104952bfda0d57
   log:
+    - '6db5dee Priority 3.1 e2e: gpu_top full pipeline verified + GLS + lane fix'
     - 'a0cbfca Priority 2 P&R: GH 33582637422 success + config fix'
     - 'be4b7ab ci: trigger gds workflow for 1mm full flow'
     - 'b71faee ci: trigger gds workflow for 1mm full flow'
@@ -28,20 +29,11 @@ git:
     - f3c381f 1mm RTL gpu_top_1mm 4-CU 246 cells + warp yosys fix + openlane DESIGN_NAME gpu_top_1mm
     - '32318e3 SCALE-005 harden 1mm: 18 gds files + GH 120min 6 macros VERIFIED'
     - '99b8cf7 GH gds: extend for scaling 1mm 6 macros 120min + fallback placeholders (SCALE-005)'
-    - 'a6147b8 Scaling 1mm: SRAM 4KB + warp GTO + AXI4-Lite host (SCALE-002..004)'
   dirty: true
   status:
-    - M .engineering/architecture/graph.yaml
-    - ' M .engineering/context/levels.yaml'
-    - ' M .engineering/events/events.jsonl'
-    - ' M .engineering/lifecycle.yaml'
-    - ' M .engineering/manifest.yaml'
-    - ' M .engineering/project.yaml'
-    - ' M Makefile'
-    - ' M sim/cache4d/rtl/Makefile'
-    - ' M sim/cache4d/rtl/gpu_top.v'
-    - ' M sim/cache4d/rtl/test_gpu_top_cocotb.py'
-    - '?? sim/cache4d/rtl/test_gpu_top_e2e.py'
+    - M docs/paper.md
+    - ' M gpu_arc.md'
+    - ' M tapeout/info.yaml'
 envVars: []
 dependencies: {}
 structure:
@@ -63,4 +55,4 @@ structure:
   - tapeout/
   - tests/
 projectType: fullstack
-analyzedAt: '2026-09-02T05:15:31.763Z'
+analyzedAt: '2026-09-02T05:21:18.204Z'
