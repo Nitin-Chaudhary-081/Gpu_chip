@@ -1,6 +1,6 @@
 # GPU Chip — Master Project Blueprint
 **Project:** Open-Source General-Purpose GPU on Sky130 (130nm)  
-**Owner:** Nik Chaudhary  
+**Owner:** Nitin Chaudhary  
 **Repo:** https://github.com/Nitin-Chaudhary-081/Gpu_chip  
 **Last updated:** September 2026  
 **Fabrication target:** SkyWater Sky130 via Efabless MPW shuttle or TinyTapeout  
