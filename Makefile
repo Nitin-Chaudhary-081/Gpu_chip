@@ -70,12 +70,12 @@ vcd:
 gls:
 	@echo "=== Post-layout SDF sim  tb_cache_4d_top.v  (SDF back-annotated) ==="
 	@echo "Functional (no SDF):"
-	@iverilog -g2012 -o /tmp/tb_top.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v && vvp /tmp/tb_top.vvp 2>&1 | tail -20
+	@iverilog -g2012 -o /tmp/tb_top.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/shader/simd_alu.sv sim/shader/register_file.sv sim/shader/systolic_4x4.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v && vvp /tmp/tb_top.vvp 2>&1 | tail -20
 	@echo "SDF-annotated (if openlane/gpu_top/runs/**/sdf/*.sdf exists):"
-	@iverilog -g2012 -DSDF -o /tmp/tb_top_sdf.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v 2>&1 | head -5; vvp /tmp/tb_top_sdf.vvp +sdf_verbose 2>&1 | tail -20 || echo "SDF file not yet generated — run GH Action gds or 'make gds' on 8GB host, then re-run 'make gls'"
+	@iverilog -g2012 -DSDF -o /tmp/tb_top_sdf.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/shader/simd_alu.sv sim/shader/register_file.sv sim/shader/systolic_4x4.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v 2>&1 | head -5; vvp /tmp/tb_top_sdf.vvp +sdf_verbose 2>&1 | tail -20 || echo "SDF file not yet generated — run GH Action gds or 'make gds' on 8GB host, then re-run 'make gls'"
 
 vcd-top:
-	iverilog -g2012 -o /tmp/tb_top_vcd.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v && vvp /tmp/tb_top_vcd.vvp && ls -lh /tmp/wave_top.vcd && echo "Open: gtkwave /tmp/wave_top.vcd"
+	iverilog -g2012 -o /tmp/tb_top_vcd.vvp sim/cache4d/rtl/cache_4d_controller.sv sim/cache4d/rtl/wdm_tdm_arbiter.sv sim/shader/simd_alu.sv sim/shader/register_file.sv sim/shader/systolic_4x4.sv sim/cache4d/rtl/gpu_top.v sim/cache4d/rtl/tb_cache_4d_top.v && vvp /tmp/tb_top_vcd.vvp && ls -lh /tmp/wave_top.vcd && echo "Open: gtkwave /tmp/wave_top.vcd"
 
 synth:
 	@echo "=== Yosys synth  gpu_1.md:2  (Si-proxy, sky130) ==="

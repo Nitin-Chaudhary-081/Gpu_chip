@@ -87,17 +87,16 @@ module gpu_top #(
     logic [127:0] wdm_req_addr_arr;
     logic [3:0] wdm_req_is_write_arr;
     logic [127:0] wdm_req_wdata_arr;
+    logic [3:0] wdm_gnt_valid_arr;
+    logic [11:0] wdm_gnt_lambda_arr;
+    logic [7:0] wdm_gnt_slot_arr;
+    logic [15:0] wdm_gnt_latency_ns_arr;
     
     assign wdm_req_valid_arr = {3'b0, host_req_valid};
     assign wdm_req_id_arr = {18'b0, wdm_req_id};
     assign wdm_req_addr_arr = {96'b0, 32'h0};
     assign wdm_req_is_write_arr = {3'b0, host_req_is_store};
     assign wdm_req_wdata_arr = {96'b0, 32'h0};
-
-    logic wdm_gnt_valid_0;
-    logic [2:0] wdm_gnt_lambda_0;
-    logic [1:0] wdm_gnt_slot_0;
-    logic [3:0] wdm_gnt_latency_ns_0;
 
     wdm_tdm_arbiter #(
         .WAVELENGTHS(WAVELENGTHS), .TDM_SLOTS(TDM_SLOTS),
@@ -124,11 +123,6 @@ module gpu_top #(
     assign host_wdm_slot = wdm_gnt_slot_arr[2*0 +: 2];
     assign host_wdm_latency_ns = wdm_gnt_latency_ns_arr[4*0 +: 4];
 
-    logic [3:0] wdm_gnt_valid_arr;
-    logic [11:0] wdm_gnt_lambda_arr;
-    logic [7:0] wdm_gnt_slot_arr;
-    logic [15:0] wdm_gnt_latency_ns_arr;
-
     // Real systolic 4x4 GEMM (replaces dummy_systolic_8x8)
     logic systolic_start;
     logic systolic_done;
@@ -154,11 +148,11 @@ module gpu_top #(
     assign simd_in_valid = host_simd_start;
     assign simd_op = host_simd_op;
     assign simd_is_fp32 = host_simd_is_fp32;
-    // Use simple pattern for operands (in real design, from register file)
-    assign simd_a = {32'h00000001, 32'h00000002, 32'h00000003, 32'h00000004,
-                     32'h00000005, 32'h00000006, 32'h00000007, 32'h00000008};
-    assign simd_b = {32'h00000002, 32'h00000003, 32'h00000004, 32'h00000005,
-                     32'h00000006, 32'h00000007, 32'h00000008, 32'h00000009};
+    // Use simple pattern for operands (lane0 LSB = 1,2 ... lane7 = 8,9)
+    assign simd_a = {32'h00000008, 32'h00000007, 32'h00000006, 32'h00000005,
+                     32'h00000004, 32'h00000003, 32'h00000002, 32'h00000001};
+    assign simd_b = {32'h00000009, 32'h00000008, 32'h00000007, 32'h00000006,
+                     32'h00000005, 32'h00000004, 32'h00000003, 32'h00000002};
 
     assign host_simd_done = simd_out_valid;
     assign host_simd_busy = simd_in_valid;

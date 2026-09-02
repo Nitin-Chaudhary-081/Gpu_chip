@@ -9,6 +9,8 @@ W=8; T=4; BASE=4; SLOTC=2
 async def reset(dut):
     dut.rst_n.value=0; dut.clk.value=0
     dut.host_req_valid.value=0; dut.host_matmul_start.value=0
+    dut.host_simd_start.value=0; dut.host_simd_op.value=0; dut.host_simd_is_fp32.value=0
+    dut.host_req_is_store.value=0; dut.host_req_x.value=0; dut.host_req_y.value=0; dut.host_req_z.value=0; dut.host_req_t.value=0
     for _ in range(3): await RisingEdge(dut.clk)
     dut.rst_n.value=1; await RisingEdge(dut.clk)
 

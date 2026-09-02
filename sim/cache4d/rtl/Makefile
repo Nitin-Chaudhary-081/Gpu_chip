@@ -49,9 +49,12 @@ cosim:
 		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
 
 # GPU top (parallel host + TT) — approve spec
-VERILOG_SOURCES_top := $(CURDIR)/cache_4d_controller.sv $(CURDIR)/wdm_tdm_arbiter.sv $(CURDIR)/gpu_top.v
+VERILOG_SOURCES_top := $(CURDIR)/cache_4d_controller.sv $(CURDIR)/wdm_tdm_arbiter.sv $(CURDIR)/../../shader/simd_alu.sv $(CURDIR)/../../shader/register_file.sv $(CURDIR)/../../shader/systolic_4x4.sv $(CURDIR)/gpu_top.v
 TOPLEVEL_top := gpu_top
 MODULE_top := test_gpu_top_cocotb
+TOPLEVEL_e2e := gpu_top
+MODULE_e2e := test_gpu_top_e2e
+VERILOG_SOURCES_e2e := $(VERILOG_SOURCES_top)
 # SDF post-layout uses same sources + SDF annotate in tb_cache_4d_top.v
 
 top:
@@ -62,12 +65,20 @@ top:
 		TOPLEVEL=$(TOPLEVEL_top) MODULE=$(MODULE_top) \
 		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
 
+e2e:
+	rm -rf $(CURDIR)/sim_build
+	$(MAKE) -f $(COCOTB_MAKEFILES)/Makefile.sim \
+		SIM=$(SIM) TOPLEVEL_LANG=$(TOPLEVEL_LANG) \
+		VERILOG_SOURCES="$(VERILOG_SOURCES_e2e)" \
+		TOPLEVEL=$(TOPLEVEL_e2e) MODULE=$(MODULE_e2e) \
+		PYTHONPATH=/home/ubuntu/gpu_chip:$(PYTHONPATH)
+
 # Verilator lint (no sim)
 lint:
 	verilator --lint-only --top-module cache_4d_controller $(CURDIR)/cache_4d_controller.sv && echo "LINT cache PASS"
 	verilator --lint-only --top-module wdm_tdm_arbiter $(CURDIR)/wdm_tdm_arbiter.sv && echo "LINT wdm PASS"
-	verilator --lint-only --top-module gpu_top $(CURDIR)/gpu_top.v $(CURDIR)/cache_4d_controller.sv $(CURDIR)/wdm_tdm_arbiter.sv && echo "LINT gpu_top PASS"
-	verilator --lint-only --top-module tt_um_4d_cache $(CURDIR)/gpu_top.v $(CURDIR)/cache_4d_controller.sv $(CURDIR)/wdm_tdm_arbiter.sv && echo "LINT tt_um_4d_cache PASS"
+	verilator --lint-only --top-module gpu_top $(CURDIR)/gpu_top.v $(CURDIR)/cache_4d_controller.sv $(CURDIR)/wdm_tdm_arbiter.sv $(CURDIR)/../../shader/simd_alu.sv $(CURDIR)/../../shader/register_file.sv $(CURDIR)/../../shader/systolic_4x4.sv && echo "LINT gpu_top PASS"
+	verilator --lint-only --top-module tt_um_4d_cache $(CURDIR)/gpu_top.v $(CURDIR)/cache_4d_controller.sv $(CURDIR)/wdm_tdm_arbiter.sv $(CURDIR)/../../shader/simd_alu.sv $(CURDIR)/../../shader/register_file.sv $(CURDIR)/../../shader/systolic_4x4.sv && echo "LINT tt_um_4d_cache PASS"
 
 clean::
 	rm -rf sim_build __pycache__ results.xml .pytest_cache
